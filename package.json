@@ -5,7 +5,11 @@
   "description": "JavaScript bindings for libexif compiled to WebAssembly",
   "scripts": {
     "build": "tsc",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
   },
   "keywords": [
     "libexif",
@@ -23,8 +27,14 @@
     "dist"
   ],
   "devDependencies": {
+    "@eslint/js": "^9.26.0",
     "@types/node": "^22.15.3",
-    "typescript": "^5.8.3"
+    "eslint": "^9.26.0",
+    "eslint-import-resolver-typescript": "^4.3.4",
+    "eslint-plugin-import-x": "^4.11.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.31.1"
   },
   "engines": {
     "node": ">=16.0.0"
