@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Git pre-commit hook script to run `lint-staged` on staged files
+
+{
+  # `lint-staged` only accepts one line of JSON as input
+  jq -r '. | tojson' <<EOF
+{
+  "*.{js,ts}": ["pnpm run lint", "pnpm run format:check"],
+  "*.{json,md,yaml,yml}": "pnpm run format"
+}
+EOF
+} | pnpm exec lint-staged --config -
