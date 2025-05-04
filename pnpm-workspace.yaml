@@ -1,0 +1,5 @@
+# Build Settings (https://pnpm.io/settings#build-settings)
+verifyDepsBeforeRun: "prompt"
+
+# https://pnpm.io/cli/run#shellemulator
+shellEmulator: true

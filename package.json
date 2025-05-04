@@ -1,0 +1,38 @@
+{
+  "name": "libexif",
+  "version": "0.0.0",
+  "type": "module",
+  "description": "JavaScript bindings for libexif compiled to WebAssembly",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "libexif",
+    "exif",
+    "wasm",
+    "webassembly",
+    "metadata"
+  ],
+  "homepage": "https://github.com/jeremy-code/libexif#readme",
+  "bugs": "https://github.com/jeremy-code/libexif/issues",
+  "license": "LGPL-2.1-or-later",
+  "author": "Jeremy Nguyen <nguyen.jeremyt@gmail.com> (https://jeremy.ng)",
+  "repository": "github:jeremy-code/libexif",
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node"
+    }
+  },
+  "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
+}
