@@ -1,0 +1,3 @@
+[submodule "libexif"]
+	path = libexif
+	url = https://github.com/libexif/libexif.git

@@ -1,6 +1,7 @@
 {
   /* Visit https://code.visualstudio.com/docs/getstarted/settings to read more about this file */
 
+  "search.exclude": { "**/node_modules": true, "libexif": true },
   "typescript.enablePromptUseWorkspaceTsdk": true, // Enables prompting of users to use the TypeScript version configured in the workspace for Intellisense
   "typescript.preferences.importModuleSpecifierEnding": "js", // Do not shorten path endings; include the `.js` or `.ts` extension
   "typescript.tsdk": "./node_modules/typescript/lib"
