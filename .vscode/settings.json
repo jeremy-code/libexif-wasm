@@ -17,6 +17,7 @@
   "typescript.tsdk": "./node_modules/typescript/lib",
 
   // Language-Specific Configuration Overrides
+  "[c][cpp]": { "editor.defaultFormatter": "ms-vscode.cpptools" },
   "[graphql][handlebars][javascript][javascriptreact][json][jsonc][jsonl][markdown][typescript][typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   }

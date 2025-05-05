@@ -6,6 +6,8 @@
   "scripts": {
     "prepare": "husky",
     "build": "tsc",
+    "build:libexif": "./scripts/build.sh",
+    "compile": "./scripts/compile.sh",
     "typecheck": "tsc --noEmit",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -29,6 +31,25 @@
   "files": [
     "dist"
   ],
+  "exports": {
+    "./internal": {
+      "types": "./dist/internal/index.d.ts",
+      "default": "./dist/internal/index.js"
+    },
+    "./internal/libexif": {
+      "types": "./dist/internal/libexif/index.d.ts",
+      "default": "./dist/internal/libexif/index.js"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
+    },
+    "./*.js": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
+    },
+    "./output/libexif.wasm": "./dist/output/libexif.wasm"
+  },
   "devDependencies": {
     "@eslint/js": "^9.26.0",
     "@jest/globals": "^29.7.0",

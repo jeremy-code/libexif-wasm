@@ -1,0 +1,27 @@
+import { libexif } from "../module.ts";
+
+export const {
+  ExifDataOption,
+  _exif_data_new: exif_data_new,
+  _exif_data_new_mem: exif_data_new_mem,
+  _exif_data_new_from_file: exif_data_new_from_file,
+  _exif_data_new_from_data: exif_data_new_from_data,
+  _exif_data_load_data: exif_data_load_data,
+  _exif_data_save_data: exif_data_save_data,
+  _exif_data_ref: exif_data_ref,
+  _exif_data_unref: exif_data_unref,
+  _exif_data_free: exif_data_free,
+  _exif_data_get_byte_order: exif_data_get_byte_order,
+  _exif_data_set_byte_order: exif_data_set_byte_order,
+  _exif_data_get_mnote_data: exif_data_get_mnote_data,
+  _exif_data_fix: exif_data_fix,
+  _exif_data_foreach_content: exif_data_foreach_content,
+  _exif_data_option_get_name: exif_data_option_get_name,
+  _exif_data_option_get_description: exif_data_option_get_description,
+  _exif_data_set_option: exif_data_set_option,
+  _exif_data_unset_option: exif_data_unset_option,
+  _exif_data_set_data_type: exif_data_set_data_type,
+  _exif_data_get_data_type: exif_data_get_data_type,
+  _exif_data_dump: exif_data_dump,
+  _exif_data_log: exif_data_log,
+} = libexif;

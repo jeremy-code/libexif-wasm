@@ -1,0 +1,39 @@
+import { libexif } from "./module.ts";
+
+export const {
+  // preamble.js
+  HEAPU8,
+  HEAP16,
+  HEAPU16,
+  HEAP32,
+  HEAPU32,
+  HEAPF32,
+  HEAPF64,
+  addRunDependency,
+  removeRunDependency,
+  FS,
+
+  // libcore.js
+  ptrToString,
+  warnOnce,
+  handleException,
+  getNativeTypeSize,
+
+  // libccall.js
+  ccall,
+  cwrap,
+
+  // libstrings.js
+  UTF8ToString,
+  stringToUTF8Array,
+  stringToUTF8,
+  lengthBytesUTF8,
+  intArrayFromString,
+  intArrayToString,
+  stringToNewUTF8,
+  writeArrayToMemory,
+
+  // libgetvalue.js
+  getValue,
+  setValue,
+} = libexif;

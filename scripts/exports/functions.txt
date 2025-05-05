@@ -1,0 +1,134 @@
+# <stdlib.h>
+_calloc
+_free
+_malloc
+_realloc
+# <libexif/exif-byte-order.h>
+_exif_byte_order_get_name
+# <libexif/exif-content.h>
+_exif_content_new
+_exif_content_new_mem
+_exif_content_ref
+_exif_content_unref
+_exif_content_free
+_exif_content_add_entry
+_exif_content_remove_entry
+_exif_content_get_entry
+_exif_content_fix
+_exif_content_foreach_entry
+_exif_content_get_ifd
+_exif_content_dump
+_exif_content_log
+# <libexif/exif-data.h>
+_exif_data_new
+_exif_data_new_mem
+_exif_data_new_from_file
+_exif_data_new_from_data
+_exif_data_load_data
+_exif_data_save_data
+_exif_data_ref
+_exif_data_unref
+_exif_data_free
+_exif_data_get_byte_order
+_exif_data_set_byte_order
+_exif_data_get_mnote_data
+_exif_data_fix
+_exif_data_foreach_content
+_exif_data_option_get_name
+_exif_data_option_get_description
+_exif_data_set_option
+_exif_data_unset_option
+_exif_data_set_data_type
+_exif_data_get_data_type
+_exif_data_dump
+_exif_data_log
+# <libexif/exif-entry.h>
+_exif_entry_new
+_exif_entry_new_mem
+_exif_entry_ref
+_exif_entry_unref
+_exif_entry_free
+_exif_entry_initialize
+_exif_entry_fix
+_exif_entry_get_value
+_exif_entry_dump
+# <libexif/exif-format.h>
+_exif_format_get_name
+_exif_format_get_size
+# <libexif/exif-gps-ifd.h>
+_exif_get_gps_tag_info
+# <libexif/exif-ifd.h
+_exif_ifd_get_name
+# <libexif/exif-loader.h>
+_exif_loader_new
+_exif_loader_new_mem
+_exif_loader_ref
+_exif_loader_unref
+_exif_loader_write_file
+_exif_loader_write
+_exif_loader_reset
+_exif_loader_get_data
+_exif_loader_get_buf
+_exif_loader_log
+# <libexif/exif-log.h>
+_exif_log_new
+_exif_log_new_mem
+_exif_log_ref
+_exif_log_unref
+_exif_log_free
+_exif_log_code_get_title
+_exif_log_code_get_message
+_exif_log_set_func
+_exif_log
+_exif_logv
+# <libexif/exif-mem.h>
+_exif_mem_new
+_exif_mem_ref
+_exif_mem_unref
+_exif_mem_alloc
+_exif_mem_realloc
+_exif_mem_free
+_exif_mem_new_default
+# <libexif/exif-mnote-data-priv.h>
+_exif_mnote_data_construct
+_exif_mnote_data_set_byte_order
+_exif_mnote_data_set_offset
+# <libexif/exif-mnote-data.h>
+_exif_mnote_data_ref
+_exif_mnote_data_unref
+_exif_mnote_data_load
+_exif_mnote_data_save
+_exif_mnote_data_count
+_exif_mnote_data_get_id
+_exif_mnote_data_get_name
+_exif_mnote_data_get_title
+_exif_mnote_data_get_description
+_exif_mnote_data_get_value
+_exif_mnote_data_log
+# <libexif/exif-tag.h>
+_exif_tag_from_name
+_exif_tag_get_name_in_ifd
+_exif_tag_get_title_in_ifd
+_exif_tag_get_description_in_ifd
+_exif_tag_get_support_level_in_ifd
+_exif_tag_get_name
+_exif_tag_get_title
+_exif_tag_get_description
+_exif_tag_table_get_tag
+_exif_tag_table_get_name
+_exif_tag_table_count
+# <libexif/exif-utils.h>
+_exif_get_short
+_exif_get_sshort
+_exif_get_long
+_exif_get_slong
+_exif_get_rational
+_exif_get_srational
+_exif_set_short
+_exif_set_sshort
+_exif_set_long
+_exif_set_slong
+_exif_set_rational
+_exif_set_srational
+_exif_convert_utf16_to_utf8
+_exif_array_set_byte_order
