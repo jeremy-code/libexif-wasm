@@ -2,7 +2,12 @@ import eslint from "@eslint/js";
 import { defineConfig, globalIgnores } from "eslint/config";
 import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
 import pluginImportX, { createNodeResolver } from "eslint-plugin-import-x";
+import pluginJest from "eslint-plugin-jest";
+import { defaults } from "jest-config";
 import tseslint from "typescript-eslint";
+
+// [ "**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)" ]
+const TEST_FILE_GLOBS = defaults.testMatch;
 
 export default defineConfig(
   /**
@@ -47,6 +52,26 @@ export default defineConfig(
         createNodeResolver(),
       ],
     },
+  },
+  {
+    files: TEST_FILE_GLOBS,
+    extends: [
+      { name: "jest/recommended", ...pluginJest.configs["flat/recommended"] },
+      { name: "jest/style", ...pluginJest.configs["flat/style"] },
+      {
+        rules: {
+          /**
+           * @see {@link https://github.com/jest-community/eslint-plugin-jest/blob/HEAD/docs/rules/prefer-importing-jest-globals.md}
+           */
+          "jest/prefer-importing-jest-globals": "error",
+        },
+        settings: {
+          "import/resolver-next": [
+            createTypeScriptImportResolver({ tsconfig: "tsconfig.spec.json" }),
+          ],
+        },
+      },
+    ],
   },
   {
     files: ["**/*.js", "**/*.mjs", "**/*.cjs"],

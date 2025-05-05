@@ -7,7 +7,12 @@
   },
   "search.exclude": { "**/node_modules": true, "libexif": true },
   "eslint.useFlatConfig": true,
+  "jest.jestCommandLine": "pnpm run test",
+  "jest.runMode": "watch",
   "typescript.enablePromptUseWorkspaceTsdk": true, // Enables prompting of users to use the TypeScript version configured in the workspace for Intellisense
+  "typescript.preferences.autoImportSpecifierExcludeRegexes": [
+    "^node:test$" // Otherwise, TypeScript imports from "node:test" instead of "jest"
+  ],
   "typescript.preferences.importModuleSpecifierEnding": "js", // Do not shorten path endings; include the `.js` or `.ts` extension
   "typescript.tsdk": "./node_modules/typescript/lib",
 

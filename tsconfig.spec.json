@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig to read more about this file */
+
+    /* Modules */
+    "rewriteRelativeImportExtensions": false,
+
+    /* JavaScript Support */
+    // https://kulshekhar.github.io/ts-jest/docs/guides/troubleshooting#tests-gets-stuck-when-importing-a-dependency
+    "allowJs": false
+  },
+  "exclude": null
+}
