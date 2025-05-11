@@ -6,7 +6,10 @@ import {
   exifDataOptionGetDescription,
   exifDataOptionGetName,
 } from "./ExifData.ts";
+import { ExifEntry } from "./ExifEntry.ts";
+import { getTestFixture } from "../__utils__/getTestFixture.ts";
 import { ExifIfd } from "../enums/ExifIfd.ts";
+import type { ExifTagKey } from "../enums/ExifTag.ts";
 
 describe("ExifData", () => {
   // static methods
@@ -19,7 +22,7 @@ describe("ExifData", () => {
       expect(exifData.data).toHaveProperty("byteOffset", 0);
       expect(exifData.data).toHaveProperty("byteLength", 0);
       const ifd = exifData.ifd;
-      expect(ifd).toHaveLength(ExifIfd["COUNT"]);
+      expect(ifd).toHaveLength(ExifIfd.COUNT);
       ifd.forEach((exifContent) => {
         expect(exifContent).toBeInstanceOf(ExifContent);
         expect(exifContent.byteOffset).toBeGreaterThan(0);
@@ -33,7 +36,65 @@ describe("ExifData", () => {
       exifData.free();
     });
   });
-  // instance methods
+  describe("ExifData.newFromData()", () => {
+    test("should create a new ExifData instance from data", async () => {
+      const fixture = await getTestFixture("T-45A_Goshawk_03.jpg");
+      const exifData = ExifData.newFromData(fixture.buffer);
+
+      expect(exifData).toBeInstanceOf(ExifData);
+      expect(exifData.byteOffset).toBeGreaterThan(0);
+      // Since `exifData.data` is a thumbnail image, it should take up
+      // significantly less space
+      expect(exifData.data.length).toBeLessThanOrEqual(fixture.buffer.length);
+      expect(exifData.data.byteOffset).toBeGreaterThan(0);
+
+      const { ifd } = exifData;
+      expect(ifd).toHaveLength(ExifIfd.COUNT);
+
+      ifd.forEach((exifContent) => {
+        expect(exifContent).not.toBeNull();
+        expect(exifContent).toBeInstanceOf(ExifContent);
+        expect(exifContent).toHaveProperty("byteOffset");
+        expect(exifContent.byteOffset).toBeGreaterThan(0);
+        expect(exifContent).toHaveProperty("entriesPtr");
+        expect(exifContent).toHaveProperty("count");
+        expect(exifContent).toHaveProperty("parentPtr", exifData.byteOffset);
+        expect(exifContent).toHaveProperty("entries");
+      });
+
+      Object.entries(fixture.data).forEach(([dataIfdName, dataEntries]) => {
+        const ifd = exifData.ifd[ExifIfd[dataIfdName]];
+        const entries = Object.entries(dataEntries);
+        expect(ifd.count).toBe(entries.length);
+        expect(ifd.entries).toHaveLength(entries.length);
+
+        entries.forEach(([tag, expectedExifEntry]) => {
+          const exifEntry = ifd.getEntry(tag as ExifTagKey);
+
+          expect(exifEntry).not.toBeNull();
+          expect(exifEntry).toBeInstanceOf(ExifEntry);
+
+          expect(exifEntry).toHaveProperty("tag", tag);
+          expect(exifEntry).toHaveProperty(
+            "components",
+            expectedExifEntry.components,
+          );
+          expect(exifEntry).toHaveProperty("size", expectedExifEntry.size);
+          expect(exifEntry).toHaveProperty("format", expectedExifEntry.format);
+          expect(exifEntry).toHaveProperty(
+            "data",
+            new Uint8Array(expectedExifEntry.data),
+          );
+          expect(exifEntry?.getValue()).toEqual(expectedExifEntry.value);
+        });
+      });
+
+      expect(exifData.getByteOrder()).toBe("MOTOROLA");
+      expect(exifData.getMnoteData()).toBeNull();
+      expect(exifData.getDataType()).toBe("COUNT");
+      exifData.free();
+    });
+  });
   describe("exifData.setByteOrder()", () => {
     test("should set the byte order", () => {
       const exifData = ExifData.new();
@@ -49,6 +110,35 @@ describe("ExifData", () => {
       expect(exifData.getDataType()).toBe("COUNT");
       exifData.setDataType("COMPRESSED");
       expect(exifData.getDataType()).toBe("COMPRESSED");
+      exifData.free();
+    });
+  });
+  describe("exifData.getEntry()", () => {
+    test("should get an entry by tag", async () => {
+      const fixture = await getTestFixture("T-45A_Goshawk_03.jpg");
+      const exifData = ExifData.newFromData(fixture.buffer);
+
+      Object.values(fixture.data)
+        .flatMap((datum) => Object.entries(datum))
+        .forEach(([tag, expectedExifEntry]) => {
+          const exifEntry = exifData.getEntry(tag as ExifTagKey);
+
+          expect(exifEntry).not.toBeNull();
+          expect(exifEntry).toBeInstanceOf(ExifEntry);
+          expect(exifEntry).toHaveProperty("tag", tag);
+          expect(exifEntry).toHaveProperty(
+            "components",
+            expectedExifEntry.components,
+          );
+          expect(exifEntry).toHaveProperty("size", expectedExifEntry.size);
+          expect(exifEntry).toHaveProperty("format", expectedExifEntry.format);
+          expect(exifEntry).toHaveProperty(
+            "data",
+            new Uint8Array(expectedExifEntry.data),
+          );
+
+          expect(exifEntry?.getValue()).toEqual(expectedExifEntry.value);
+        });
       exifData.free();
     });
   });

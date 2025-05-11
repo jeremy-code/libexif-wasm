@@ -68,7 +68,7 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
    * To obtain a specific IFD:
    * ```ts
    * const IFD_YOU_WANT = "GPS";
-   * const exifContent = exifData.ifd[EXIF_IFD[IFD_YOU_WANT]];
+   * const exifContent = exifData.ifd[ExifIfd.IFD_YOU_WANT];
    * ```
    */
   get ifd(): Ifd {

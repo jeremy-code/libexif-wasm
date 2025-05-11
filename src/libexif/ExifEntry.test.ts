@@ -25,4 +25,15 @@ describe("ExifEntry", () => {
       entry.free();
     });
   });
+  describe("exifEntry.initialize()", () => {
+    test("should initialize an ExifEntry instance", () => {
+      const exifEntry = ExifEntry.new();
+      exifEntry.format = "ASCII";
+      exifEntry.tag = "MODEL";
+      exifEntry.initialize("MODEL");
+      expect(exifEntry.format).toBe("ASCII");
+      expect(exifEntry.tag).toBe("MODEL");
+      expect(exifEntry.getValue()).toBe("");
+    });
+  });
 });

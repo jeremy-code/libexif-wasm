@@ -23,7 +23,7 @@ abstract class ExifDataStruct {
    * Data for each IFD
    */
   get ifdPtr() {
-    return Array.from({ length: ExifIfd["COUNT"] }, (_, ifd) =>
+    return Array.from({ length: ExifIfd.COUNT }, (_, ifd) =>
       exif_data_get_ifd(this.byteOffset, ifd),
     ) as IfdPtr;
   }

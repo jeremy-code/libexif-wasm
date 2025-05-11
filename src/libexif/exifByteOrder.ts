@@ -11,7 +11,7 @@ import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
  * Return a short, localized, textual name for the given byte order
  *
  * @param order byte order
- * @returns localized textual name of the byte order, or null if unknown
+ * @returns localized textual name of the byte order, or `null` if unknown
  */
 const exifByteOrderGetName = (order: ExifByteOrderKey) => {
   assertEnumObjectKey(ExifByteOrder, order);

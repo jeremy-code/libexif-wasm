@@ -30,6 +30,8 @@ export const {
   lengthBytesUTF8,
   intArrayFromString,
   intArrayToString,
+  AsciiToString,
+  stringToAscii,
   stringToNewUTF8,
   writeArrayToMemory,
 

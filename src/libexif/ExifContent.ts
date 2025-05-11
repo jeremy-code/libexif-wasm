@@ -3,7 +3,6 @@ import { ExifEntry } from "./ExifEntry.ts";
 import type { ExifLog } from "./ExifLog.ts";
 import type { ExifMem } from "./ExifMem.ts";
 import { ExifIfd } from "../enums/ExifIfd.ts";
-import { ExifTag } from "../enums/ExifTag.ts";
 import {
   ExifTagUnified,
   type ExifTagUnifiedKey,
@@ -112,7 +111,7 @@ class ExifContent extends ExifContentStruct implements DisposableDataSegment {
    * freed or unrefed by the caller.
    */
   getEntry(tag: ExifTagUnifiedKey): ExifEntry | null {
-    assertEnumObjectKey(ExifTag, tag);
+    assertEnumObjectKey(ExifTagUnified, tag);
 
     const exifEntryPtr = exif_content_get_entry(
       this.byteOffset,
