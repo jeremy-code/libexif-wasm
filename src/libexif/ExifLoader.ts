@@ -9,10 +9,11 @@ import {
   exif_loader_new_mem,
   exif_loader_ref,
   exif_loader_unref,
+  exif_loader_write,
   exif_loader_reset,
   exif_loader_get_data,
-  exif_loader_log,
   exif_loader_get_buf,
+  exif_loader_log,
 } from "../internal/libexif/exifLoader.ts";
 import { malloc } from "../internal/stdlib.ts";
 
@@ -57,8 +58,11 @@ class ExifLoader implements DataSegment {
    * Load a buffer into the ExifLoader from a memory buffer. The relevant data
    * is copied in raw form into the ExifLoader
    */
-  write() {
-    throw new Error("Not implemented");
+  write(buf: Uint8Array) {
+    const bufferPtr = malloc(buf.byteLength);
+    HEAPU8.set(buf, bufferPtr);
+
+    exif_loader_write(this.byteOffset, bufferPtr, buf.byteLength);
   }
 
   /**

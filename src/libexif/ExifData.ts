@@ -18,10 +18,14 @@ import {
 } from "../enums/ExifTagUnified.ts";
 import type { DisposableDataSegment } from "../interfaces.ts";
 import { ExifEntry } from "./ExifEntry.ts";
-import { HEAPU8 } from "../internal/emscripten.ts";
+import { POINTER_SIZE } from "../constants.ts";
+import { getValue, HEAPU8 } from "../internal/emscripten.ts";
 import {
   exif_data_new,
   exif_data_new_mem,
+  exif_data_new_from_data,
+  exif_data_load_data,
+  exif_data_save_data,
   exif_data_ref,
   exif_data_unref,
   exif_data_free,
@@ -39,7 +43,7 @@ import {
   exif_data_log,
 } from "../internal/libexif/exifData.ts";
 import { exif_data_get_entry } from "../internal/main.ts";
-import { malloc } from "../internal/stdlib.ts";
+import { free, malloc } from "../internal/stdlib.ts";
 import { ExifDataStruct } from "../structs/ExifDataStruct.ts";
 import type { IfdPtr } from "../structs/ExifDataStruct.ts";
 import { UTF8ToStringOrNull } from "../utils/UTF8ToStringOrNull.ts";
@@ -100,16 +104,52 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
     return new ExifData(exif_data_new_mem(mem.byteOffset));
   }
 
-  static newFromData() {
-    throw new Error("Not implemented");
+  /**
+   * Since `exif_data_new_from_data` specifies `data` as unsigned char*, it should be
+   * 1 byte per element and unsigned, hence Uint8Array.
+   */
+  static newFromData(data: Uint8Array) {
+    const dataPtr = malloc(data.byteLength);
+    HEAPU8.set(data, dataPtr);
+
+    const exifDataPtr = exif_data_new_from_data(dataPtr, data.byteLength);
+
+    if (exifDataPtr === 0) {
+      throw new Error("ExifData.newFromData: Memory allocation failed");
+    }
+    free(dataPtr);
+
+    return new ExifData(exifDataPtr);
   }
 
-  loadData() {
-    throw new Error("Not implemented");
+  static from<TArrayBuffer extends ArrayBufferLike = ArrayBufferLike>(
+    ...params: ConstructorParameters<typeof Uint8Array<TArrayBuffer>>
+  ): ExifData {
+    return ExifData.newFromData(new Uint8Array(...params));
   }
 
-  saveData() {
-    throw new Error("Not implemented");
+  loadData(data: Uint8Array) {
+    const dataPtr = malloc(data.byteLength);
+    HEAPU8.set(data, dataPtr);
+
+    exif_data_load_data(this.byteOffset, dataPtr, data.byteLength);
+    free(dataPtr);
+  }
+
+  saveData(): Uint8Array {
+    const d = malloc(POINTER_SIZE);
+    const ds = malloc(POINTER_SIZE);
+
+    exif_data_save_data(this.byteOffset, d, ds);
+
+    const dataPtr = getValue(d, "*");
+    const dataSize = getValue(ds, "*");
+
+    if (dataPtr === 0 || dataSize === 0) {
+      throw new Error("ExifData.saveData: Memory allocation failed");
+    }
+
+    return HEAPU8.subarray(dataPtr, dataPtr + dataSize);
   }
 
   /**
