@@ -1,11 +1,11 @@
-# libexif
+# libexif-wasm
 
 ## Installation
 
 ```shell
-npm install libexif # npm
-yarn add libexif    # yarn
-pnpm add libexif    # pnpm
+npm install libexif-wasm # npm
+yarn add libexif-wasm    # yarn
+pnpm add libexif-wasm    # pnpm
 ```
 
 ## License
