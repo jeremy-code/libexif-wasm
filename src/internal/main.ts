@@ -1,9 +1,17 @@
 import { libexif } from "./module.ts";
 
-/**
- * Getters and setters for libexif C structs
- */
 export const {
+  /* Macros */
+  // <libexif/exif-data.h>
+  __exif_data_get_entry: exif_data_get_entry,
+
+  // <libexif/exif-entry.h>
+  __exif_entry_get_ifd: exif_entry_get_ifd,
+
+  // <libexif/exif-log.h>
+  __EXIF_LOG_NO_MEMORY: EXIF_LOG_NO_MEMORY,
+
+  /* Getters and setters for libexif structs */
   // _ExifContent
   __exif_content_get_entries: exif_content_get_entries,
   __exif_content_set_entries: exif_content_set_entries,

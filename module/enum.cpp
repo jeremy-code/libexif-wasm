@@ -50,7 +50,18 @@ enum class ExifTagGps : uint16_t {
   H_POSITIONING_ERROR = EXIF_TAG_GPS_H_POSITIONING_ERROR
 };
 
+// Enum to be used for testing purposes internally
+enum TestEnum {
+  RED = 0xFF0000,
+  GREEN = 0x00FF00,
+  BLUE = 0x0000FF,
+};
+
 EMSCRIPTEN_BINDINGS(Enum) {
+  enum_<TestEnum>("TestEnum")
+      .value("RED", TestEnum::RED)
+      .value("GREEN", TestEnum::GREEN)
+      .value("BLUE", TestEnum::BLUE);
   // <libexif/exif-byte-order.h>
   enum_<ExifByteOrder>("ExifByteOrder")
       .value("MOTOROLA", EXIF_BYTE_ORDER_MOTOROLA)

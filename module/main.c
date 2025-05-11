@@ -4,6 +4,26 @@
 #include <libexif/exif-entry.h>
 #include <libexif/exif-utils.h>
 
+/* Macros */
+// <libexif/exif-data.h>
+EMSCRIPTEN_KEEPALIVE
+ExifEntry *_exif_data_get_entry(ExifData *d, ExifTag t) {
+  return exif_data_get_entry(d, t);
+}
+
+// <libexif/exif-entry.h>
+EMSCRIPTEN_KEEPALIVE
+ExifIfd _exif_entry_get_ifd(const ExifEntry *e) {
+  return exif_entry_get_ifd(e);
+}
+
+// <libexif/exif-log.h>
+EMSCRIPTEN_KEEPALIVE
+void _EXIF_LOG_NO_MEMORY(ExifLog *l, const char *d, size_t s) {
+  EXIF_LOG_NO_MEMORY(l, d, s);
+}
+
+/* Struct getters/setters */
 // ExifContent
 EMSCRIPTEN_KEEPALIVE
 ExifEntry **_exif_content_get_entries(ExifContent *c) { return c->entries; }
