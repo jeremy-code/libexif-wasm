@@ -4,6 +4,12 @@ type IterableElement<T> =
   : never;
 
 /**
+ * Convert first character of string literal type to uppercase and the rest to
+ * lowercase
+ */
+type Sentencize<S extends string> = Capitalize<Lowercase<S>>;
+
+/**
  * A labeled tuple of valid keys and values from a type `T` with an index
  * signature
  */
@@ -42,4 +48,4 @@ type EmbindEnum<T extends Record<PropertyKey, unknown>> = {
   [Key in keyof T]: EmbindEnumValue<T[Key]>;
 };
 
-export type { IterableElement, Entry, EmbindEnumValue, EmbindEnum };
+export type { IterableElement, Sentencize, Entry, EmbindEnumValue, EmbindEnum };
