@@ -20,6 +20,13 @@ import { UTF8ToStringOrNull } from "../utils/UTF8ToStringOrNull.ts";
  */
 const EXIF_SENTINEL_TAG = exif_tag_table_count() - 1;
 
+/**
+ * `ExifTagInfo` explicitly only has static methods as it is a utility class;
+ * `ExifTag` is an enum and not a struct, so it doesn't have any instance
+ * members or a location in memory
+ */
+class ExifTagInfo {}
+
 // `n` is the index of the tag in the table, not the tag itself
 const exifTagTableGetTag = (n: number) => {
   if (exif_tag_table_count() < n) {
@@ -41,6 +48,7 @@ const exifTagTableCount = () => exif_tag_table_count();
 
 export {
   EXIF_SENTINEL_TAG,
+  ExifTagInfo,
   exifTagTableGetTag,
   exifTagTableGetName,
   exifTagTableCount,

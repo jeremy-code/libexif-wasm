@@ -1,5 +1,9 @@
 import { ExifLogCode, type ExifLogCodeKey } from "../enums/ExifLogCode.ts";
+import type { DisposableDataSegment } from "../interfaces.ts";
 import {
+  exif_log_ref,
+  exif_log_unref,
+  exif_log_free,
   exif_log_code_get_title,
   exif_log_code_get_message,
 } from "../internal/libexif/exifLog.ts";
@@ -24,4 +28,24 @@ const exifLogCodeGetMessage = (code: ExifLogCodeKey) => {
   return UTF8ToStringOrNull(exif_log_code_get_message(ExifLogCode[code]));
 };
 
-export { exifLogCodeGetTitle, exifLogCodeGetMessage };
+class ExifLog implements DisposableDataSegment {
+  constructor(public readonly byteOffset: number) {}
+
+  ref() {
+    exif_log_ref(this.byteOffset);
+  }
+
+  unref() {
+    exif_log_unref(this.byteOffset);
+  }
+
+  free() {
+    exif_log_free(this.byteOffset);
+  }
+
+  [Symbol.dispose]() {
+    this.free();
+  }
+}
+
+export { exifLogCodeGetTitle, exifLogCodeGetMessage, ExifLog };
