@@ -1,19 +1,27 @@
-import { ExifFormat, type ExifFormatKey } from "../enums/ExifFormat.ts";
-import type { DisposableDataSegment } from "../interfaces.ts";
 import { ExifContent } from "./ExifContent.ts";
+import type { ExifMem } from "./ExifMem.ts";
 import { EXIF_SENTINEL_TAG } from "./ExifTag.ts";
+import { ExifFormat, type ExifFormatKey } from "../enums/ExifFormat.ts";
 import {
   ExifTagUnified,
   type ExifTagUnifiedKey,
 } from "../enums/ExifTagUnified.ts";
+import type { DisposableDataSegment } from "../interfaces.ts";
 import { HEAPU8 } from "../internal/emscripten.ts";
 import {
+  exif_entry_new,
+  exif_entry_new_mem,
   exif_entry_ref,
   exif_entry_unref,
   exif_entry_free,
+  exif_entry_initialize,
+  exif_entry_fix,
+  exif_entry_get_value,
+  exif_entry_dump,
 } from "../internal/libexif/exifEntry.ts";
-import { malloc } from "../internal/stdlib.ts";
+import { free, malloc } from "../internal/stdlib.ts";
 import { ExifEntryStruct } from "../structs/ExifEntryStruct.ts";
+import { UTF8ToStringOrNull } from "../utils/UTF8ToStringOrNull.ts";
 import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
 import { getEnumKeyFromValue } from "../utils/getEnumKeyFromValue.ts";
 
@@ -23,8 +31,7 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
   }
 
   get tag() {
-    // Not technically necessary since `getEnumKeyFromValue` returns `null` but
-    // communicates intent
+    // Not technically necessary but communicates intent
     if (this.tagVal === EXIF_SENTINEL_TAG) {
       return null;
     }
@@ -79,6 +86,14 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
     this.parentPtr = parent?.byteOffset ?? 0;
   }
 
+  static new() {
+    return new ExifEntry(exif_entry_new());
+  }
+
+  static newMem(mem: ExifMem) {
+    return new ExifEntry(exif_entry_new_mem(mem.byteOffset));
+  }
+
   ref() {
     exif_entry_ref(this.byteOffset);
   }
@@ -89,6 +104,37 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
 
   free() {
     exif_entry_free(this.byteOffset);
+  }
+
+  initialize(tag: ExifTagUnifiedKey) {
+    assertEnumObjectKey(ExifTagUnified, tag);
+
+    exif_entry_initialize(this.byteOffset, ExifTagUnified[tag]);
+  }
+
+  fix() {
+    exif_entry_fix(this.byteOffset);
+  }
+
+  getValue() {
+    const entryValueBuffer = malloc(this.data.byteLength);
+
+    const entryValuePtr = exif_entry_get_value(
+      this.byteOffset,
+      entryValueBuffer,
+      this.data.byteLength,
+    );
+
+    const entryValue = UTF8ToStringOrNull(entryValuePtr);
+    if (entryValuePtr !== 0) {
+      free(entryValuePtr);
+    }
+
+    return entryValue;
+  }
+
+  dump(indent = 0) {
+    exif_entry_dump(this.byteOffset, indent);
   }
 
   [Symbol.dispose]() {

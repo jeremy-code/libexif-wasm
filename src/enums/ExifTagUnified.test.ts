@@ -20,7 +20,7 @@ describe("ExifTagUnified", () => {
     expect(typeof ExifTagUnified[Symbol.iterator]).toBe("function");
     expect(ExifTagUnified[Symbol.iterator]()).toHaveProperty("next");
   });
-  it("should have all ExifTag keys wtih correct values", () => {
+  it("should have all ExifTag keys with correct values", () => {
     Array.from(ExifTag).forEach(([key, value]) => {
       expect(ExifTagUnified).toHaveProperty(key, value);
     });

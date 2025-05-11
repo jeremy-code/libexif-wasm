@@ -1,22 +1,50 @@
+import { ExifContent } from "./ExifContent.ts";
+import type { ExifLog } from "./ExifLog.ts";
+import type { ExifMem } from "./ExifMem.ts";
+import { ExifMnoteData } from "./ExifMnoteData.ts";
+import {
+  ExifByteOrder,
+  type ExifByteOrderKey,
+} from "../enums/ExifByteOrder.ts";
 import {
   ExifDataOption,
   type ExifDataOptionKey,
 } from "../enums/ExifDataOption.ts";
-import type { DisposableDataSegment } from "../interfaces.ts";
-import { ExifContent } from "./ExifContent.ts";
+import { ExifDataType, type ExifDataTypeKey } from "../enums/ExifDataType.ts";
 import { ExifIfd } from "../enums/ExifIfd.ts";
+import {
+  ExifTagUnified,
+  type ExifTagUnifiedKey,
+} from "../enums/ExifTagUnified.ts";
+import type { DisposableDataSegment } from "../interfaces.ts";
+import { ExifEntry } from "./ExifEntry.ts";
 import { HEAPU8 } from "../internal/emscripten.ts";
 import {
-  exif_data_free,
-  exif_data_option_get_description,
-  exif_data_option_get_name,
+  exif_data_new,
+  exif_data_new_mem,
   exif_data_ref,
   exif_data_unref,
+  exif_data_free,
+  exif_data_get_byte_order,
+  exif_data_set_byte_order,
+  exif_data_get_mnote_data,
+  exif_data_fix,
+  exif_data_option_get_name,
+  exif_data_option_get_description,
+  exif_data_set_option,
+  exif_data_unset_option,
+  exif_data_set_data_type,
+  exif_data_get_data_type,
+  exif_data_dump,
+  exif_data_log,
 } from "../internal/libexif/exifData.ts";
+import { exif_data_get_entry } from "../internal/main.ts";
 import { malloc } from "../internal/stdlib.ts";
-import { ExifDataStruct, type IfdPtr } from "../structs/ExifDataStruct.ts";
+import { ExifDataStruct } from "../structs/ExifDataStruct.ts";
+import type { IfdPtr } from "../structs/ExifDataStruct.ts";
 import { UTF8ToStringOrNull } from "../utils/UTF8ToStringOrNull.ts";
 import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
+import { getEnumKeyFromValue } from "../utils/getEnumKeyFromValue.ts";
 
 type Ifd = [
   IFD_0: ExifContent,
@@ -64,6 +92,35 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
     this.size = data.byteLength;
   }
 
+  static new() {
+    return new ExifData(exif_data_new());
+  }
+
+  static newMem(mem: ExifMem) {
+    return new ExifData(exif_data_new_mem(mem.byteOffset));
+  }
+
+  static newFromData() {
+    throw new Error("Not implemented");
+  }
+
+  loadData() {
+    throw new Error("Not implemented");
+  }
+
+  saveData() {
+    throw new Error("Not implemented");
+  }
+
+  /**
+   * @throws {ReferenceError} if {@link ExifData.forEachContent} is called
+   */
+  forEachContent() {
+    throw new ReferenceError(
+      "ExifData.forEachContent: Not implemented. Use `.ifd.flat().forEach()` instead",
+    );
+  }
+
   ref() {
     exif_data_ref(this.byteOffset);
   }
@@ -74,6 +131,70 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
 
   free() {
     exif_data_free(this.byteOffset);
+  }
+
+  getByteOrder() {
+    return getEnumKeyFromValue(
+      ExifByteOrder,
+      exif_data_get_byte_order(this.byteOffset),
+    );
+  }
+
+  setByteOrder(byteOrder: ExifByteOrderKey) {
+    assertEnumObjectKey(ExifByteOrder, byteOrder);
+    exif_data_set_byte_order(this.byteOffset, ExifByteOrder[byteOrder]);
+  }
+
+  getMnoteData() {
+    const mnoteDataPtr = exif_data_get_mnote_data(this.byteOffset);
+    return mnoteDataPtr !== 0 ? new ExifMnoteData(mnoteDataPtr) : null;
+  }
+
+  fix() {
+    exif_data_fix(this.byteOffset);
+  }
+
+  setOption(option: ExifDataOptionKey) {
+    assertEnumObjectKey(ExifDataOption, option);
+    exif_data_set_option(this.byteOffset, ExifDataOption[option]);
+  }
+
+  unsetOption(option: ExifDataOptionKey) {
+    assertEnumObjectKey(ExifDataOption, option);
+    exif_data_unset_option(this.byteOffset, ExifDataOption[option]);
+  }
+
+  setDataType(dt: ExifDataTypeKey) {
+    assertEnumObjectKey(ExifDataType, dt);
+
+    exif_data_set_data_type(this.byteOffset, ExifDataType[dt]);
+  }
+
+  getDataType() {
+    return getEnumKeyFromValue(
+      ExifDataType,
+      exif_data_get_data_type(this.byteOffset),
+    );
+  }
+
+  dump() {
+    exif_data_dump(this.byteOffset);
+  }
+
+  log(log: ExifLog) {
+    exif_data_log(this.byteOffset, log.byteOffset);
+  }
+
+  /**
+   * This was originally a macro in the C api, but is implemented here as a
+   * function for convenience
+   */
+  getEntry(tag: ExifTagUnifiedKey) {
+    assertEnumObjectKey(ExifTagUnified, tag);
+
+    const entry = exif_data_get_entry(this.byteOffset, ExifTagUnified[tag]);
+
+    return entry !== 0 ? new ExifEntry(entry) : null;
   }
 
   [Symbol.dispose]() {

@@ -103,7 +103,6 @@ describe("mapEmbindEnumToObject(TestEnum)", () => {
     expect(Object.getPrototypeOf(mapEmbindEnumToObject(TestEnum))).toBeNull();
   });
   it("should not have property Symbol.toStringTag", () => {
-    // @ts-expect-error Testing non-existence of Symbol.toStringTag
     expect(mapEmbindEnumToObject(TestEnum)[Symbol.toStringTag]).toBeUndefined();
   });
   it("should have Symbol.iterator with same enumerability as array prototype", () => {
