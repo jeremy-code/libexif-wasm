@@ -48,6 +48,10 @@
       "types": "./dist/internal/libexif/index.d.ts",
       "default": "./dist/internal/libexif/index.js"
     },
+    "./structs": {
+      "types": "./dist/structs/index.d.ts",
+      "default": "./dist/structs/index.js"
+    },
     "./utils": {
       "types": "./dist/utils/index.d.ts",
       "default": "./dist/utils/index.js"
