@@ -10,5 +10,6 @@ export * from "./exifLoader.ts";
 export * from "./exifLog.ts";
 export * from "./exifMem.ts";
 export * from "./exifMnoteData.ts";
+export * from "./exifMnoteDataPriv.ts";
 export * from "./exifTag.ts";
 export * from "./exifUtils.ts";

@@ -25,13 +25,57 @@ export {
 } from "./libexif/ExifTag.ts";
 
 // Enums
-export { ExifByteOrder } from "./enums/ExifByteOrder.ts";
-export { ExifDataOption } from "./enums/ExifDataOption.ts";
-export { ExifDataType } from "./enums/ExifDataType.ts";
-export { ExifFormat } from "./enums/ExifFormat.ts";
-export { ExifIfd } from "./enums/ExifIfd.ts";
-export { ExifLogCode } from "./enums/ExifLogCode.ts";
-export { ExifSupportLevel } from "./enums/ExifSupportLevel.ts";
-export { ExifTag } from "./enums/ExifTag.ts";
-export { ExifTagGps } from "./enums/ExifTagGps.ts";
-export { ExifTagUnified } from "./enums/ExifTagUnified.ts";
+export {
+  ExifByteOrder,
+  type ExifByteOrderKey,
+  type ExifByteOrderValue,
+} from "./enums/ExifByteOrder.ts";
+export {
+  ExifDataOption,
+  type ExifDataOptionKey,
+  type ExifDataOptionValue,
+} from "./enums/ExifDataOption.ts";
+export {
+  ExifDataType,
+  type ExifDataTypeKey,
+  type ExifDataTypeValue,
+} from "./enums/ExifDataType.ts";
+export {
+  ExifFormat,
+  type ExifFormatKey,
+  type ExifFormatValue,
+} from "./enums/ExifFormat.ts";
+export {
+  ExifIfd,
+  type ExifIfdKey,
+  type ExifIfdValue,
+} from "./enums/ExifIfd.ts";
+export {
+  ExifLogCode,
+  type ExifLogCodeKey,
+  type ExifLogCodeValue,
+} from "./enums/ExifLogCode.ts";
+export {
+  ExifSupportLevel,
+  type ExifSupportLevelKey,
+  type ExifSupportLevelValue,
+} from "./enums/ExifSupportLevel.ts";
+export {
+  ExifTag,
+  type ExifTagKey,
+  type ExifTagValue,
+} from "./enums/ExifTag.ts";
+export {
+  ExifTagGps,
+  type ExifTagGpsKey,
+  type ExifTagGpsValue,
+} from "./enums/ExifTagGps.ts";
+export {
+  ExifTagUnified,
+  type ExifTagUnifiedKey,
+  type ExifTagUnifiedValue,
+} from "./enums/ExifTagUnified.ts";
+
+// Utility functions
+export { assertEnumObjectKey } from "./utils/assertEnumObjectKey.ts";
+export { getEnumKeyFromValue } from "./utils/getEnumKeyFromValue.ts";
