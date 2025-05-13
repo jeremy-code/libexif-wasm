@@ -2,6 +2,7 @@
 #include <libexif/exif-content.h>
 #include <libexif/exif-data.h>
 #include <libexif/exif-entry.h>
+#include <libexif/exif-log.h>
 #include <libexif/exif-utils.h>
 
 /* Macros */

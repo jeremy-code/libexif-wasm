@@ -36,65 +36,76 @@ describe("ExifData", () => {
       exifData.free();
     });
   });
-  describe("ExifData.newFromData()", () => {
-    test("should create a new ExifData instance from data", async () => {
-      const fixture = await getTestFixture("T-45A_Goshawk_03.jpg");
-      const exifData = ExifData.newFromData(fixture.buffer);
+  describe.each(["T-45A_Goshawk_03.jpg", "Sumo_Museum.jpg"])(
+    "ExifData.newFromData(%s)",
+    (testFixtureFile) => {
+      test("should create a new ExifData instance from data", async () => {
+        const testFixture = await getTestFixture(testFixtureFile);
+        const exifData = ExifData.newFromData(testFixture.buffer);
 
-      expect(exifData).toBeInstanceOf(ExifData);
-      expect(exifData.byteOffset).toBeGreaterThan(0);
-      // Since `exifData.data` is a thumbnail image, it should take up
-      // significantly less space
-      expect(exifData.data.length).toBeLessThanOrEqual(fixture.buffer.length);
-      expect(exifData.data.byteOffset).toBeGreaterThan(0);
+        expect(exifData).not.toBeNull();
+        expect(exifData).toBeInstanceOf(ExifData);
+        expect(exifData.byteOffset).toBeGreaterThan(0);
+        expect(exifData.data.byteLength !== 0).toBe(testFixture.json.thumbnail);
+        expect(exifData.data).toHaveLength(testFixture.thumbnail?.length ?? 0);
+        expect(exifData).toHaveProperty(
+          "data",
+          Uint8Array.from(testFixture.thumbnail ?? []),
+        );
+        expect(exifData.ifd).toHaveLength(ExifIfd.COUNT);
 
-      const { ifd } = exifData;
-      expect(ifd).toHaveLength(ExifIfd.COUNT);
-
-      ifd.forEach((exifContent) => {
-        expect(exifContent).not.toBeNull();
-        expect(exifContent).toBeInstanceOf(ExifContent);
-        expect(exifContent).toHaveProperty("byteOffset");
-        expect(exifContent.byteOffset).toBeGreaterThan(0);
-        expect(exifContent).toHaveProperty("entriesPtr");
-        expect(exifContent).toHaveProperty("count");
-        expect(exifContent).toHaveProperty("parentPtr", exifData.byteOffset);
-        expect(exifContent).toHaveProperty("entries");
-      });
-
-      Object.entries(fixture.data).forEach(([dataIfdName, dataEntries]) => {
-        const ifd = exifData.ifd[ExifIfd[dataIfdName]];
-        const entries = Object.entries(dataEntries);
-        expect(ifd.count).toBe(entries.length);
-        expect(ifd.entries).toHaveLength(entries.length);
-
-        entries.forEach(([tag, expectedExifEntry]) => {
-          const exifEntry = ifd.getEntry(tag as ExifTagKey);
-
-          expect(exifEntry).not.toBeNull();
-          expect(exifEntry).toBeInstanceOf(ExifEntry);
-
-          expect(exifEntry).toHaveProperty("tag", tag);
-          expect(exifEntry).toHaveProperty(
-            "components",
-            expectedExifEntry.components,
-          );
-          expect(exifEntry).toHaveProperty("size", expectedExifEntry.size);
-          expect(exifEntry).toHaveProperty("format", expectedExifEntry.format);
-          expect(exifEntry).toHaveProperty(
-            "data",
-            new Uint8Array(expectedExifEntry.data),
-          );
-          expect(exifEntry?.getValue()).toEqual(expectedExifEntry.value);
+        exifData.ifd.forEach((exifContent) => {
+          expect(exifContent).not.toBeNull();
+          expect(exifContent).toBeInstanceOf(ExifContent);
+          expect(exifContent).toHaveProperty("byteOffset");
+          expect(exifContent.byteOffset).toBeGreaterThan(0);
+          expect(exifContent).toHaveProperty("entriesPtr");
+          expect(exifContent).toHaveProperty("count");
+          expect(exifContent).toHaveProperty("parentPtr", exifData.byteOffset);
+          expect(exifContent).toHaveProperty("entries");
         });
-      });
 
-      expect(exifData.getByteOrder()).toBe("MOTOROLA");
-      expect(exifData.getMnoteData()).toBeNull();
-      expect(exifData.getDataType()).toBe("COUNT");
-      exifData.free();
-    });
-  });
+        Object.entries(testFixture.json.data).forEach(
+          ([dataIfdName, dataEntries]) => {
+            const ifd = exifData.ifd[ExifIfd[dataIfdName]];
+            const entries = Object.entries(dataEntries);
+            expect(ifd.count).toBe(entries.length);
+            expect(ifd.entries).toHaveLength(entries.length);
+
+            entries.forEach(([tag, expectedExifEntry]) => {
+              const exifEntry = ifd.getEntry(tag as ExifTagKey);
+
+              expect(exifEntry).not.toBeNull();
+              expect(exifEntry).toBeInstanceOf(ExifEntry);
+
+              expect(exifEntry).toHaveProperty("tag", tag);
+              expect(exifEntry).toHaveProperty(
+                "components",
+                expectedExifEntry.components,
+              );
+              expect(exifEntry).toHaveProperty("size", expectedExifEntry.size);
+              expect(exifEntry).toHaveProperty(
+                "format",
+                expectedExifEntry.format,
+              );
+              expect(exifEntry).toHaveProperty(
+                "data",
+                Uint8Array.from(expectedExifEntry.data),
+              );
+              expect(exifEntry?.getValue()).toEqual(expectedExifEntry.value);
+            });
+          },
+        );
+
+        expect(exifData.getByteOrder()).toBe("MOTOROLA");
+        expect(exifData.getMnoteData() === null).toBe(
+          testFixture.json.mnoteData === null,
+        );
+        expect(exifData.getDataType()).toBe("COUNT");
+        exifData.free();
+      });
+    },
+  );
   describe("exifData.setByteOrder()", () => {
     test("should set the byte order", () => {
       const exifData = ExifData.new();
@@ -113,35 +124,40 @@ describe("ExifData", () => {
       exifData.free();
     });
   });
-  describe("exifData.getEntry()", () => {
-    test("should get an entry by tag", async () => {
-      const fixture = await getTestFixture("T-45A_Goshawk_03.jpg");
-      const exifData = ExifData.newFromData(fixture.buffer);
+  describe.each(["T-45A_Goshawk_03.jpg", "Sumo_Museum.jpg"])(
+    "exifData.getEntry(%s)",
+    (testFixtureFile) => {
+      test("should get an entry by tag", async () => {
+        const testFixture = await getTestFixture(testFixtureFile);
+        const exifData = ExifData.newFromData(testFixture.buffer);
 
-      Object.values(fixture.data)
-        .flatMap((datum) => Object.entries(datum))
-        .forEach(([tag, expectedExifEntry]) => {
-          const exifEntry = exifData.getEntry(tag as ExifTagKey);
+        Object.values(testFixture.json.data)
+          .flatMap((datum) => Object.entries(datum))
+          .forEach(([tag, expectedExifEntry]) => {
+            const exifEntry = exifData.getEntry(tag as ExifTagKey);
 
-          expect(exifEntry).not.toBeNull();
-          expect(exifEntry).toBeInstanceOf(ExifEntry);
-          expect(exifEntry).toHaveProperty("tag", tag);
-          expect(exifEntry).toHaveProperty(
-            "components",
-            expectedExifEntry.components,
-          );
-          expect(exifEntry).toHaveProperty("size", expectedExifEntry.size);
-          expect(exifEntry).toHaveProperty("format", expectedExifEntry.format);
-          expect(exifEntry).toHaveProperty(
-            "data",
-            new Uint8Array(expectedExifEntry.data),
-          );
-
-          expect(exifEntry?.getValue()).toEqual(expectedExifEntry.value);
-        });
-      exifData.free();
-    });
-  });
+            expect(exifEntry).not.toBeNull();
+            expect(exifEntry).toBeInstanceOf(ExifEntry);
+            expect(exifEntry).toHaveProperty("tag", tag);
+            expect(exifEntry).toHaveProperty(
+              "components",
+              expectedExifEntry.components,
+            );
+            expect(exifEntry).toHaveProperty("size", expectedExifEntry.size);
+            expect(exifEntry).toHaveProperty(
+              "format",
+              expectedExifEntry.format,
+            );
+            expect(exifEntry).toHaveProperty(
+              "data",
+              Uint8Array.from(expectedExifEntry.data),
+            );
+            expect(exifEntry?.getValue()).toEqual(expectedExifEntry.value);
+          });
+        exifData.free();
+      });
+    },
+  );
 });
 
 const EXIF_DATA_OPTION_TABLE = [

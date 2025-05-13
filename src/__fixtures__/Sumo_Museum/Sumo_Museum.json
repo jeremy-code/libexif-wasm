@@ -1,0 +1,1026 @@
+{
+  "thumbnail": false,
+  "data": {
+    "IFD_0": {
+      "IMAGE_DESCRIPTION": {
+        "components": 12,
+        "size": 12,
+        "format": "ASCII",
+        "value": "Sumo Museum",
+        "data": [83, 117, 109, 111, 32, 77, 117, 115, 101, 117, 109, 0]
+      },
+      "MAKE": {
+        "components": 6,
+        "size": 6,
+        "format": "ASCII",
+        "value": "Canon",
+        "data": [67, 97, 110, 111, 110, 0]
+      },
+      "MODEL": {
+        "components": 20,
+        "size": 20,
+        "format": "ASCII",
+        "value": "Canon PowerShot A70",
+        "data": [
+          67, 97, 110, 111, 110, 32, 80, 111, 119, 101, 114, 83, 104, 111, 116,
+          32, 65, 55, 48, 0
+        ]
+      },
+      "ORIENTATION": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "Top-left",
+        "data": [0, 1]
+      },
+      "SOFTWARE": {
+        "components": 14,
+        "size": 14,
+        "format": "ASCII",
+        "value": "darktable 1.4",
+        "data": [100, 97, 114, 107, 116, 97, 98, 108, 101, 32, 49, 46, 52, 0]
+      },
+      "DATE_TIME": {
+        "components": 20,
+        "size": 20,
+        "format": "ASCII",
+        "value": "2016:04:22 22:41:31",
+        "data": [
+          50, 48, 49, 54, 58, 48, 52, 58, 50, 50, 32, 50, 50, 58, 52, 49, 58,
+          51, 49, 0
+        ]
+      },
+      "YCBCR_POSITIONING": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "Centered",
+        "data": [0, 1]
+      },
+      "X_RESOLUTION": {
+        "components": 1,
+        "size": 8,
+        "format": "RATIONAL",
+        "value": "72",
+        "data": [0, 0, 0, 72, 0, 0, 0, 1]
+      },
+      "Y_RESOLUTION": {
+        "components": 1,
+        "size": 8,
+        "format": "RATIONAL",
+        "value": "72",
+        "data": [0, 0, 0, 72, 0, 0, 0, 1]
+      },
+      "RESOLUTION_UNIT": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "Inch",
+        "data": [0, 2]
+      }
+    },
+    "EXIF": {
+      "EXPOSURE_TIME": {
+        "components": 1,
+        "size": 8,
+        "format": "RATIONAL",
+        "value": "1/15 sec.",
+        "data": [0, 0, 0, 1, 0, 0, 0, 15]
+      },
+      "FNUMBER": {
+        "components": 1,
+        "size": 8,
+        "format": "RATIONAL",
+        "value": "f/2.8",
+        "data": [0, 0, 0, 28, 0, 0, 0, 10]
+      },
+      "EXIF_VERSION": {
+        "components": 4,
+        "size": 4,
+        "format": "UNDEFINED",
+        "value": "Exif Version 2.2",
+        "data": [48, 50, 50, 48]
+      },
+      "DATE_TIME_ORIGINAL": {
+        "components": 20,
+        "size": 20,
+        "format": "ASCII",
+        "value": "2005:06:24 13:06:25",
+        "data": [
+          50, 48, 48, 53, 58, 48, 54, 58, 50, 52, 32, 49, 51, 58, 48, 54, 58,
+          50, 53, 0
+        ]
+      },
+      "DATE_TIME_DIGITIZED": {
+        "components": 20,
+        "size": 20,
+        "format": "ASCII",
+        "value": "2005:06:24 13:06:25",
+        "data": [
+          50, 48, 48, 53, 58, 48, 54, 58, 50, 52, 32, 49, 51, 58, 48, 54, 58,
+          50, 53, 0
+        ]
+      },
+      "COMPONENTS_CONFIGURATION": {
+        "components": 4,
+        "size": 4,
+        "format": "UNDEFINED",
+        "value": "Y Cb Cr -",
+        "data": [1, 2, 3, 0]
+      },
+      "COMPRESSED_BITS_PER_PIXEL": {
+        "components": 1,
+        "size": 8,
+        "format": "RATIONAL",
+        "value": " 3",
+        "data": [0, 0, 0, 3, 0, 0, 0, 1]
+      },
+      "SHUTTER_SPEED_VALUE": {
+        "components": 1,
+        "size": 8,
+        "format": "SRATIONAL",
+        "value": "3.91 EV (1/15 sec.)",
+        "data": [0, 0, 0, 125, 0, 0, 0, 32]
+      },
+      "APERTURE_VALUE": {
+        "components": 1,
+        "size": 8,
+        "format": "RATIONAL",
+        "value": "2.97 EV (f/2.8)",
+        "data": [0, 0, 0, 95, 0, 0, 0, 32]
+      },
+      "EXPOSURE_BIAS_VALUE": {
+        "components": 1,
+        "size": 8,
+        "format": "SRATIONAL",
+        "value": "0.00 EV",
+        "data": [0, 0, 0, 0, 0, 0, 0, 3]
+      },
+      "MAX_APERTURE_VALUE": {
+        "components": 1,
+        "size": 8,
+        "format": "RATIONAL",
+        "value": "2.97 EV (f/2.8)",
+        "data": [0, 0, 0, 95, 0, 0, 0, 32]
+      },
+      "METERING_MODE": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "Pattern",
+        "data": [0, 5]
+      },
+      "FLASH": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "Flash did not fire, compulsory flash mode",
+        "data": [0, 16]
+      },
+      "FOCAL_LENGTH": {
+        "components": 1,
+        "size": 8,
+        "format": "RATIONAL",
+        "value": "5.4 mm",
+        "data": [0, 0, 0, 173, 0, 0, 0, 32]
+      },
+      "MAKER_NOTE": {
+        "components": 574,
+        "size": 574,
+        "format": "UNDEFINED",
+        "value": "574 bytes undefined data",
+        "data": [
+          0, 14, 0, 1, 0, 3, 0, 0, 0, 46, 0, 0, 3, 126, 0, 2, 0, 3, 0, 0, 0, 4,
+          0, 0, 3, 218, 0, 3, 0, 3, 0, 0, 0, 4, 0, 0, 3, 226, 0, 4, 0, 3, 0, 0,
+          0, 34, 0, 0, 3, 234, 0, 0, 0, 3, 0, 0, 0, 6, 0, 0, 4, 46, 0, 0, 0, 3,
+          0, 0, 0, 4, 0, 0, 4, 58, 0, 18, 0, 3, 0, 0, 0, 20, 0, 0, 4, 66, 0, 19,
+          0, 3, 0, 0, 0, 4, 0, 0, 4, 106, 0, 6, 0, 2, 0, 0, 0, 32, 0, 0, 4, 114,
+          0, 7, 0, 2, 0, 0, 0, 24, 0, 0, 4, 146, 0, 8, 0, 4, 0, 0, 0, 1, 0, 23,
+          30, 172, 0, 9, 0, 2, 0, 0, 0, 32, 0, 0, 4, 170, 0, 16, 0, 4, 0, 0, 0,
+          1, 1, 37, 0, 0, 0, 13, 0, 3, 0, 0, 0, 34, 0, 0, 4, 202, 0, 0, 0, 0, 0,
+          92, 0, 2, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 1, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 3, 0, 1, 64, 1, 0, 0, 255, 255, 255,
+          255, 2, 7, 0, 173, 0, 32, 0, 98, 0, 192, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 255, 255, 0, 0, 8, 0, 8, 0, 0, 0, 0, 1, 0, 0, 0, 0, 127, 255, 0,
+          0, 0, 0, 0, 0, 0, 2, 0, 173, 0, 213, 0, 159, 4, 0, 0, 0, 0, 0, 0, 0,
+          0, 68, 0, 0, 0, 128, 0, 92, 0, 95, 0, 125, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 95, 0, 0, 0, 98,
+          0, 122, 0, 0, 0, 0, 0, 0, 0, 250, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          5, 0, 5, 8, 0, 6, 0, 8, 0, 1, 0, 1, 113, 0, 42, 0, 0, 254, 142, 0, 0,
+          1, 114, 0, 0, 255, 208, 0, 0, 0, 0, 0, 0, 0, 48, 0, 1, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 73, 77, 71, 58, 80, 111, 119, 101, 114, 83, 104, 111,
+          116, 32, 65, 55, 48, 32, 74, 80, 69, 71, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          70, 105, 114, 109, 119, 97, 114, 101, 32, 86, 101, 114, 115, 105, 111,
+          110, 32, 49, 46, 48, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 68, 0,
+          9, 128, 1, 1, 58, 128, 1, 1, 57, 1, 55, 1, 56, 128, 1, 1, 55, 128, 1,
+          0, 64, 0, 0, 0, 0, 0, 221, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 10, 2,
+          139, 0, 186, 0, 5, 0, 0, 3, 174, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 167,
+          0, 0, 0, 0
+        ]
+      },
+      "USER_COMMENT": {
+        "components": 264,
+        "size": 264,
+        "format": "UNDEFINED",
+        "value": "",
+        "data": [
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        ]
+      },
+      "FLASH_PIX_VERSION": {
+        "components": 4,
+        "size": 4,
+        "format": "UNDEFINED",
+        "value": "FlashPix Version 1.0",
+        "data": [48, 49, 48, 48]
+      },
+      "COLOR_SPACE": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "sRGB",
+        "data": [0, 1]
+      },
+      "PIXEL_X_DIMENSION": {
+        "components": 1,
+        "size": 4,
+        "format": "SLONG",
+        "value": "2048",
+        "data": [0, 0, 8, 0]
+      },
+      "PIXEL_Y_DIMENSION": {
+        "components": 1,
+        "size": 4,
+        "format": "SLONG",
+        "value": "1536",
+        "data": [0, 0, 6, 0]
+      },
+      "FOCAL_PLANE_X_RESOLUTION": {
+        "components": 1,
+        "size": 8,
+        "format": "RATIONAL",
+        "value": "9846.154",
+        "data": [0, 31, 64, 0, 0, 0, 0, 208]
+      },
+      "FOCAL_PLANE_Y_RESOLUTION": {
+        "components": 1,
+        "size": 8,
+        "format": "RATIONAL",
+        "value": "9846.154",
+        "data": [0, 23, 112, 0, 0, 0, 0, 156]
+      },
+      "FOCAL_PLANE_RESOLUTION_UNIT": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "Inch",
+        "data": [0, 2]
+      },
+      "SENSING_METHOD": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "One-chip color area sensor",
+        "data": [0, 2]
+      },
+      "FILE_SOURCE": {
+        "components": 1,
+        "size": 1,
+        "format": "UNDEFINED",
+        "value": "DSC",
+        "data": [3]
+      },
+      "CUSTOM_RENDERED": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "Normal process",
+        "data": [0, 0]
+      },
+      "EXPOSURE_MODE": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "Auto exposure",
+        "data": [0, 0]
+      },
+      "WHITE_BALANCE": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "Auto white balance",
+        "data": [0, 0]
+      },
+      "DIGITAL_ZOOM_RATIO": {
+        "components": 1,
+        "size": 8,
+        "format": "RATIONAL",
+        "value": "1.0000",
+        "data": [0, 0, 8, 0, 0, 0, 8, 0]
+      },
+      "SCENE_CAPTURE_TYPE": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "Standard",
+        "data": [0, 0]
+      }
+    },
+    "INTEROPERABILITY": {
+      "INTEROPERABILITY_INDEX": {
+        "components": 4,
+        "size": 4,
+        "format": "ASCII",
+        "value": "R98",
+        "data": [82, 57, 56, 0]
+      },
+      "INTEROPERABILITY_VERSION": {
+        "components": 4,
+        "size": 4,
+        "format": "UNDEFINED",
+        "value": "0100",
+        "data": [48, 49, 48, 48]
+      },
+      "RELATED_IMAGE_WIDTH": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "2048",
+        "data": [8, 0]
+      },
+      "RELATED_IMAGE_LENGTH": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "1536",
+        "data": [6, 0]
+      }
+    }
+  },
+  "mnoteData": [
+    {
+      "id": 1,
+      "name": "Macro Mode",
+      "title": "Macro Mode",
+      "description": "",
+      "value": "Normal"
+    },
+    {
+      "id": 1,
+      "name": "Self-timer",
+      "title": "Self-timer",
+      "description": "",
+      "value": "Off"
+    },
+    {
+      "id": 1,
+      "name": "Quality",
+      "title": "Quality",
+      "description": "",
+      "value": "Fine"
+    },
+    {
+      "id": 1,
+      "name": "Flash Mode",
+      "title": "Flash Mode",
+      "description": "",
+      "value": "Off"
+    },
+    {
+      "id": 1,
+      "name": "Drive Mode",
+      "title": "Drive Mode",
+      "description": "",
+      "value": "Single"
+    },
+    {
+      "id": 1,
+      "name": null,
+      "title": null,
+      "description": "",
+      "value": "0x0000"
+    },
+    {
+      "id": 1,
+      "name": "Focus Mode",
+      "title": "Focus Mode",
+      "description": "",
+      "value": "Single"
+    },
+    {
+      "id": 1,
+      "name": null,
+      "title": null,
+      "description": "",
+      "value": "0x0000"
+    },
+    {
+      "id": 1,
+      "name": "Record Mode",
+      "title": "Record Mode",
+      "description": "",
+      "value": "JPEG"
+    },
+    {
+      "id": 1,
+      "name": "Image Size",
+      "title": "Image Size",
+      "description": "",
+      "value": "Large"
+    },
+    {
+      "id": 1,
+      "name": "Easy Shooting Mode",
+      "title": "Easy Shooting Mode",
+      "description": "",
+      "value": "Full auto"
+    },
+    {
+      "id": 1,
+      "name": "Digital Zoom",
+      "title": "Digital Zoom",
+      "description": "",
+      "value": "None"
+    },
+    {
+      "id": 1,
+      "name": "Contrast",
+      "title": "Contrast",
+      "description": "",
+      "value": "Normal"
+    },
+    {
+      "id": 1,
+      "name": "Saturation",
+      "title": "Saturation",
+      "description": "",
+      "value": "Normal"
+    },
+    {
+      "id": 1,
+      "name": "Sharpness",
+      "title": "Sharpness",
+      "description": "",
+      "value": "Normal"
+    },
+    {
+      "id": 1,
+      "name": "ISO",
+      "title": "ISO",
+      "description": "",
+      "value": "Auto"
+    },
+    {
+      "id": 1,
+      "name": "Metering Mode",
+      "title": "Metering Mode",
+      "description": "",
+      "value": "Evaluative"
+    },
+    {
+      "id": 1,
+      "name": "Focus Range",
+      "title": "Focus Range",
+      "description": "",
+      "value": "Auto"
+    },
+    {
+      "id": 1,
+      "name": "AF Point",
+      "title": "AF Point",
+      "description": "",
+      "value": "Auto AF point selection"
+    },
+    {
+      "id": 1,
+      "name": "Exposure Mode",
+      "title": "Exposure Mode",
+      "description": "",
+      "value": "Easy shooting"
+    },
+    {
+      "id": 1,
+      "name": null,
+      "title": null,
+      "description": "",
+      "value": "0xffff"
+    },
+    {
+      "id": 1,
+      "name": "Lens Type",
+      "title": "Lens Type",
+      "description": "",
+      "value": "0xffff"
+    },
+    {
+      "id": 1,
+      "name": "Long Focal Length of Lens",
+      "title": "Long Focal Length of Lens",
+      "description": "",
+      "value": "519"
+    },
+    {
+      "id": 1,
+      "name": "Short Focal Length of Lens",
+      "title": "Short Focal Length of Lens",
+      "description": "",
+      "value": "173"
+    },
+    {
+      "id": 1,
+      "name": "Focal Units per mm",
+      "title": "Focal Units per mm",
+      "description": "",
+      "value": "32"
+    },
+    {
+      "id": 1,
+      "name": "Maximal Aperture",
+      "title": "Maximal Aperture",
+      "description": "",
+      "value": "2.89"
+    },
+    {
+      "id": 1,
+      "name": "Minimal Aperture",
+      "title": "Minimal Aperture",
+      "description": "",
+      "value": "8.00"
+    },
+    {
+      "id": 1,
+      "name": "Flash Activity",
+      "title": "Flash Activity",
+      "description": "",
+      "value": "0x0000"
+    },
+    {
+      "id": 1,
+      "name": "Flash Details",
+      "title": "Flash Details",
+      "description": "",
+      "value": ""
+    },
+    {
+      "id": 1,
+      "name": null,
+      "title": null,
+      "description": "",
+      "value": "0x0000"
+    },
+    {
+      "id": 1,
+      "name": null,
+      "title": null,
+      "description": "",
+      "value": "0x0000"
+    },
+    {
+      "id": 1,
+      "name": "Focus Mode",
+      "title": "Focus Mode",
+      "description": "",
+      "value": "Single"
+    },
+    {
+      "id": 1,
+      "name": "AE Setting",
+      "title": "AE Setting",
+      "description": "",
+      "value": "Normal AE"
+    },
+    {
+      "id": 1,
+      "name": "Image Stabilization",
+      "title": "Image Stabilization",
+      "description": "",
+      "value": "0xffff"
+    },
+    {
+      "id": 1,
+      "name": "Display Aperture",
+      "title": "Display Aperture",
+      "description": "",
+      "value": "0.00"
+    },
+    {
+      "id": 1,
+      "name": "Zoom Source Width",
+      "title": "Zoom Source Width",
+      "description": "",
+      "value": "2048"
+    },
+    {
+      "id": 1,
+      "name": "Zoom Target Width",
+      "title": "Zoom Target Width",
+      "description": "",
+      "value": "2048"
+    },
+    {
+      "id": 1,
+      "name": null,
+      "title": null,
+      "description": "",
+      "value": "0x0000"
+    },
+    {
+      "id": 1,
+      "name": "Spot Metering Mode",
+      "title": "Spot Metering Mode",
+      "description": "",
+      "value": "0x0001"
+    },
+    {
+      "id": 1,
+      "name": "Photo Effect",
+      "title": "Photo Effect",
+      "description": "",
+      "value": "Off"
+    },
+    {
+      "id": 1,
+      "name": "Manual Flash Output",
+      "title": "Manual Flash Output",
+      "description": "",
+      "value": "Off"
+    },
+    {
+      "id": 1,
+      "name": "Color Tone",
+      "title": "Color Tone",
+      "description": "",
+      "value": "0x7fff"
+    },
+    {
+      "id": 1,
+      "name": null,
+      "title": null,
+      "description": "",
+      "value": "0x0000"
+    },
+    {
+      "id": 1,
+      "name": null,
+      "title": null,
+      "description": "",
+      "value": "0x0000"
+    },
+    {
+      "id": 1,
+      "name": null,
+      "title": null,
+      "description": "",
+      "value": "0x0000"
+    },
+    {
+      "id": 2,
+      "name": "Focal Type",
+      "title": "Focal Type",
+      "description": "",
+      "value": "Zoom"
+    },
+    {
+      "id": 2,
+      "name": "Focal Length",
+      "title": "Focal Length",
+      "description": "",
+      "value": "173"
+    },
+    {
+      "id": 2,
+      "name": "Focal Plane X Size",
+      "title": "Focal Plane X Size",
+      "description": "",
+      "value": "5.41 mm"
+    },
+    {
+      "id": 2,
+      "name": "Focal Plane Y Size",
+      "title": "Focal Plane Y Size",
+      "description": "",
+      "value": "4.04 mm"
+    },
+    {
+      "id": 3,
+      "name": null,
+      "title": null,
+      "description": null,
+      "value": "1024 0 0 0 "
+    },
+    {
+      "id": 4,
+      "name": "Auto ISO",
+      "title": "Auto ISO",
+      "description": "",
+      "value": "1.000"
+    },
+    {
+      "id": 4,
+      "name": "Shot ISO",
+      "title": "Shot ISO",
+      "description": "",
+      "value": "50"
+    },
+    {
+      "id": 4,
+      "name": "Measured EV",
+      "title": "Measured EV",
+      "description": "",
+      "value": "2.88 EV"
+    },
+    {
+      "id": 4,
+      "name": "Target Aperture",
+      "title": "Target Aperture",
+      "description": "",
+      "value": "2.80"
+    },
+    {
+      "id": 4,
+      "name": "Target Exposure Time",
+      "title": "Target Exposure Time",
+      "description": "",
+      "value": "1/15"
+    },
+    {
+      "id": 4,
+      "name": "Exposure Compensation",
+      "title": "Exposure Compensation",
+      "description": "",
+      "value": "0.00 EV"
+    },
+    {
+      "id": 4,
+      "name": "White Balance",
+      "title": "White Balance",
+      "description": "",
+      "value": "Auto"
+    },
+    {
+      "id": 4,
+      "name": "Slow Shutter",
+      "title": "Slow Shutter",
+      "description": "",
+      "value": "Off"
+    },
+    {
+      "id": 4,
+      "name": "Sequence Number",
+      "title": "Sequence Number",
+      "description": "",
+      "value": "0"
+    },
+    {
+      "id": 4,
+      "name": "Optical Zoom Code",
+      "title": "Optical Zoom Code",
+      "description": "",
+      "value": "0x0000"
+    },
+    {
+      "id": 4,
+      "name": null,
+      "title": null,
+      "description": "",
+      "value": "0x0000"
+    },
+    {
+      "id": 4,
+      "name": "Camera Temperature",
+      "title": "Camera Temperature",
+      "description": "",
+      "value": "0x0000"
+    },
+    {
+      "id": 4,
+      "name": "Flash Guide Number",
+      "title": "Flash Guide Number",
+      "description": "",
+      "value": "0.00"
+    },
+    {
+      "id": 4,
+      "name": "AF Point",
+      "title": "AF Point",
+      "description": "",
+      "value": "0x0000"
+    },
+    {
+      "id": 4,
+      "name": "Flash Exposure Compensation",
+      "title": "Flash Exposure Compensation",
+      "description": "",
+      "value": "0.00 EV"
+    },
+    {
+      "id": 4,
+      "name": "AE Bracketing",
+      "title": "AE Bracketing",
+      "description": "",
+      "value": "Off"
+    },
+    {
+      "id": 4,
+      "name": "AE Bracket Value",
+      "title": "AE Bracket Value",
+      "description": "",
+      "value": "0.00 EV"
+    },
+    {
+      "id": 4,
+      "name": "Control Mode",
+      "title": "Control Mode",
+      "description": "",
+      "value": "0x0001"
+    },
+    {
+      "id": 4,
+      "name": "Focus Distance Upper",
+      "title": "Focus Distance Upper",
+      "description": "",
+      "value": "95 mm"
+    },
+    {
+      "id": 4,
+      "name": "Focus Distance Lower",
+      "title": "Focus Distance Lower",
+      "description": "",
+      "value": "0 mm"
+    },
+    {
+      "id": 4,
+      "name": "F-Number",
+      "title": "F-Number",
+      "description": "",
+      "value": "2.89"
+    },
+    {
+      "id": 4,
+      "name": "Exposure Time",
+      "title": "Exposure Time",
+      "description": "",
+      "value": "1/14"
+    },
+    {
+      "id": 4,
+      "name": "Measured EV 2",
+      "title": "Measured EV 2",
+      "description": "",
+      "value": "0x0000"
+    },
+    {
+      "id": 4,
+      "name": "Bulb Duration",
+      "title": "Bulb Duration",
+      "description": "",
+      "value": "0x0000"
+    },
+    {
+      "id": 4,
+      "name": null,
+      "title": null,
+      "description": "",
+      "value": "0x0000"
+    },
+    {
+      "id": 4,
+      "name": "Camera Type",
+      "title": "Camera Type",
+      "description": "",
+      "value": "Compact"
+    },
+    {
+      "id": 4,
+      "name": "Auto Rotate",
+      "title": "Auto Rotate",
+      "description": "",
+      "value": "None"
+    },
+    {
+      "id": 4,
+      "name": "ND Filter",
+      "title": "ND Filter",
+      "description": "",
+      "value": "Off"
+    },
+    {
+      "id": 4,
+      "name": "Self-timer",
+      "title": "Self-timer",
+      "description": "",
+      "value": "Off"
+    },
+    {
+      "id": 4,
+      "name": null,
+      "title": null,
+      "description": "",
+      "value": "0x0000"
+    },
+    {
+      "id": 4,
+      "name": null,
+      "title": null,
+      "description": "",
+      "value": "0x0000"
+    },
+    {
+      "id": 4,
+      "name": null,
+      "title": null,
+      "description": "",
+      "value": "0x0000"
+    },
+    {
+      "id": 4,
+      "name": "Manual Flash Output",
+      "title": "Manual Flash Output",
+      "description": "",
+      "value": "Off"
+    },
+    {
+      "id": null,
+      "name": null,
+      "title": null,
+      "description": "",
+      "value": "0 0 0 0 0 0 "
+    },
+    {
+      "id": null,
+      "name": null,
+      "title": null,
+      "description": "",
+      "value": "0 0 0 0 "
+    },
+    {
+      "id": 18,
+      "name": "AFInfo",
+      "title": "AF Info",
+      "description": "",
+      "value": "5 5 2048 1536 2048 256 369 42 0 65166 0 370 0 65488 0 0 0 48 1 0 "
+    },
+    {
+      "id": 19,
+      "name": "ThumbnailValidArea",
+      "title": "Thumbnail Valid Area",
+      "description": "",
+      "value": "0 0 0 0 "
+    },
+    {
+      "id": 6,
+      "name": "ImageType",
+      "title": "Image Type",
+      "description": "",
+      "value": "IMG:PowerShot A70 JPEG"
+    },
+    {
+      "id": 7,
+      "name": "FirmwareVersion",
+      "title": "Firmware Version",
+      "description": "",
+      "value": "Firmware Version 1.00"
+    },
+    {
+      "id": 8,
+      "name": "ImageNumber",
+      "title": "Image Number",
+      "description": "",
+      "value": "151-5180"
+    },
+    {
+      "id": 9,
+      "name": "OwnerName",
+      "title": "Owner Name",
+      "description": "",
+      "value": ""
+    },
+    {
+      "id": 16,
+      "name": "ModelID",
+      "title": "Model ID",
+      "description": "",
+      "value": "19202048 "
+    },
+    {
+      "id": 13,
+      "name": "CameraInfo",
+      "title": "Camera Info",
+      "description": "",
+      "value": "68 9 32769 314 32769 313 311 312 32769 311 32769 64 0 0 221 0 0 10 0 0 10 651 186 5 0 942 0 0 0 0 0 167 0 0 "
+    }
+  ]
+}

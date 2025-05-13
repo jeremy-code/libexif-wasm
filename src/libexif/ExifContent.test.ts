@@ -22,22 +22,27 @@ describe("ExifContent", () => {
       exifContent.free();
     });
   });
-  describe("ExifData.from(data).ifd", () => {
-    test("should create an array of new ExifContent instances", async () => {
-      const testFixture = await getTestFixture("T-45A_Goshawk_03.jpg");
+  describe.each(["T-45A_Goshawk_03.jpg", "Sumo_Museum.jpg"])(
+    "ExifData.from(%s).ifd",
+    (testFixtureFile) => {
+      test("should create an array of new ExifContent instances", async () => {
+        const testFixture = await getTestFixture(testFixtureFile);
 
-      const exifData = ExifData.from(testFixture.buffer);
-      exifData.ifd.forEach((exifContent, index) => {
-        expect(exifContent).toBeInstanceOf(ExifContent);
-        expect(exifContent.byteOffset).toBeGreaterThan(0);
-        expect(exifContent).toHaveProperty("parentPtr", exifData.byteOffset);
-        expect(exifContent.getIfd()).not.toBeNull();
-        expect(exifContent.getIfd()).toBe(getEnumKeyFromValue(ExifIfd, index));
-        expect(exifContent.entries).toHaveLength(exifContent.count);
+        const exifData = ExifData.from(testFixture.buffer);
+        exifData.ifd.forEach((exifContent, index) => {
+          expect(exifContent).toBeInstanceOf(ExifContent);
+          expect(exifContent.byteOffset).toBeGreaterThan(0);
+          expect(exifContent).toHaveProperty("parentPtr", exifData.byteOffset);
+          expect(exifContent.getIfd()).not.toBeNull();
+          expect(exifContent.getIfd()).toBe(
+            getEnumKeyFromValue(ExifIfd, index),
+          );
+          expect(exifContent.entries).toHaveLength(exifContent.count);
+        });
+        exifData.free();
       });
-      exifData.free();
-    });
-  });
+    },
+  );
   describe("exifContent.addEntry()", () => {
     test("should add an entry to ExifContent", () => {
       const exifContent = ExifContent.new();

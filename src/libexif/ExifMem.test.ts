@@ -4,9 +4,9 @@ import { ExifMem } from "./ExifMem.ts";
 
 describe("ExifMem", () => {
   test("should create an ExifMem instance with the correct properties", () => {
-    const mem = ExifMem.new();
-    expect(mem).toBeInstanceOf(ExifMem);
-    expect(mem.byteOffset).toBeGreaterThan(0);
-    mem.unref();
+    const exifMem = ExifMem.new();
+    expect(exifMem).toBeInstanceOf(ExifMem);
+    expect(exifMem.byteOffset).toBeGreaterThan(0);
+    exifMem.unref();
   });
 });

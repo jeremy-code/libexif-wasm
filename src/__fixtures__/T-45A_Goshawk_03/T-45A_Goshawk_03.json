@@ -1,232 +1,236 @@
 {
-  "IFD_0": {
-    "MAKE": {
-      "format": "ASCII",
-      "value": "Canon",
-      "size": 6,
-      "components": 6,
-      "data": [67, 97, 110, 111, 110, 0]
+  "thumbnail": true,
+  "data": {
+    "IFD_0": {
+      "MAKE": {
+        "format": "ASCII",
+        "value": "Canon",
+        "size": 6,
+        "components": 6,
+        "data": [67, 97, 110, 111, 110, 0]
+      },
+      "MODEL": {
+        "components": 22,
+        "size": 22,
+        "format": "ASCII",
+        "value": "Canon PowerShot S5 IS",
+        "data": [
+          67, 97, 110, 111, 110, 32, 80, 111, 119, 101, 114, 83, 104, 111, 116,
+          32, 83, 53, 32, 73, 83, 0
+        ]
+      },
+      "ORIENTATION": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "Top-left",
+        "data": [0, 1]
+      },
+      "X_RESOLUTION": {
+        "components": 1,
+        "size": 8,
+        "format": "RATIONAL",
+        "value": "72.00000",
+        "data": [0, 72, 0, 0, 0, 1, 0, 0]
+      },
+      "Y_RESOLUTION": {
+        "components": 1,
+        "size": 8,
+        "format": "RATIONAL",
+        "value": "72.00000",
+        "data": [0, 72, 0, 0, 0, 1, 0, 0]
+      },
+      "RESOLUTION_UNIT": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "Inch",
+        "data": [0, 2]
+      },
+      "SOFTWARE": {
+        "components": 16,
+        "size": 16,
+        "format": "ASCII",
+        "value": "QuickTime 7.4.5",
+        "data": [
+          81, 117, 105, 99, 107, 84, 105, 109, 101, 32, 55, 46, 52, 46, 53, 0
+        ]
+      },
+      "DATE_TIME": {
+        "components": 20,
+        "size": 20,
+        "format": "ASCII",
+        "value": "2008:06:05 10:47:30",
+        "data": [
+          50, 48, 48, 56, 58, 48, 54, 58, 48, 53, 32, 49, 48, 58, 52, 55, 58,
+          51, 48, 0
+        ]
+      },
+      "YCBCR_POSITIONING": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "Centered",
+        "data": [0, 1]
+      }
     },
-    "MODEL": {
-      "components": 22,
-      "size": 22,
-      "format": "ASCII",
-      "value": "Canon PowerShot S5 IS",
-      "data": [
-        67, 97, 110, 111, 110, 32, 80, 111, 119, 101, 114, 83, 104, 111, 116,
-        32, 83, 53, 32, 73, 83, 0
-      ]
+    "IFD_1": {
+      "COMPRESSION": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "JPEG compression",
+        "data": [0, 6]
+      },
+      "X_RESOLUTION": {
+        "components": 1,
+        "size": 8,
+        "format": "RATIONAL",
+        "value": "72.00000",
+        "data": [0, 72, 0, 0, 0, 1, 0, 0]
+      },
+      "Y_RESOLUTION": {
+        "components": 1,
+        "size": 8,
+        "format": "RATIONAL",
+        "value": "72.00000",
+        "data": [0, 72, 0, 0, 0, 1, 0, 0]
+      },
+      "RESOLUTION_UNIT": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "Inch",
+        "data": [0, 2]
+      },
+      "YCBCR_POSITIONING": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "Centered",
+        "data": [0, 1]
+      }
     },
-    "ORIENTATION": {
-      "components": 1,
-      "size": 2,
-      "format": "SHORT",
-      "value": "Top-left",
-      "data": [0, 1]
-    },
-    "X_RESOLUTION": {
-      "components": 1,
-      "size": 8,
-      "format": "RATIONAL",
-      "value": "72.00000",
-      "data": [0, 72, 0, 0, 0, 1, 0, 0]
-    },
-    "Y_RESOLUTION": {
-      "components": 1,
-      "size": 8,
-      "format": "RATIONAL",
-      "value": "72.00000",
-      "data": [0, 72, 0, 0, 0, 1, 0, 0]
-    },
-    "RESOLUTION_UNIT": {
-      "components": 1,
-      "size": 2,
-      "format": "SHORT",
-      "value": "Inch",
-      "data": [0, 2]
-    },
-    "SOFTWARE": {
-      "components": 16,
-      "size": 16,
-      "format": "ASCII",
-      "value": "QuickTime 7.4.5",
-      "data": [
-        81, 117, 105, 99, 107, 84, 105, 109, 101, 32, 55, 46, 52, 46, 53, 0
-      ]
-    },
-    "DATE_TIME": {
-      "components": 20,
-      "size": 20,
-      "format": "ASCII",
-      "value": "2008:06:05 10:47:30",
-      "data": [
-        50, 48, 48, 56, 58, 48, 54, 58, 48, 53, 32, 49, 48, 58, 52, 55, 58, 51,
-        48, 0
-      ]
-    },
-    "YCBCR_POSITIONING": {
-      "components": 1,
-      "size": 2,
-      "format": "SHORT",
-      "value": "Centered",
-      "data": [0, 1]
+    "EXIF": {
+      "EXPOSURE_TIME": {
+        "components": 1,
+        "size": 8,
+        "format": "RATIONAL",
+        "value": "1/1600 sec.",
+        "data": [0, 0, 0, 1, 0, 0, 6, 64]
+      },
+      "FNUMBER": {
+        "components": 1,
+        "size": 8,
+        "format": "RATIONAL",
+        "value": "f/3.5",
+        "data": [0, 0, 0, 35, 0, 0, 0, 10]
+      },
+      "ISO_SPEED_RATINGS": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "100",
+        "data": [0, 100]
+      },
+      "EXIF_VERSION": {
+        "components": 4,
+        "size": 4,
+        "format": "UNDEFINED",
+        "value": "Exif Version 2.2",
+        "data": [48, 50, 50, 48]
+      },
+      "DATE_TIME_ORIGINAL": {
+        "components": 20,
+        "size": 20,
+        "format": "ASCII",
+        "value": "2008:06:04 12:51:32",
+        "data": [
+          50, 48, 48, 56, 58, 48, 54, 58, 48, 52, 32, 49, 50, 58, 53, 49, 58,
+          51, 50, 0
+        ]
+      },
+      "DATE_TIME_DIGITIZED": {
+        "components": 20,
+        "size": 20,
+        "format": "ASCII",
+        "value": "2008:06:04 12:51:32",
+        "data": [
+          50, 48, 48, 56, 58, 48, 54, 58, 48, 52, 32, 49, 50, 58, 53, 49, 58,
+          51, 50, 0
+        ]
+      },
+      "SHUTTER_SPEED_VALUE": {
+        "components": 1,
+        "size": 8,
+        "format": "SRATIONAL",
+        "value": "10.66 EV (1/1614 sec.)",
+        "data": [0, 0, 1, 85, 0, 0, 0, 32]
+      },
+      "APERTURE_VALUE": {
+        "components": 1,
+        "size": 8,
+        "format": "RATIONAL",
+        "value": "3.62 EV (f/3.5)",
+        "data": [0, 0, 0, 116, 0, 0, 0, 32]
+      },
+      "EXPOSURE_BIAS_VALUE": {
+        "components": 1,
+        "size": 8,
+        "format": "SRATIONAL",
+        "value": "0.00 EV",
+        "data": [0, 0, 0, 0, 0, 0, 0, 3]
+      },
+      "MAX_APERTURE_VALUE": {
+        "components": 1,
+        "size": 8,
+        "format": "RATIONAL",
+        "value": "3.62 EV (f/3.5)",
+        "data": [0, 0, 0, 116, 0, 0, 0, 32]
+      },
+      "METERING_MODE": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "Pattern",
+        "data": [0, 5]
+      },
+      "FLASH": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "Flash did not fire, compulsory flash mode",
+        "data": [0, 16]
+      },
+      "FOCAL_LENGTH": {
+        "components": 1,
+        "size": 8,
+        "format": "RATIONAL",
+        "value": "26.0 mm",
+        "data": [0, 0, 101, 144, 0, 0, 3, 232]
+      },
+      "COLOR_SPACE": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "sRGB",
+        "data": [0, 1]
+      },
+      "SENSING_METHOD": {
+        "components": 1,
+        "size": 2,
+        "format": "SHORT",
+        "value": "One-chip color area sensor",
+        "data": [0, 2]
+      },
+      "FLASH_PIX_VERSION": {
+        "components": 4,
+        "size": 4,
+        "format": "UNDEFINED",
+        "value": "FlashPix Version 1.0",
+        "data": [48, 49, 48, 48]
+      }
     }
   },
-  "IFD_1": {
-    "COMPRESSION": {
-      "components": 1,
-      "size": 2,
-      "format": "SHORT",
-      "value": "JPEG compression",
-      "data": [0, 6]
-    },
-    "X_RESOLUTION": {
-      "components": 1,
-      "size": 8,
-      "format": "RATIONAL",
-      "value": "72.00000",
-      "data": [0, 72, 0, 0, 0, 1, 0, 0]
-    },
-    "Y_RESOLUTION": {
-      "components": 1,
-      "size": 8,
-      "format": "RATIONAL",
-      "value": "72.00000",
-      "data": [0, 72, 0, 0, 0, 1, 0, 0]
-    },
-    "RESOLUTION_UNIT": {
-      "components": 1,
-      "size": 2,
-      "format": "SHORT",
-      "value": "Inch",
-      "data": [0, 2]
-    },
-    "YCBCR_POSITIONING": {
-      "components": 1,
-      "size": 2,
-      "format": "SHORT",
-      "value": "Centered",
-      "data": [0, 1]
-    }
-  },
-  "EXIF": {
-    "EXPOSURE_TIME": {
-      "components": 1,
-      "size": 8,
-      "format": "RATIONAL",
-      "value": "1/1600 sec.",
-      "data": [0, 0, 0, 1, 0, 0, 6, 64]
-    },
-    "FNUMBER": {
-      "components": 1,
-      "size": 8,
-      "format": "RATIONAL",
-      "value": "f/3.5",
-      "data": [0, 0, 0, 35, 0, 0, 0, 10]
-    },
-    "ISO_SPEED_RATINGS": {
-      "components": 1,
-      "size": 2,
-      "format": "SHORT",
-      "value": "100",
-      "data": [0, 100]
-    },
-    "EXIF_VERSION": {
-      "components": 4,
-      "size": 4,
-      "format": "UNDEFINED",
-      "value": "Exif Version 2.2",
-      "data": [48, 50, 50, 48]
-    },
-    "DATE_TIME_ORIGINAL": {
-      "components": 20,
-      "size": 20,
-      "format": "ASCII",
-      "value": "2008:06:04 12:51:32",
-      "data": [
-        50, 48, 48, 56, 58, 48, 54, 58, 48, 52, 32, 49, 50, 58, 53, 49, 58, 51,
-        50, 0
-      ]
-    },
-    "DATE_TIME_DIGITIZED": {
-      "components": 20,
-      "size": 20,
-      "format": "ASCII",
-      "value": "2008:06:04 12:51:32",
-      "data": [
-        50, 48, 48, 56, 58, 48, 54, 58, 48, 52, 32, 49, 50, 58, 53, 49, 58, 51,
-        50, 0
-      ]
-    },
-    "SHUTTER_SPEED_VALUE": {
-      "components": 1,
-      "size": 8,
-      "format": "SRATIONAL",
-      "value": "10.66 EV (1/1614 sec.)",
-      "data": [0, 0, 1, 85, 0, 0, 0, 32]
-    },
-    "APERTURE_VALUE": {
-      "components": 1,
-      "size": 8,
-      "format": "RATIONAL",
-      "value": "3.62 EV (f/3.5)",
-      "data": [0, 0, 0, 116, 0, 0, 0, 32]
-    },
-    "EXPOSURE_BIAS_VALUE": {
-      "components": 1,
-      "size": 8,
-      "format": "SRATIONAL",
-      "value": "0.00 EV",
-      "data": [0, 0, 0, 0, 0, 0, 0, 3]
-    },
-    "MAX_APERTURE_VALUE": {
-      "components": 1,
-      "size": 8,
-      "format": "RATIONAL",
-      "value": "3.62 EV (f/3.5)",
-      "data": [0, 0, 0, 116, 0, 0, 0, 32]
-    },
-    "METERING_MODE": {
-      "components": 1,
-      "size": 2,
-      "format": "SHORT",
-      "value": "Pattern",
-      "data": [0, 5]
-    },
-    "FLASH": {
-      "components": 1,
-      "size": 2,
-      "format": "SHORT",
-      "value": "Flash did not fire, compulsory flash mode",
-      "data": [0, 16]
-    },
-    "FOCAL_LENGTH": {
-      "components": 1,
-      "size": 8,
-      "format": "RATIONAL",
-      "value": "26.0 mm",
-      "data": [0, 0, 101, 144, 0, 0, 3, 232]
-    },
-    "COLOR_SPACE": {
-      "components": 1,
-      "size": 2,
-      "format": "SHORT",
-      "value": "sRGB",
-      "data": [0, 1]
-    },
-    "SENSING_METHOD": {
-      "components": 1,
-      "size": 2,
-      "format": "SHORT",
-      "value": "One-chip color area sensor",
-      "data": [0, 2]
-    },
-    "FLASH_PIX_VERSION": {
-      "components": 4,
-      "size": 4,
-      "format": "UNDEFINED",
-      "value": "FlashPix Version 1.0",
-      "data": [48, 49, 48, 48]
-    }
-  }
+  "mnoteData": null
 }

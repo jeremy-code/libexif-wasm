@@ -91,6 +91,7 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
   }
 
   set data(data: Uint8Array) {
+    this.size = data.length;
     const dataPtr = malloc(data.byteLength);
     HEAPU8.set(data, dataPtr);
     this.dataPtr = dataPtr;
