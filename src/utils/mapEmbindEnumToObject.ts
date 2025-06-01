@@ -26,6 +26,12 @@ const mapEmbindEnumToObject = <T extends Record<PropertyKey, unknown>>(
     .map(([key, value]) => [key, value.value] as const);
 
   const enumObject: EmbindEnumObject<T> = Object.assign(
+    /**
+     * Using `Object.setPrototypeOf` has performance implications, hence,
+     * `Object.create(null)` is used to create object with null prototype
+     *
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/setPrototypeOf}
+     */
     Object.create(null),
     Object.fromEntries(entries),
   );

@@ -20,12 +20,14 @@ describe("ExifMnoteData", () => {
         expect(mnoteData?.dataCount()).toBe(expectedMnoteData?.length);
         expect(mnoteData).toHaveProperty("data", expectedMnoteData);
 
-        expectedMnoteData?.forEach((entry, index) => {
-          expect(mnoteData?.getId(index)).toBe(entry.id);
-          expect(mnoteData?.getName(index)).toBe(entry.name);
-          expect(mnoteData?.getTitle(index)).toBe(entry.title);
-          expect(mnoteData?.getDescription(index)).toBe(entry.description);
-          expect(mnoteData?.getValue(index)).toBe(entry.value);
+        expectedMnoteData?.forEach((exifMnoteEntry, index) => {
+          expect(mnoteData?.getId(index)).toBe(exifMnoteEntry.id);
+          expect(mnoteData?.getName(index)).toBe(exifMnoteEntry.name);
+          expect(mnoteData?.getTitle(index)).toBe(exifMnoteEntry.title);
+          expect(mnoteData?.getDescription(index)).toBe(
+            exifMnoteEntry.description,
+          );
+          expect(mnoteData?.getValue(index)).toBe(exifMnoteEntry.value);
         });
 
         exifData.free();

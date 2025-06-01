@@ -19,5 +19,5 @@
   },
 
   //  Lifecycle scripts
-  "postCreateCommand": ". ${NVM_DIR}/nvm.sh && nvm install && corepack install && corepack enable && pnpm config set storeDir $HOME/.local/share/pnpm/store && pnpm install --force && pnpm build:libexif && pnpm compile"
+  "postCreateCommand": ". ${NVM_DIR}/nvm.sh && nvm install && corepack install && corepack enable && pnpm config set storeDir ${HOME}/.local/share/pnpm/store && pnpm install --force && pnpm build:libexif && pnpm compile"
 }

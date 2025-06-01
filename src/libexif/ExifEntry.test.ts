@@ -1,7 +1,7 @@
 import { describe, expect, test } from "@jest/globals";
 
 import { ExifData } from "./ExifData.ts";
-import { ExifEntry } from "./ExifEntry";
+import { ExifEntry } from "./ExifEntry.ts";
 import { EXIF_SENTINEL_TAG } from "./ExifTag.ts";
 import { ExifIfd } from "../enums/ExifIfd.ts";
 
@@ -32,8 +32,8 @@ describe("ExifEntry", () => {
       const exifEntry = ExifEntry.new();
       exifEntry.format = "ASCII";
       exifEntry.tag = "MAKE";
-      expect(exifEntry.format).toBe("ASCII");
-      expect(exifEntry.tag).toBe("MAKE");
+      expect(exifEntry).toHaveProperty("format", "ASCII");
+      expect(exifEntry).toHaveProperty("tag", "MAKE");
       expect(exifEntry.getValue()).toBe("");
       exifEntry.free();
     });
@@ -43,10 +43,7 @@ describe("ExifEntry", () => {
       const exifEntry = ExifEntry.new();
       exifEntry.format = "ASCII";
       exifEntry.tag = "MAKE";
-      const data = Uint8Array.from([
-        ...Buffer.from(EXPECTED_ASCII_VALUE, "ascii"),
-        0x00, // Null terminator
-      ]);
+      const data = Buffer.from(`${EXPECTED_ASCII_VALUE}\0`, "ascii");
       exifEntry.components = data.length;
       exifEntry.data = data;
       /**
@@ -60,6 +57,23 @@ describe("ExifEntry", () => {
       const exifContent = exifData.ifd[ExifIfd.IFD_0];
       exifContent.addEntry(exifEntry);
       expect(exifEntry.getValue()).toBe(EXPECTED_ASCII_VALUE);
+      exifContent.removeEntry(exifEntry);
+      exifEntry.free();
+      exifData.free();
+    });
+    test("should return byte value", () => {
+      const EXPECTED_BYTE_VALUE = 0x2a; // 42
+      const exifEntry = ExifEntry.new();
+      exifEntry.format = "BYTE";
+      exifEntry.tag = "JPEG_INTERCHANGE_FORMAT";
+      exifEntry.components = 1;
+      exifEntry.data = new Uint8Array([EXPECTED_BYTE_VALUE]);
+      const exifData = ExifData.new();
+      const exifContent = exifData.ifd[ExifIfd.IFD_0];
+      exifContent.addEntry(exifEntry);
+      expect(exifEntry.getValue()).toBe(
+        `0x${EXPECTED_BYTE_VALUE.toString(16)}`,
+      );
       exifContent.removeEntry(exifEntry);
       exifEntry.free();
       exifData.free();

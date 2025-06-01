@@ -28,7 +28,7 @@ describe("ExifContent", () => {
       test("should create an array of new ExifContent instances", async () => {
         const testFixture = await getTestFixture(testFixtureFile);
 
-        const exifData = ExifData.from(testFixture.buffer);
+        const exifData = ExifData.newFromData(testFixture.buffer);
         exifData.ifd.forEach((exifContent, index) => {
           expect(exifContent).toBeInstanceOf(ExifContent);
           expect(exifContent.byteOffset).toBeGreaterThan(0);

@@ -1,6 +1,13 @@
 import { describe, test, expect } from "@jest/globals";
 
 import { exifFormatGetName, exifFormatGetSize } from "./exifFormat.ts";
+import type { ExifFormatKey } from "../enums/ExifFormat.ts";
+
+type ExifFormatTableItem = {
+  format: ExifFormatKey;
+  expectedName: string;
+  expectedSize: number;
+};
 
 const EXIF_FORMAT_TABLE = [
   { format: "BYTE", expectedName: "Byte", expectedSize: 1 },
@@ -15,7 +22,7 @@ const EXIF_FORMAT_TABLE = [
   { format: "SRATIONAL", expectedName: "SRational", expectedSize: 8 },
   { format: "FLOAT", expectedName: "Float", expectedSize: 4 },
   { format: "DOUBLE", expectedName: "Double", expectedSize: 8 },
-] as const;
+] satisfies ExifFormatTableItem[];
 
 describe.each(EXIF_FORMAT_TABLE)(
   'exifFormatGetName("$format")',

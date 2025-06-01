@@ -11,7 +11,6 @@ export const {
   HEAPF64,
   addRunDependency,
   removeRunDependency,
-  FS,
 
   // libcore.js
   ptrToString,

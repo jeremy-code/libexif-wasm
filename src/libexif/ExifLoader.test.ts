@@ -18,7 +18,7 @@ describe("ExifLoader", () => {
   describe.each(["T-45A_Goshawk_03.jpg", "Sumo_Museum.jpg"])(
     "exifLoader.write(%s)",
     (testFixtureFile) => {
-      test("should create a new ExifLoader instance", async () => {
+      test("should write data to ExifLoader instance", async () => {
         const exifLoader = ExifLoader.new();
         expect(exifLoader.getBuf()).toBeNull();
         expect(exifLoader.getData()).toBeNull();
@@ -37,6 +37,10 @@ describe("ExifLoader", () => {
         expect(exifData).not.toBeNull();
         expect(exifData).toBeInstanceOf(ExifData);
         expect(exifData?.byteOffset).toBeGreaterThan(0);
+
+        exifLoader.reset();
+        expect(exifLoader.getBuf()).toBeNull();
+        expect(exifLoader.getData()).toBeNull();
 
         exifData?.free();
         exifLoader.unref();

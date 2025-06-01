@@ -7,12 +7,15 @@ import {
   exifDataOptionGetName,
 } from "./ExifData.ts";
 import { ExifEntry } from "./ExifEntry.ts";
-import { getTestFixture } from "../__utils__/getTestFixture.ts";
+import {
+  type TestFixture,
+  getTestFixture,
+} from "../__utils__/getTestFixture.ts";
 import { ExifIfd } from "../enums/ExifIfd.ts";
 import type { ExifTagKey } from "../enums/ExifTag.ts";
+import type { Entry } from "../interfaces.ts";
 
 describe("ExifData", () => {
-  // static methods
   describe("ExifData.new()", () => {
     test("should create a new ExifData instance", () => {
       const exifData = ExifData.new();
@@ -65,37 +68,39 @@ describe("ExifData", () => {
           expect(exifContent).toHaveProperty("entries");
         });
 
-        Object.entries(testFixture.json.data).forEach(
-          ([dataIfdName, dataEntries]) => {
-            const ifd = exifData.ifd[ExifIfd[dataIfdName]];
-            const entries = Object.entries(dataEntries);
-            expect(ifd.count).toBe(entries.length);
-            expect(ifd.entries).toHaveLength(entries.length);
+        (
+          Object.entries(testFixture.json.data) as Entry<
+            TestFixture["json"]["data"]
+          >[]
+        ).forEach(([dataIfdName, dataEntries]) => {
+          const ifd = exifData.ifd[ExifIfd[dataIfdName]];
+          const entries = Object.entries(dataEntries);
+          expect(ifd).toHaveProperty("count", entries.length);
+          expect(ifd?.entries).toHaveLength(entries.length);
 
-            entries.forEach(([tag, expectedExifEntry]) => {
-              const exifEntry = ifd.getEntry(tag as ExifTagKey);
+          entries.forEach(([tag, expectedExifEntry]) => {
+            const exifEntry = ifd?.getEntry(tag as ExifTagKey);
 
-              expect(exifEntry).not.toBeNull();
-              expect(exifEntry).toBeInstanceOf(ExifEntry);
+            expect(exifEntry).not.toBeNull();
+            expect(exifEntry).toBeInstanceOf(ExifEntry);
 
-              expect(exifEntry).toHaveProperty("tag", tag);
-              expect(exifEntry).toHaveProperty(
-                "components",
-                expectedExifEntry.components,
-              );
-              expect(exifEntry).toHaveProperty("size", expectedExifEntry.size);
-              expect(exifEntry).toHaveProperty(
-                "format",
-                expectedExifEntry.format,
-              );
-              expect(exifEntry).toHaveProperty(
-                "data",
-                Uint8Array.from(expectedExifEntry.data),
-              );
-              expect(exifEntry?.getValue()).toEqual(expectedExifEntry.value);
-            });
-          },
-        );
+            expect(exifEntry).toHaveProperty("tag", tag);
+            expect(exifEntry).toHaveProperty(
+              "components",
+              expectedExifEntry.components,
+            );
+            expect(exifEntry).toHaveProperty("size", expectedExifEntry.size);
+            expect(exifEntry).toHaveProperty(
+              "format",
+              expectedExifEntry.format,
+            );
+            expect(exifEntry).toHaveProperty(
+              "data",
+              Uint8Array.from(expectedExifEntry.data),
+            );
+            expect(exifEntry?.getValue()).toEqual(expectedExifEntry.value);
+          });
+        });
 
         expect(exifData.getByteOrder()).toBe("MOTOROLA");
         expect(exifData.getMnoteData() === null).toBe(

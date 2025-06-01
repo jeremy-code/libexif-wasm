@@ -27,7 +27,7 @@ describe("getPtrArray", () => {
     const stringArr = ["foo", "bar", "baz", "qux"];
 
     const arrayPtr = calloc(stringArr.length, POINTER_SIZE);
-    const stringPtrArr = stringArr.map((str, index) => {
+    const stringPtrArr = stringArr.map<number>((str, index) => {
       const stringPtr = stringToNewUTF8(str);
       setValue(arrayPtr + index * POINTER_SIZE, stringPtr, "*");
       return stringPtr;
@@ -53,8 +53,8 @@ describe("getPtrArray", () => {
       return numberPtr;
     });
 
-    const numArrayPtr = getPtrArray(arrayPtr, numberArr.length).map((ptr) =>
-      getValue(ptr, "i32"),
+    const numArrayPtr = getPtrArray(arrayPtr, numberArr.length).map<number>(
+      (ptr) => getValue(ptr, "i32"),
     );
 
     expect(numArrayPtr).toHaveLength(numberArr.length);

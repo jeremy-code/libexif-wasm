@@ -1,6 +1,7 @@
 import { describe, expect, test } from "@jest/globals";
 
 import { exifIfdGetName } from "./exifIfd.ts";
+import type { ExifIfdKey } from "../enums/ExifIfd.ts";
 
 const EXIF_IFD_TABLE = [
   { ifd: "IFD_0", expectedName: "0" },
@@ -9,7 +10,7 @@ const EXIF_IFD_TABLE = [
   { ifd: "GPS", expectedName: "GPS" },
   { ifd: "INTEROPERABILITY", expectedName: "Interoperability" },
   { ifd: "COUNT", expectedName: null },
-] as const;
+] satisfies { ifd: ExifIfdKey; expectedName: string | null }[];
 
 describe.each(EXIF_IFD_TABLE)(
   'exifIfdGetName("$ifd")',

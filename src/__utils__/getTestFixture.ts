@@ -1,5 +1,5 @@
 import { readFile } from "node:fs/promises";
-import { basename, extname } from "node:path";
+import { parse } from "node:path";
 
 import type { ExifFormatKey } from "../enums/ExifFormat.ts";
 import type { ExifIfdKey } from "../enums/ExifIfd.ts";
@@ -22,14 +22,18 @@ type TestFixtureMNoteData = {
 }[];
 
 type TestFixture = {
-  buffer: Buffer;
+  buffer: Buffer<ArrayBufferLike>;
   json: {
-    thumbnail: boolean;
-    data: Record<ExifIfdKey, Record<ExifTagKey, TestFixtureDataEntry>>;
+    data: Record<
+      Exclude<ExifIfdKey, "COUNT">,
+      Partial<Record<ExifTagKey, TestFixtureDataEntry>>
+    >;
     mnoteData: TestFixtureMNoteData | null;
   };
-  thumbnail?: Buffer;
-};
+} & (
+  | { json: { thumbnail: false }; thumbnail?: undefined }
+  | { json: { thumbnail: true }; thumbnail: Buffer }
+);
 
 const TEST_FIXTURE_DIR = new URL("../__fixtures__/", import.meta.url);
 
@@ -40,26 +44,24 @@ const TEST_FIXTURE_DIR = new URL("../__fixtures__/", import.meta.url);
  * @param file - The name of the test fixture file (with extension)
  */
 const getTestFixture = async (file: string): Promise<TestFixture> => {
-  const fileExtension = extname(file);
-  const testFixtureId = basename(file, fileExtension);
+  const { name: testFixtureId, ext: fileExtension } = parse(file);
   const filePath = new URL(`./${testFixtureId}/${file}`, TEST_FIXTURE_DIR);
 
+  const bufferPromise = readFile(filePath);
   const dataPromise = import(
     new URL(`./${testFixtureId}.json`, filePath).href,
     { with: { type: "json" } }
   );
-  const bufferPromise = readFile(filePath, { flag: "r" });
-  const [data, buffer] = await Promise.all([dataPromise, bufferPromise]);
+  const [buffer, jsonData] = await Promise.all([bufferPromise, dataPromise]);
 
   const thumbnail =
-    data?.default?.thumbnail ?
+    jsonData?.default?.thumbnail ?
       await readFile(
         new URL(`./${testFixtureId}_thumbnail${fileExtension}`, filePath),
-        { flag: "r" },
       )
     : undefined;
 
-  return { buffer, json: data?.default, thumbnail };
+  return { buffer, json: jsonData?.default, thumbnail };
 };
 
-export { getTestFixture };
+export { type TestFixture, getTestFixture };

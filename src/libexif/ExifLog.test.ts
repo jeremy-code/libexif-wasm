@@ -6,6 +6,13 @@ import {
   exifLogCodeGetTitle,
 } from "./ExifLog.ts";
 import { ExifMem } from "./ExifMem.ts";
+import type { ExifLogCodeKey } from "../enums/ExifLogCode.ts";
+
+type ExifLogCodeTableItem = {
+  code: ExifLogCodeKey;
+  expectedTitle: string | null;
+  expectedMessage: string | null;
+};
 
 const EXIF_LOG_CODE_TABLE = [
   { code: "NONE", expectedTitle: null, expectedMessage: null },
@@ -24,7 +31,7 @@ const EXIF_LOG_CODE_TABLE = [
     expectedTitle: "Corrupt data",
     expectedMessage: "The data provided does not follow the specification.",
   },
-] as const;
+] satisfies ExifLogCodeTableItem[];
 
 describe.each(EXIF_LOG_CODE_TABLE)(
   'exifLogCodeGetTitle("$code")',

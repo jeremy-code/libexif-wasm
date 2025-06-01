@@ -5,10 +5,12 @@ import {
   exifTagTableCount,
   exifTagTableGetTag,
   EXIF_SENTINEL_TAG,
-} from "./ExifTag";
-import { ExifIfd } from "../enums/ExifIfd.ts";
+} from "./ExifTag.ts";
+import { ExifIfd, type ExifIfdKey } from "../enums/ExifIfd.ts";
 import { UTF8ToString } from "../internal/emscripten.ts";
 import { exif_tag_get_name_in_ifd } from "../internal/libexif/exifTag.ts";
+
+type ExifTagTableItem = { tag: number | null; name: string };
 
 /**
  * Internally, `ExifTagTable[]` is an array of `TagEntry` structs that serve as
@@ -21,8 +23,8 @@ import { exif_tag_get_name_in_ifd } from "../internal/libexif/exifTag.ts";
  */
 const EXIF_TAG_TABLE = Array.from({ length: exifTagTableCount() }, (_, i) => ({
   tag: exifTagTableGetTag(i), // Tags may be duplicated among IFDs
-  name: exifTagTableGetName(i) as string,
-})).filter((entry) => entry.tag !== 0 || entry.name !== null);
+  name: exifTagTableGetName(i),
+})).filter((entry): entry is ExifTagTableItem => entry.name !== null);
 
 describe("EXIF_TAG_TABLE", () => {
   test("should be an array", () => {
@@ -42,7 +44,12 @@ const EXIF_IFD_POINTER = {
   ExifIfdPointer: "EXIF",
   GPSInfoIFDPointer: "GPS",
   InteroperabilityIFDPointer: "INTEROPERABILITY",
-};
+} satisfies Partial<Record<string, ExifIfdKey>>;
+
+const isExifIfdPointer = (
+  name: unknown,
+): name is keyof typeof EXIF_IFD_POINTER =>
+  typeof name === "string" && name in EXIF_IFD_POINTER;
 
 describe.each(EXIF_TAG_TABLE)("EXIF_TAG_TABLE", ({ tag, name }) => {
   test(`${tag} should be a valid tag number`, () => {
@@ -52,28 +59,32 @@ describe.each(EXIF_TAG_TABLE)("EXIF_TAG_TABLE", ({ tag, name }) => {
   });
   test(`${name} should be a valid name`, () => {
     expect(name).not.toBeNull();
+    expect(name).not.toHaveLength(0);
     expect(name!.length).toBeGreaterThan(0);
   });
   test(`should exist ifd where getNameInIfd("${tag}", ifd) returns "${name}"`, () => {
     const ifd =
-      EXIF_IFD_POINTER[name] ??
-      Array.from(ExifIfd).find(
-        ([, value]) =>
-          UTF8ToString(exif_tag_get_name_in_ifd(tag!, value)) === name,
-      );
+      isExifIfdPointer(name) ?
+        EXIF_IFD_POINTER[name]
+      : Array.from(ExifIfd).find(
+          ([, value]) =>
+            UTF8ToString(exif_tag_get_name_in_ifd(tag!, value)) === name,
+        );
 
     expect(ifd).toBeDefined();
   });
 });
 
 describe("Sentinel TagEntry in ExifTagTable[]", () => {
-  test("exifTagTableGetTag() should return 0", () => {
-    const tag = exifTagTableGetTag(EXIF_SENTINEL_TAG);
-    expect(tag).toBe(0);
+  describe("exifTagTableGetTag(EXIF_SENTINEL_TAG)", () => {
+    test("should return 0", () => {
+      expect(exifTagTableGetTag(EXIF_SENTINEL_TAG)).toBe(0);
+    });
   });
-  test("exifTagTableGetName() should return null", () => {
-    const name = exifTagTableGetName(EXIF_SENTINEL_TAG);
-    expect(name).toBeNull();
+  describe("exifTagTableGetName(EXIF_SENTINEL_TAG)", () => {
+    test("should return null", () => {
+      expect(exifTagTableGetName(EXIF_SENTINEL_TAG)).toBeNull();
+    });
   });
 });
 
@@ -87,6 +98,6 @@ describe("Non-sentinel TagEntry in ExifTagTable[]", () => {
   test("exifTagTableGetName() should return a valid name", () => {
     const name = exifTagTableGetName(EXIF_SENTINEL_TAG - 1);
     expect(name).not.toBeNull();
-    expect(name!.length).toBeGreaterThan(0);
+    expect(name).not.toHaveLength(0);
   });
 });

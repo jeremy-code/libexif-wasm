@@ -47,7 +47,7 @@ class ExifMnoteData implements DataSegment {
   /**
    * Since `exif_mnote_data_save()` requires getting the value of the parameters
    * inputted into the function, which I believe cannot be done in Emscripten,
-   * we will not implement this function.
+   * this function is not implemented
    *
    * @throws {ReferenceError} if {@link ExifMnoteData.save} is called
    */
@@ -65,7 +65,8 @@ class ExifMnoteData implements DataSegment {
   }
 
   /**
-   * Return the MakerNote tag number for the tag at the specified index within the MakerNote.
+   * Return the MakerNote tag number for the tag at the specified index within
+   * the MakerNote
    *
    * @param n index of the entry within the MakerNote data
    * @returns MakerNote tag number
@@ -128,7 +129,6 @@ class ExifMnoteData implements DataSegment {
     if (bufferPtr !== 0) {
       free(bufferPtr);
     }
-
     return value;
   }
 
@@ -137,8 +137,8 @@ class ExifMnoteData implements DataSegment {
   }
 
   /**
-   * Not part of the original C API. Be careful when using this function since `getValue`
-   * allocates a fixed size buffer of `MAX_LENGTH` bytes.
+   * Not part of the original C API. Be careful when using this function since
+   * `getValue` allocates a fixed size buffer of `MAX_LENGTH` bytes.
    */
   get data() {
     return Array.from({ length: this.dataCount() }, (_, index) => ({

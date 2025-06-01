@@ -1,8 +1,16 @@
 # libexif-wasm
 
-This library is a WebAssembly port of the [libexif](https://libexif.github.io/) C library, which is used for parsing, editing, and saving EXIF metadata in images. It intends to be a faithful port of the original library, with all functions and features avaliable in the original library.
+<!-- Link references -->
 
-It follows that the API is low-level and may not be user-friendly. Consider using one of these libraries if you are looking for a different API:
+[npm-package]: https://www.npmjs.com/package/libexif-wasm
+[license-badge]: https://img.shields.io/github/license/jeremy-code/libexif-wasm
+[npm-version-badge]: https://img.shields.io/npm/v/libexif-wasm
+
+[![License][license-badge]](LICENSE) [![NPM version][npm-version-badge]][npm-package]
+
+This library is a WebAssembly port of the [libexif](https://libexif.github.io/) C library, which is used for parsing, editing, and saving EXIF metadata in images. It intends to be a faithful port of the original library and provide all of its functions and features.
+
+Hence, it follows that the API is low-level and may not be user-friendly. Consider using one of these libraries if you are looking for a different API:
 
 - [exifreader](https://www.npmjs.com/package/exifreader) by Mattias Wallander ([@mattiasw](https://github.com/mattiasw)) - A JavaScript Exif info parser
 - [exif-reader](https://www.npmjs.com/package/exif-reader) by Devon Govett ([@devongovett](https://github.com/devongovett)) - A small EXIF image metadata reader
@@ -18,14 +26,14 @@ pnpm add libexif-wasm    # pnpm
 
 ## Usage
 
-The library can be used in both Node.js and browser environments.
+The library can be used in both browser environments and Node.js.
 
 ```ts
 import { ExifData, ExifIfd } from "libexif-wasm";
 
 // Get the image data
-const data = await fetch("path/to/image.jpg").then((res) => res.arrayBuffer()); // Fetch
-const data = (await readFile("path/to/image.jpg")).buffer; // Node.js fs
+const data = await fetch("path/to/image.jpg").then((res) => res.arrayBuffer()); // Fetch API
+const data = (await readFile("path/to/image.jpg")).buffer; // Node.js `fs/promises`
 const data = await formData.get("file").arrayBuffer(); // FormData
 const data = await file.arrayBuffer(); // File API
 

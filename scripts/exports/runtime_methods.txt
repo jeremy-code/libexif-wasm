@@ -8,7 +8,6 @@ HEAPF32
 HEAPF64
 addRunDependency
 removeRunDependency
-FS
 # libcore.js
 ptrToString
 warnOnce

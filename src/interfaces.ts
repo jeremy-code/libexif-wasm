@@ -33,12 +33,14 @@ interface DataSegment {
   ref: () => void;
   /**
    * Decrements the reference count, possibly freeing the data segment
+   *
+   * @see {@link DataSegment.ref}
    */
   unref: () => void;
 }
 
-type DisposableDataSegment = DataSegment &
-  Disposable & {
+type DisposableDataSegment = Disposable &
+  DataSegment & {
     /**
      * Deallocates the memory used by the data segment
      */
@@ -49,10 +51,9 @@ type DisposableDataSegment = DataSegment &
  * A labeled tuple of valid keys and values from a type `T` with an index
  * signature
  */
-type Entry<T extends Record<PropertyKey, unknown>> = [
-  key: keyof T,
-  value: T[keyof T],
-];
+type Entry<T extends Record<PropertyKey, unknown>> = {
+  [Key in keyof T]: [key: Key, value: T[Key]];
+}[keyof T];
 
 /**
  * In C, enums were not allowed to have a value that was not an `int` until the

@@ -1,11 +1,11 @@
 {
   "name": "libexif-wasm",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "description": "JavaScript bindings for libexif compiled to WebAssembly",
   "scripts": {
     "prepare": "husky",
-    "build": "tsc",
+    "build": "tsc --build",
     "build:libexif": "./scripts/build.sh",
     "compile": "./scripts/compile.sh",
     "typecheck": "tsc --noEmit",
@@ -74,21 +74,21 @@
     "./output/libexif.wasm": "./dist/output/libexif.wasm"
   },
   "devDependencies": {
-    "@eslint/js": "^9.26.0",
+    "@eslint/js": "^9.28.0",
     "@jest/globals": "^29.7.0",
-    "@types/node": "^22.15.3",
-    "eslint": "^9.26.0",
-    "eslint-import-resolver-typescript": "^4.3.4",
-    "eslint-plugin-import-x": "^4.11.0",
-    "eslint-plugin-jest": "^28.11.0",
+    "@types/node": "^22.15.29",
+    "eslint": "^9.28.0",
+    "eslint-import-resolver-typescript": "^4.4.1",
+    "eslint-plugin-import-x": "^4.14.1",
+    "eslint-plugin-jest": "^28.12.0",
     "husky": "^9.1.7",
     "jest": "^29.7.0",
     "jest-config": "^29.7.0",
-    "lint-staged": "^15.5.1",
+    "lint-staged": "^16.1.0",
     "prettier": "^3.5.3",
-    "ts-jest": "^29.3.2",
+    "ts-jest": "^29.3.4",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.31.1"
+    "typescript-eslint": "^8.33.0"
   },
   "engines": {
     "node": ">=16.0.0"
@@ -98,5 +98,5 @@
       "name": "node"
     }
   },
-  "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
+  "packageManager": "pnpm@10.11.0+sha512.6540583f41cc5f628eb3d9773ecee802f4f9ef9923cc45b69890fb47991d4b092964694ec3a4f738a420c918a333062c8b925d312f42e4f0c263eb603551f977"
 }
