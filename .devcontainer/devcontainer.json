@@ -3,7 +3,7 @@
 {
   // General devcontainer.json properties
   "name": "libexif",
-  "containerUser": "emscripten",
+  "containerUser": "ubuntu",
   "build": { "context": "..", "dockerfile": "./Dockerfile" },
   "features": { "ghcr.io/devcontainers/features/node:1": {} },
   "customizations": {
