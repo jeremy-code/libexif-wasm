@@ -23,6 +23,23 @@ export {
   exifTagTableGetName,
   exifTagTableCount,
 } from "./libexif/ExifTag.ts";
+export {
+  ExifRational,
+  ExifSRational,
+  exifGetShort,
+  exifGetSShort,
+  exifGetLong,
+  exifGetSLong,
+  exifGetRational,
+  exifGetSRational,
+  exifSetShort,
+  exifSetSShort,
+  exifSetLong,
+  exifSetSLong,
+  exifSetRational,
+  exifSetSRational,
+  exifArraySetByteOrder,
+} from "./libexif/exifUtils.ts";
 
 // Enums
 export {

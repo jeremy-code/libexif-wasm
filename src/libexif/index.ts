@@ -9,3 +9,4 @@ export * from "./ExifLog.ts";
 export * from "./ExifMem.ts";
 export * from "./ExifMnoteData.ts";
 export * from "./ExifTag.ts";
+export * from "./exifUtils.ts";
