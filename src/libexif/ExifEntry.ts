@@ -3,6 +3,8 @@ import type { ExifMem } from "./ExifMem.ts";
 import { EXIF_SENTINEL_TAG } from "./ExifTag.ts";
 import { ExifFormat, type ExifFormatKey } from "../enums/ExifFormat.ts";
 import { ExifIfd, type ExifIfdKey } from "../enums/ExifIfd.ts";
+import { ExifTag } from "../enums/ExifTag.ts";
+import { ExifTagGps } from "../enums/ExifTagGps.ts";
 import {
   ExifTagUnified,
   type ExifTagUnifiedKey,
@@ -54,7 +56,13 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
       return null;
     }
 
-    return getEnumKeyFromValue(ExifTagUnified, this.tagVal);
+    const ifd = this.getIfd();
+    // GPS tags have their own tag table (e.g. 1 is LATITUDE_REF in GPS,
+    // INTEROPERABILITY_INDEX, otherwise)
+    if (ifd === "GPS") {
+      return getEnumKeyFromValue(ExifTagGps, this.tagVal) ?? null;
+    }
+    return getEnumKeyFromValue(ExifTag, this.tagVal) ?? null;
   }
 
   set tag(tag: ExifTagUnifiedKey | null) {
