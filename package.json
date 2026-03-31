@@ -74,6 +74,7 @@
     "./output/libexif.wasm": "./dist/output/libexif.wasm"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.30.0",
     "@eslint/js": "^9.34.4",
     "@jest/globals": "^29.7.0",
     "@types/node": "^24.12.0",
