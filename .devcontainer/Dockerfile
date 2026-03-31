@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM emscripten/emsdk:5.0.4-arm64
+FROM emscripten/emsdk:5.0.4
 
 RUN apt-get update \
   && apt-get install --assume-yes \

@@ -13,6 +13,7 @@ autoreconf --force --install --warnings=all
 
 emconfigure ./configure \
   --prefix="${PREFIX}" \
+  --host=none \
   --enable-static \
   --disable-shared \
   --disable-docs
