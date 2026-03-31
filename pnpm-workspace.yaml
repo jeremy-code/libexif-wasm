@@ -1,5 +1,4 @@
 # Build Settings (https://pnpm.io/settings#build-settings)
-nodeOptions: "--experimental-vm-modules"
 verifyDepsBeforeRun: "prompt"
 onlyBuiltDependencies:
   - unrs-resolver

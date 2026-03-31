@@ -1,4 +1,4 @@
-import { describe, expect, test } from "@jest/globals";
+import { describe, expect, test } from "vitest";
 
 import { getPtrArray } from "./getPtrArray.ts";
 import { POINTER_SIZE } from "../constants.ts";

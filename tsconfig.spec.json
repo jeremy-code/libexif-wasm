@@ -3,15 +3,8 @@
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
-    /* Modules */
-    "rewriteRelativeImportExtensions": false,
-
     /* Emit */
-    "noEmit": true,
-
-    /* JavaScript Support */
-    // https://kulshekhar.github.io/ts-jest/docs/guides/troubleshooting#tests-gets-stuck-when-importing-a-dependency
-    "allowJs": false
+    "noEmit": true
   },
   "include": [
     "src/**/__fixtures__/**/*.ts",

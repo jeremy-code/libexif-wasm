@@ -1,4 +1,4 @@
-import { describe, expect, test } from "@jest/globals";
+import { describe, expect, test } from "vitest";
 
 import { exifByteOrderGetName } from "./exifByteOrder.ts";
 import type { ExifByteOrderKey } from "../enums/ExifByteOrder.ts";

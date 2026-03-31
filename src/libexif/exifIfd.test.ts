@@ -1,4 +1,4 @@
-import { describe, expect, test } from "@jest/globals";
+import { describe, expect, test } from "vitest";
 
 import { exifIfdGetName } from "./exifIfd.ts";
 import type { ExifIfdKey } from "../enums/ExifIfd.ts";

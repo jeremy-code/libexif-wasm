@@ -1,4 +1,4 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, it } from "vitest";
 
 import { ExifTag } from "./ExifTag.ts";
 import { ExifTagGps } from "./ExifTagGps.ts";
@@ -43,7 +43,6 @@ describe("ExifTagUnified", () => {
     expect([...ExifTag, ...ExifTagGps]).toEqual(Array.from(ExifTagUnified));
   });
 
-  // eslint-disable-next-line jest/no-disabled-tests -- This test is skipped for performance reasons, enable it if the previous test fails to narrow down affected keys
   it.skip.each([...ExifTag, ...ExifTagGps])(
     "should have value %j for key %j",
     (key, value) => {

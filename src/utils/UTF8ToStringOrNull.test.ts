@@ -1,4 +1,4 @@
-import { describe, expect, test } from "@jest/globals";
+import { describe, expect, test } from "vitest";
 
 import { UTF8ToStringOrNull } from "./UTF8ToStringOrNull.ts";
 import { stringToNewUTF8, UTF8ToString } from "../internal/emscripten.ts";

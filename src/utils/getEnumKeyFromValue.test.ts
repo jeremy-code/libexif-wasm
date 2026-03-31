@@ -1,4 +1,4 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, it } from "vitest";
 
 import { getEnumKeyFromValue } from "./getEnumKeyFromValue.ts";
 import { mapEmbindEnumToObject } from "./mapEmbindEnumToObject.ts";

@@ -1,13 +1,13 @@
 import eslint from "@eslint/js";
+import vitest from "@vitest/eslint-plugin";
 import { defineConfig, globalIgnores } from "eslint/config";
 import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
 import pluginImportX, { createNodeResolver } from "eslint-plugin-import-x";
-import pluginJest from "eslint-plugin-jest";
-import { defaults } from "jest-config";
 import tseslint from "typescript-eslint";
+import { configDefaults } from "vitest/config";
 
-// [ "**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)" ]
-const TEST_FILE_GLOBS = defaults.testMatch;
+// ["**/*.{test,spec}.?(c|m)[jt]s?(x)"]
+const TEST_FILE_GLOBS = configDefaults.include;
 
 export default defineConfig(
   /**
@@ -16,12 +16,7 @@ export default defineConfig(
    * @see {@link https://eslint.org/docs/latest/use/configure/configuration-files#globally-ignoring-files-with-ignores}
    */
   globalIgnores(["dist/", "libexif/"]),
-  /**
-   * Add `name` property to "recommended" ESLint config, which doesn't exist for compatibility
-   *
-   * @see {@link https://github.com/eslint/eslint/blob/main/packages/js/src/configs/eslint-recommended.js#L11-L17}
-   */
-  { name: "@eslint/js/recommended", ...eslint.configs.recommended },
+  eslint.configs.recommended,
   tseslint["configs"].recommended,
   pluginImportX["flatConfigs"].recommended,
   pluginImportX["flatConfigs"].typescript,
@@ -55,17 +50,12 @@ export default defineConfig(
   },
   {
     files: TEST_FILE_GLOBS,
-    extends: [
-      { name: "jest/recommended", ...pluginJest.configs["flat/recommended"] },
-      { name: "jest/style", ...pluginJest.configs["flat/style"] },
-      {
-        rules: {
-          /**
-           * @see {@link https://github.com/jest-community/eslint-plugin-jest/blob/HEAD/docs/rules/prefer-importing-jest-globals.md}
-           */
-          "jest/prefer-importing-jest-globals": "error",
-        },
-      },
-    ],
+    extends: [vitest.configs.recommended],
+    rules: {
+      /**
+       * @see {@link https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-importing-vitest-globals.md}
+       */
+      "vitest/prefer-importing-vitest-globals": "error",
+    },
   },
 );
