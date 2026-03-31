@@ -8,10 +8,9 @@ RUN apt-get update \
     libtool \
     pkg-config \
     clang-format \
-  && emsdk update \
-  && npm install --global typescript
+  && emsdk update
 
-# By default, the emscripten (1000:1000) user is installed in the image
+# By default, the ubuntu (1000:1000) user is installed in the image
 USER ubuntu
 
 ENTRYPOINT ["/bin/bash"]

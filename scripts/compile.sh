@@ -56,7 +56,7 @@ if [[ -n "${SANITIZE:-}" ]]; then
 fi
 
 if [ ! -d "${OUTPUT_DIR}" ]; then
-  mkdir "${OUTPUT_DIR}"
+  mkdir --parents "${OUTPUT_DIR}"
 fi
 
 emcc \

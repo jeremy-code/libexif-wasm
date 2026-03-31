@@ -1,6 +1,10 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    types: [opened, synchronize]
 
 jobs:
   build:
@@ -8,18 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        using: "docker"
-        image: "Dockerfile"
+        using: docker
+        image: Dockerfile
 
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v5
-
-      - name: Install Corepack
-        run: corepack install
-
-      - name: Enable Corepack
-        run: corepack enable
 
       - name: Set up Node.js environment
         uses: actions/setup-node@v4
@@ -27,28 +25,8 @@ jobs:
           node-version-file: .nvmrc
           cache: pnpm
 
-      - name: Set PNPM storedir
-        run: pnpm config set storeDir ${HOME}/.local/share/pnpm/store
+      - name: Run "post-create.sh" script
+        run: ./post-create.sh
 
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Lint code with ESLint
-        run: pnpm run lint
-
-      - name: Check code formatting with Prettier
-        run: pnpm run format:check
-
-      - name: Build libexif
-        run: pnpm build:libexif
-
-      - name: Compile with Emscripten
-        run: pnpm compile
-
-      - name: Test
+      - name: Run tests
         run: pnpm run test
-
-      - name: Build package
-        run: pnpm build
-
-      - name: Run test
