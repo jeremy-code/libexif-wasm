@@ -1,0 +1,54 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        using: "docker"
+        image: "Dockerfile"
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v5
+
+      - name: Install Corepack
+        run: corepack install
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Set up Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Set PNPM storedir
+        run: pnpm config set storeDir ${HOME}/.local/share/pnpm/store
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Lint code with ESLint
+        run: pnpm run lint
+
+      - name: Check code formatting with Prettier
+        run: pnpm run format:check
+
+      - name: Build libexif
+        run: pnpm build:libexif
+
+      - name: Compile with Emscripten
+        run: pnpm compile
+
+      - name: Test
+        run: pnpm run test
+
+      - name: Build package
+        run: pnpm build
+
+      - name: Run test
