@@ -4,5 +4,5 @@ verifyDepsBeforeRun: "prompt"
 onlyBuiltDependencies:
   - unrs-resolver
 
-# https://pnpm.io/cli/run#shellemulator
+# Other Settings (https://pnpm.io/settings#other-settings)
 shellEmulator: true

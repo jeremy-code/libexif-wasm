@@ -15,8 +15,7 @@ emconfigure ./configure \
   --prefix="${PREFIX}" \
   --enable-static \
   --disable-shared \
-  --disable-docs \
-  CFLAGS="-sEXPORT_ES6=1" \
+  --disable-docs
 
 emmake make
 emmake make install
