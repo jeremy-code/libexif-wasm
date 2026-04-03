@@ -2,11 +2,13 @@
 
 <!-- Link references -->
 
-[npm-package]: https://www.npmjs.com/package/libexif-wasm
+[github-actions]: https://www.github.com/jeremy-code/libexif-wasm/actions/workflows/ci.yml
+[github-actions-badge]: https://www.github.com/jeremy-code/libexif-wasm/actions/workflows/ci.yml/badge.svg
 [license-badge]: https://img.shields.io/github/license/jeremy-code/libexif-wasm
+[npm-package]: https://www.npmjs.com/package/libexif-wasm
 [npm-version-badge]: https://img.shields.io/npm/v/libexif-wasm
 
-[![License][license-badge]](LICENSE) [![NPM version][npm-version-badge]][npm-package]
+[![GitHub Actions][github-actions-badge]][github-actions] [![License][license-badge]](LICENSE) [![NPM version][npm-version-badge]][npm-package]
 
 This library is a WebAssembly port of the [libexif](https://libexif.github.io/) C library, which is used for parsing, editing, and saving EXIF metadata in images. It intends to be a faithful port of the original library and provide all of its functions and features.
 
