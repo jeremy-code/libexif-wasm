@@ -6,7 +6,6 @@
   "scripts": {
     "prepare": "husky",
     "build": "tsc --build",
-    "build:libexif": "./scripts/build.sh",
     "compile": "./scripts/compile.sh",
     "typecheck": "tsc --noEmit",
     "test": "vitest --run",

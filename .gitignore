@@ -17,7 +17,6 @@ coverage
 
 # Build Outputs
 dist/
-local/
 
 # TypeScript cache
 *.tsbuildinfo

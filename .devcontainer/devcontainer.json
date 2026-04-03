@@ -5,6 +5,13 @@
   "name": "libexif",
   "containerEnv": { "COREPACK_ENABLE_DOWNLOAD_PROMPT": "0" },
   "containerUser": "ubuntu",
+  "mounts": [
+    {
+      "source": "pnpm-volume",
+      "target": "/home/${containerUser}/.local/share/pnpm,type=volume",
+      "type": "volume"
+    }
+  ],
   "features": { "ghcr.io/devcontainers/features/node:1": {} },
   "customizations": {
     "vscode": {

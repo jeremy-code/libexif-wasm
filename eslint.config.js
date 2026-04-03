@@ -15,7 +15,7 @@ export default defineConfig(
    *
    * @see {@link https://eslint.org/docs/latest/use/configure/configuration-files#globally-ignoring-files-with-ignores}
    */
-  globalIgnores(["dist/", "libexif/"]),
+  globalIgnores(["dist/"]),
   eslint.configs.recommended,
   tseslint["configs"].recommended,
   pluginImportX["flatConfigs"].recommended,
