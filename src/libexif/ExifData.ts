@@ -50,7 +50,7 @@ import { UTF8ToStringOrNull } from "../utils/UTF8ToStringOrNull.ts";
 import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
 import { getEnumKeyFromValue } from "../utils/getEnumKeyFromValue.ts";
 
-type Ifd = [
+type IfdTuple = [
   IFD_0: ExifContent,
   IFD_1: ExifContent,
   EXIF: ExifContent,
@@ -71,11 +71,11 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
    * const exifContent = exifData.ifd[ExifIfd.IFD_YOU_WANT];
    * ```
    */
-  get ifd(): Ifd {
-    return this.ifdPtr.map((ifdPtr) => new ExifContent(ifdPtr)) as Ifd;
+  get ifd(): IfdTuple {
+    return this.ifdPtr.map((ifdPtr) => new ExifContent(ifdPtr)) as IfdTuple;
   }
 
-  set ifd(ifd: Ifd) {
+  set ifd(ifd: IfdTuple) {
     if (ifd.length !== ExifIfd.COUNT) {
       throw new Error(
         `ExifData.ifd: Expected ${ExifIfd.COUNT} IFDs, got ${ifd.length}`,
@@ -256,4 +256,9 @@ const exifDataOptionGetName = (o: ExifDataOptionKey) => {
   return UTF8ToStringOrNull(exif_data_option_get_name(ExifDataOption[o]));
 };
 
-export { ExifData, exifDataOptionGetDescription, exifDataOptionGetName };
+export {
+  ExifData,
+  exifDataOptionGetDescription,
+  exifDataOptionGetName,
+  type IfdTuple,
+};

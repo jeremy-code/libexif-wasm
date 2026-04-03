@@ -4,6 +4,7 @@ export {
   ExifData,
   exifDataOptionGetDescription,
   exifDataOptionGetName,
+  type IfdTuple,
 } from "./libexif/ExifData.ts";
 export { ExifEntry } from "./libexif/ExifEntry.ts";
 export { exifFormatGetName, exifFormatGetSize } from "./libexif/exifFormat.ts";
