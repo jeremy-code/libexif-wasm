@@ -1,6 +1,7 @@
 import { ExifContent } from "./ExifContent.ts";
 import type { ExifMem } from "./ExifMem.ts";
 import { EXIF_SENTINEL_TAG } from "./ExifTag.ts";
+import type { ByteOrder } from "../enums/ExifByteOrder.ts";
 import { ExifFormat, type Format } from "../enums/ExifFormat.ts";
 import { ExifIfd, type Ifd } from "../enums/ExifIfd.ts";
 import { ExifTag } from "../enums/ExifTag.ts";
@@ -146,6 +147,13 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
     }
 
     return getEnumKeyFromValue(ExifIfd, exifIfd) as Ifd | null;
+  }
+
+  /**
+   * Returns byteOrder of grandparent if it exists, MOTOROLA otherwise.
+   */
+  get byteOrder(): ByteOrder {
+    return this.parent?.parent?.byteOrder ?? "MOTOROLA";
   }
 
   static new() {
