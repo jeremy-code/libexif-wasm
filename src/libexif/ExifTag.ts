@@ -20,7 +20,6 @@ import {
   exif_tag_table_count,
 } from "../internal/libexif/exifTag.ts";
 import { free } from "../internal/stdlib.ts";
-import { UTF8ToStringOrNull } from "../utils/UTF8ToStringOrNull.ts";
 import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
 import { getEnumKeyFromValue } from "../utils/getEnumKeyFromValue.ts";
 
@@ -64,19 +63,18 @@ class ExifTagInfo {
   static getName(tag: Tag) {
     assertEnumObjectKey(ExifTagUnified, tag);
 
-    return UTF8ToStringOrNull(exif_tag_get_name(ExifTagUnified[tag]));
+    return UTF8ToString(exif_tag_get_name(ExifTagUnified[tag]));
   }
 
   static getTitle(tag: Tag) {
     assertEnumObjectKey(ExifTagUnified, tag);
 
-    return UTF8ToStringOrNull(exif_tag_get_title(ExifTagUnified[tag]));
+    return UTF8ToString(exif_tag_get_title(ExifTagUnified[tag]));
   }
 
-  // Description may be null
   static getDescription(tag: Tag) {
     assertEnumObjectKey(ExifTagUnified, tag);
-    return UTF8ToStringOrNull(exif_tag_get_description(ExifTagUnified[tag]));
+    return UTF8ToString(exif_tag_get_description(ExifTagUnified[tag]));
   }
 
   static getNameInIfd(tag: Tag, ifd: Ifd) {
@@ -124,7 +122,7 @@ class ExifTagInfo {
   static getSupportLevelInIfd(
     tag: Tag,
     ifd: Ifd,
-    dataType: DataType,
+    dataType: DataType = "UNKNOWN",
   ): SupportLevel {
     assertEnumObjectKey(ExifTagUnified, tag);
     assertEnumObjectKey(ExifIfd, ifd);
@@ -146,19 +144,22 @@ class ExifTagInfo {
 
 // `n` is the index of the tag in the table, not the tag itself
 const exifTagTableGetTag = (n: number) => {
-  if (exif_tag_table_count() < n) {
-    return null;
+  const count = exifTagTableCount();
+  if (count < n) {
+    throw new Error(`n must be less than ${count}`);
   }
 
   return exif_tag_table_get_tag(n);
 };
 
 const exifTagTableGetName = (n: number) => {
-  if (exif_tag_table_count() < n) {
-    return null;
+  const count = exifTagTableCount();
+
+  if (count < n) {
+    throw new Error(`n must be less than ${count}`);
   }
 
-  return UTF8ToStringOrNull(exif_tag_table_get_name(n));
+  return UTF8ToString(exif_tag_table_get_name(n));
 };
 
 const exifTagTableCount = () => exif_tag_table_count();

@@ -10,8 +10,6 @@ import { ExifIfd, type ExifIfdKey } from "../enums/ExifIfd.ts";
 import { UTF8ToString } from "../internal/emscripten.ts";
 import { exif_tag_get_name_in_ifd } from "../internal/libexif/exifTag.ts";
 
-type ExifTagTableItem = { tag: number | null; name: string };
-
 /**
  * Internally, `ExifTagTable[]` is an array of `TagEntry` structs that serve as
  * the source of truth for all `ExifTag`-related functions. It is not exported
@@ -21,10 +19,10 @@ type ExifTagTableItem = { tag: number | null; name: string };
  *
  * {@link https://github.com/libexif/libexif/blob/master/libexif/exif-tag.c#L55-L966}
  */
-const EXIF_TAG_TABLE = Array.from({ length: exifTagTableCount() }, (_, i) => ({
+const EXIF_TAG_TABLE = Array.from({ length: EXIF_SENTINEL_TAG }, (_, i) => ({
   tag: exifTagTableGetTag(i), // Tags may be duplicated among IFDs
   name: exifTagTableGetName(i),
-})).filter((entry): entry is ExifTagTableItem => entry.name !== null);
+}));
 
 describe("EXIF_TAG_TABLE", () => {
   test("should be an array", () => {
@@ -83,7 +81,7 @@ describe("Sentinel TagEntry in ExifTagTable[]", () => {
   });
   describe("exifTagTableGetName(EXIF_SENTINEL_TAG)", () => {
     test("should return null", () => {
-      expect(exifTagTableGetName(EXIF_SENTINEL_TAG)).toBeNull();
+      expect(exifTagTableGetName(EXIF_SENTINEL_TAG)).toBe("");
     });
   });
 });

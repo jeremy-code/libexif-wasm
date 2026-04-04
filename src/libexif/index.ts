@@ -1,4 +1,5 @@
 export * from "./utils/getDataAsTypedArray.ts";
+export * from "./utils/getExifTagTable.ts";
 export * from "./exifByteOrder.ts";
 export * from "./ExifContent.ts";
 export * from "./ExifData.ts";

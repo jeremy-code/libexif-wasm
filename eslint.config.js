@@ -23,6 +23,21 @@ export default defineConfig(
   {
     rules: {
       /**
+       * @see {@link https://typescript-eslint.io/rules/no-unused-vars/}
+       */
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          args: "all",
+          argsIgnorePattern: "^_",
+          caughtErrors: "all",
+          caughtErrorsIgnorePattern: "^_",
+          destructuredArrayIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          ignoreRestSiblings: true,
+        },
+      ],
+      /**
        * @see {@link https://github.com/un-ts/eslint-plugin-import-x/blob/master/docs/rules/newline-after-import.md}
        */
       "import-x/newline-after-import": ["error", { considerComments: true }],
