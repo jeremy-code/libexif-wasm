@@ -26,11 +26,27 @@ class ExifRational extends ExifRationalStruct {
   constructor(public readonly byteOffset: number) {
     super();
   }
+
+  free() {
+    free(this.byteOffset);
+  }
+
+  [Symbol.dispose]() {
+    this.free();
+  }
 }
 
 class ExifSRational extends ExifSRationalStruct {
   constructor(public readonly byteOffset: number) {
     super();
+  }
+
+  free() {
+    free(this.byteOffset);
+  }
+
+  [Symbol.dispose]() {
+    this.free();
   }
 }
 

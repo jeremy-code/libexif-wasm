@@ -8,7 +8,6 @@ import {
   exifGetRational,
   exifGetSRational,
 } from "./exifUtils.ts";
-import { free } from "../internal/stdlib.ts";
 
 // ---------------------------------------------------------------------------
 // SHORT  (unsigned 16-bit)
@@ -151,7 +150,7 @@ describe("exifGetRational", () => {
       const rational = exifGetRational(buffer, order);
       expect(rational.numerator).toEqual(expected.numerator);
       expect(rational.denominator).toEqual(expected.denominator);
-      free(rational.byteOffset);
+      rational.free();
     },
   );
 });
@@ -181,7 +180,7 @@ describe("exifGetSRational", () => {
       const sRational = exifGetSRational(buffer, order);
       expect(sRational.numerator).toEqual(expected.numerator);
       expect(sRational.denominator).toEqual(expected.denominator);
-      free(sRational.byteOffset);
+      sRational.free();
     },
   );
 });
