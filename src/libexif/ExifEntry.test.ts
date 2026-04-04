@@ -4,6 +4,7 @@ import { ExifData } from "./ExifData.ts";
 import { ExifEntry } from "./ExifEntry.ts";
 import { EXIF_SENTINEL_TAG } from "./ExifTag.ts";
 import { ExifIfd } from "../enums/ExifIfd.ts";
+import { intArrayFromString } from "../internal/emscripten.ts";
 
 describe("ExifEntry", () => {
   describe("ExifEntry.new()", () => {
@@ -75,6 +76,24 @@ describe("ExifEntry", () => {
       exifContent.removeEntry(exifEntry);
       exifEntry.free();
       exifData.free();
+    });
+  });
+  describe("ExifEntry.toTypedArray()", () => {
+    test("should return empty array on new entry", () => {
+      const exifEntry = ExifEntry.new();
+      expect(exifEntry.toTypedArray()).toStrictEqual(new Uint8Array([]));
+      exifEntry.free();
+    });
+    test("should return ASCII uint8array on new entry", () => {
+      const exifEntry = ExifEntry.new();
+      exifEntry.format = "ASCII";
+      const asciiIntArray = new Uint8Array(
+        intArrayFromString("My Ascii String", false),
+      );
+      exifEntry.data = asciiIntArray;
+      exifEntry.components = asciiIntArray.length;
+      expect(exifEntry.toTypedArray()).toStrictEqual(asciiIntArray);
+      exifEntry.free();
     });
   });
 });

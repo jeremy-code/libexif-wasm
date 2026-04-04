@@ -105,5 +105,6 @@ export {
 } from "./enums/ExifTagUnified.ts";
 
 // Utility functions
+export { getDataAsTypedArray } from "./libexif/utils/getDataAsTypedArray.ts";
 export { assertEnumObjectKey } from "./utils/assertEnumObjectKey.ts";
 export { getEnumKeyFromValue } from "./utils/getEnumKeyFromValue.ts";

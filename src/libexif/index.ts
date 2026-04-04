@@ -1,3 +1,4 @@
+export * from "./utils/getDataAsTypedArray.ts";
 export * from "./exifByteOrder.ts";
 export * from "./ExifContent.ts";
 export * from "./ExifData.ts";

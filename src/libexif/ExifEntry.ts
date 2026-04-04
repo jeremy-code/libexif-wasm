@@ -29,6 +29,7 @@ import { free, malloc } from "../internal/stdlib.ts";
 import { ExifEntryStruct } from "../structs/ExifEntryStruct.ts";
 import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
 import { getEnumKeyFromValue } from "../utils/getEnumKeyFromValue.ts";
+import { getDataAsTypedArray } from "./utils/getDataAsTypedArray.ts";
 
 /**
  * For any format other than ASCII, the maximum length of `.getValue()` does not
@@ -98,7 +99,14 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
     return HEAPU8.subarray(this.dataPtr, this.dataPtr + this.size);
   }
 
+  /**
+   * Running this setter will free .dataPtr beforehand
+   */
   set data(data: Uint8Array) {
+    if (this.dataPtr !== 0) {
+      free(this.dataPtr);
+    }
+
     this.size = data.length;
     const dataPtr = malloc(data.byteLength);
     HEAPU8.set(data, dataPtr);
@@ -205,6 +213,15 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
 
   [Symbol.dispose]() {
     this.free();
+  }
+
+  toTypedArray() {
+    return getDataAsTypedArray(
+      this.dataPtr,
+      this.components,
+      this.format ?? "UNDEFINED",
+      this.byteOrder,
+    );
   }
 }
 

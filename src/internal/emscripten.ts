@@ -2,6 +2,7 @@ import { libexif } from "./module.ts";
 
 export const {
   // preamble.js
+  HEAP8,
   HEAPU8,
   HEAP16,
   HEAPU16,
