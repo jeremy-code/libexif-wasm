@@ -6,5 +6,6 @@ const ExifIfd = mapEmbindEnumToObject(ExifIfdEnum);
 type ExifIfd = typeof ExifIfd;
 type ExifIfdKey = IterableElement<ExifIfd>[0];
 type ExifIfdValue = IterableElement<ExifIfd>[1];
+type Ifd = Exclude<ExifIfdKey, "COUNT">;
 
-export { ExifIfd, type ExifIfdKey, type ExifIfdValue };
+export { ExifIfd, type ExifIfdKey, type ExifIfdValue, type Ifd };

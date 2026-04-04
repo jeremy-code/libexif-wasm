@@ -1,10 +1,10 @@
-import { ExifDataType, type ExifDataTypeKey } from "../enums/ExifDataType.ts";
-import { ExifIfd, type ExifIfdKey } from "../enums/ExifIfd.ts";
-import { ExifSupportLevel } from "../enums/ExifSupportLevel.ts";
+import { ExifDataType, type DataType } from "../enums/ExifDataType.ts";
+import { ExifIfd, type Ifd } from "../enums/ExifIfd.ts";
 import {
-  ExifTagUnified,
-  type ExifTagUnifiedKey,
-} from "../enums/ExifTagUnified.ts";
+  ExifSupportLevel,
+  type SupportLevel,
+} from "../enums/ExifSupportLevel.ts";
+import { ExifTagUnified, type Tag } from "../enums/ExifTagUnified.ts";
 import { stringToNewUTF8, UTF8ToString } from "../internal/emscripten.ts";
 import {
   exif_tag_from_name,
@@ -51,7 +51,7 @@ class ExifTagInfo {
    *
    * {@link https://github.com/libexif/libexif/blob/master/libexif/exif-tag.c#L55}
    */
-  static fromName(name: string) {
+  static fromName(name: string): Tag | null {
     const nameUtf8 = stringToNewUTF8(name);
 
     const exifTag = exif_tag_from_name(nameUtf8);
@@ -61,45 +61,60 @@ class ExifTagInfo {
     return getEnumKeyFromValue(ExifTagUnified, exifTag) ?? null;
   }
 
-  static getName(tag: ExifTagUnifiedKey) {
+  static getName(tag: Tag) {
     assertEnumObjectKey(ExifTagUnified, tag);
 
     return UTF8ToStringOrNull(exif_tag_get_name(ExifTagUnified[tag]));
   }
 
-  static getTitle(tag: ExifTagUnifiedKey) {
+  static getTitle(tag: Tag) {
     assertEnumObjectKey(ExifTagUnified, tag);
 
     return UTF8ToStringOrNull(exif_tag_get_title(ExifTagUnified[tag]));
   }
 
   // Description may be null
-  static getDescription(tag: ExifTagUnifiedKey) {
+  static getDescription(tag: Tag) {
     assertEnumObjectKey(ExifTagUnified, tag);
     return UTF8ToStringOrNull(exif_tag_get_description(ExifTagUnified[tag]));
   }
 
-  static getNameInIfd(tag: ExifTagUnifiedKey, ifd: ExifIfdKey) {
+  static getNameInIfd(tag: Tag, ifd: Ifd) {
     assertEnumObjectKey(ExifTagUnified, tag);
     assertEnumObjectKey(ExifIfd, ifd);
+
+    //@ts-expect-error -- Intentional runtime error checking
+    if (ifd === "COUNT") {
+      throw new Error("Ifd cannot be COUNT");
+    }
 
     return UTF8ToString(
       exif_tag_get_name_in_ifd(ExifTagUnified[tag], ExifIfd[ifd]),
     );
   }
 
-  static getTitleInIfd(tag: ExifTagUnifiedKey, ifd: ExifIfdKey) {
+  static getTitleInIfd(tag: Tag, ifd: Ifd) {
     assertEnumObjectKey(ExifTagUnified, tag);
     assertEnumObjectKey(ExifIfd, ifd);
+
+    //@ts-expect-error -- Intentional runtime error checking
+    if (ifd === "COUNT") {
+      throw new Error("Ifd cannot be COUNT");
+    }
 
     return UTF8ToString(
       exif_tag_get_title_in_ifd(ExifTagUnified[tag], ExifIfd[ifd]),
     );
   }
 
-  static getDescriptionInIfd(tag: ExifTagUnifiedKey, ifd: ExifIfdKey) {
+  static getDescriptionInIfd(tag: Tag, ifd: Ifd) {
     assertEnumObjectKey(ExifTagUnified, tag);
     assertEnumObjectKey(ExifIfd, ifd);
+
+    //@ts-expect-error -- Intentional runtime error checking
+    if (ifd === "COUNT") {
+      throw new Error("Ifd cannot be COUNT");
+    }
 
     return UTF8ToString(
       exif_tag_get_description_in_ifd(ExifTagUnified[tag], ExifIfd[ifd]),
@@ -107,13 +122,18 @@ class ExifTagInfo {
   }
 
   static getSupportLevelInIfd(
-    tag: ExifTagUnifiedKey,
-    ifd: ExifIfdKey,
-    dataType: ExifDataTypeKey,
-  ) {
+    tag: Tag,
+    ifd: Ifd,
+    dataType: DataType,
+  ): SupportLevel {
     assertEnumObjectKey(ExifTagUnified, tag);
     assertEnumObjectKey(ExifIfd, ifd);
     assertEnumObjectKey(ExifDataType, dataType);
+
+    //@ts-expect-error -- Intentional runtime error checking
+    if (ifd === "COUNT") {
+      throw new Error("Ifd cannot be COUNT");
+    }
 
     const supportLevel = exif_tag_get_support_level_in_ifd(
       ExifTagUnified[tag],

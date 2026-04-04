@@ -6,5 +6,6 @@ const ExifTag = mapEmbindEnumToObject(ExifTagEnum);
 type ExifTag = typeof ExifTag;
 type ExifTagKey = IterableElement<ExifTag>[0];
 type ExifTagValue = IterableElement<ExifTag>[1];
+type TagNonGps = ExifTagKey;
 
-export { ExifTag, type ExifTagKey, type ExifTagValue };
+export { ExifTag, type ExifTagKey, type ExifTagValue, type TagNonGps };

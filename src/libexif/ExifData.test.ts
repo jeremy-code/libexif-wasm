@@ -12,7 +12,7 @@ import {
   getTestFixture,
 } from "../__utils__/getTestFixture.ts";
 import { ExifIfd } from "../enums/ExifIfd.ts";
-import type { ExifTagKey } from "../enums/ExifTag.ts";
+import type { Tag } from "../enums/ExifTagUnified.ts";
 import type { Entry } from "../interfaces.ts";
 
 describe("ExifData", () => {
@@ -79,7 +79,7 @@ describe("ExifData", () => {
           expect(ifd?.entries).toHaveLength(entries.length);
 
           entries.forEach(([tag, expectedExifEntry]) => {
-            const exifEntry = ifd?.getEntry(tag as ExifTagKey);
+            const exifEntry = ifd?.getEntry(tag as Tag);
 
             expect(exifEntry).not.toBeNull();
             expect(exifEntry).toBeInstanceOf(ExifEntry);
@@ -139,7 +139,7 @@ describe("ExifData", () => {
         Object.values(testFixture.json.data)
           .flatMap((datum) => Object.entries(datum))
           .forEach(([tag, expectedExifEntry]) => {
-            const exifEntry = exifData.getEntry(tag as ExifTagKey);
+            const exifEntry = exifData.getEntry(tag as Tag);
 
             expect(exifEntry).not.toBeNull();
             expect(exifEntry).toBeInstanceOf(ExifEntry);

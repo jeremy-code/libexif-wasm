@@ -1,13 +1,14 @@
 import { ExifContent } from "./ExifContent.ts";
 import type { ExifMem } from "./ExifMem.ts";
 import { EXIF_SENTINEL_TAG } from "./ExifTag.ts";
-import { ExifFormat, type ExifFormatKey } from "../enums/ExifFormat.ts";
-import { ExifIfd, type ExifIfdKey } from "../enums/ExifIfd.ts";
+import { ExifFormat, type Format } from "../enums/ExifFormat.ts";
+import { ExifIfd, type Ifd } from "../enums/ExifIfd.ts";
 import { ExifTag } from "../enums/ExifTag.ts";
 import { ExifTagGps } from "../enums/ExifTagGps.ts";
 import {
   ExifTagUnified,
   type ExifTagUnifiedKey,
+  type Tag,
 } from "../enums/ExifTagUnified.ts";
 import type { DisposableDataSegment } from "../interfaces.ts";
 import { HEAPU8, UTF8ToString } from "../internal/emscripten.ts";
@@ -49,7 +50,7 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
     super();
   }
 
-  get tag() {
+  get tag(): Tag | null {
     // Not technically necessary but communicates intent
     if (this.tagVal === EXIF_SENTINEL_TAG) {
       return null;
@@ -64,7 +65,7 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
     return getEnumKeyFromValue(ExifTag, this.tagVal) ?? null;
   }
 
-  set tag(tag: ExifTagUnifiedKey | null) {
+  set tag(tag: Tag | null) {
     if (tag === null) {
       this.tagVal = EXIF_SENTINEL_TAG;
       return;
@@ -75,7 +76,7 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
     this.tagVal = ExifTagUnified[tag];
   }
 
-  get format() {
+  get format(): Format | null {
     if (this.formatVal === 0) {
       return null;
     }
@@ -83,7 +84,7 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
     return getEnumKeyFromValue(ExifFormat, this.formatVal);
   }
 
-  set format(format: ExifFormatKey | null) {
+  set format(format: Format | null) {
     if (format === null) {
       this.formatVal = 0;
       return;
@@ -180,16 +181,13 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
     exif_entry_dump(this.byteOffset, indent);
   }
 
-  getIfd() {
+  getIfd(): Ifd | null {
     const exifIfd = exif_entry_get_ifd(this.byteOffset);
     if (exifIfd === ExifIfd.COUNT) {
       return null;
     }
 
-    return getEnumKeyFromValue(ExifIfd, exifIfd) as Exclude<
-      ExifIfdKey,
-      "COUNT"
-    > | null;
+    return getEnumKeyFromValue(ExifIfd, exifIfd) as Ifd | null;
   }
 
   [Symbol.dispose]() {

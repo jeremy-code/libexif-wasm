@@ -2,11 +2,8 @@ import { ExifData } from "./ExifData.ts";
 import { ExifEntry } from "./ExifEntry.ts";
 import type { ExifLog } from "./ExifLog.ts";
 import type { ExifMem } from "./ExifMem.ts";
-import { ExifIfd } from "../enums/ExifIfd.ts";
-import {
-  ExifTagUnified,
-  type ExifTagUnifiedKey,
-} from "../enums/ExifTagUnified.ts";
+import { ExifIfd, type Ifd } from "../enums/ExifIfd.ts";
+import { ExifTagUnified, type Tag } from "../enums/ExifTagUnified.ts";
 import type { DisposableDataSegment } from "../interfaces.ts";
 import {
   exif_content_new,
@@ -110,7 +107,7 @@ class ExifContent extends ExifContentStruct implements DisposableDataSegment {
    * This is a pointer into a member of the ExifContent array and must NOT be
    * freed or unrefed by the caller.
    */
-  getEntry(tag: ExifTagUnifiedKey): ExifEntry | null {
+  getEntry(tag: Tag): ExifEntry | null {
     assertEnumObjectKey(ExifTagUnified, tag);
 
     const exifEntryPtr = exif_content_get_entry(
@@ -144,7 +141,7 @@ class ExifContent extends ExifContentStruct implements DisposableDataSegment {
   /**
    * Return the IFD in which the given ExifContent is found
    */
-  getIfd() {
+  getIfd(): Ifd | null {
     const ifdValue = exif_content_get_ifd(this.byteOffset);
 
     const ifd = getEnumKeyFromValue(ExifIfd, ifdValue);

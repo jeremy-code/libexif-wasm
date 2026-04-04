@@ -6,5 +6,11 @@ const ExifDataOption = mapEmbindEnumToObject(ExifDataOptionEnum);
 type ExifDataOption = typeof ExifDataOption;
 type ExifDataOptionKey = IterableElement<ExifDataOption>[0];
 type ExifDataOptionValue = IterableElement<ExifDataOption>[1];
+type DataOption = ExifDataOptionKey;
 
-export { ExifDataOption, type ExifDataOptionKey, type ExifDataOptionValue };
+export {
+  ExifDataOption,
+  type ExifDataOptionKey,
+  type ExifDataOptionValue,
+  type DataOption,
+};

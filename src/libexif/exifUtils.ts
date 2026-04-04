@@ -1,9 +1,6 @@
 import { POINTER_SIZE } from "../constants.ts";
-import {
-  ExifByteOrder,
-  type ExifByteOrderKey,
-} from "../enums/ExifByteOrder.ts";
-import { ExifFormat, type ExifFormatKey } from "../enums/ExifFormat.ts";
+import { ExifByteOrder, type ByteOrder } from "../enums/ExifByteOrder.ts";
+import { ExifFormat, type Format } from "../enums/ExifFormat.ts";
 import { HEAPU8 } from "../internal/emscripten.ts";
 import {
   exif_get_short,
@@ -37,7 +34,7 @@ class ExifSRational extends ExifSRationalStruct {
   }
 }
 
-const exifGetShort = (buffer: Uint8Array, order: ExifByteOrderKey) => {
+const exifGetShort = (buffer: Uint8Array, order: ByteOrder) => {
   assertEnumObjectKey(ExifByteOrder, order);
   const bufferPtr = malloc(buffer.byteLength);
   HEAPU8.set(buffer, bufferPtr);
@@ -46,7 +43,7 @@ const exifGetShort = (buffer: Uint8Array, order: ExifByteOrderKey) => {
   return exifShort;
 };
 
-const exifGetSShort = (buffer: Uint8Array, order: ExifByteOrderKey) => {
+const exifGetSShort = (buffer: Uint8Array, order: ByteOrder) => {
   assertEnumObjectKey(ExifByteOrder, order);
   const bufferPtr = malloc(buffer.byteLength);
   HEAPU8.set(buffer, bufferPtr);
@@ -55,7 +52,7 @@ const exifGetSShort = (buffer: Uint8Array, order: ExifByteOrderKey) => {
   return exifSShort;
 };
 
-const exifGetLong = (buffer: Uint8Array, order: ExifByteOrderKey) => {
+const exifGetLong = (buffer: Uint8Array, order: ByteOrder) => {
   assertEnumObjectKey(ExifByteOrder, order);
   const bufferPtr = malloc(buffer.byteLength);
   HEAPU8.set(buffer, bufferPtr);
@@ -64,7 +61,7 @@ const exifGetLong = (buffer: Uint8Array, order: ExifByteOrderKey) => {
   return exifLong;
 };
 
-const exifGetSLong = (buffer: Uint8Array, order: ExifByteOrderKey) => {
+const exifGetSLong = (buffer: Uint8Array, order: ByteOrder) => {
   assertEnumObjectKey(ExifByteOrder, order);
   const bufferPtr = malloc(buffer.byteLength);
   HEAPU8.set(buffer, bufferPtr);
@@ -73,7 +70,7 @@ const exifGetSLong = (buffer: Uint8Array, order: ExifByteOrderKey) => {
   return exifSLong;
 };
 
-const exifGetRational = (buffer: Uint8Array, order: ExifByteOrderKey) => {
+const exifGetRational = (buffer: Uint8Array, order: ByteOrder) => {
   assertEnumObjectKey(ExifByteOrder, order);
   const bufferPtr = malloc(buffer.byteLength);
   HEAPU8.set(buffer, bufferPtr);
@@ -83,7 +80,7 @@ const exifGetRational = (buffer: Uint8Array, order: ExifByteOrderKey) => {
   return new ExifRational(exifRationalPtr);
 };
 
-const exifGetSRational = (buffer: Uint8Array, order: ExifByteOrderKey) => {
+const exifGetSRational = (buffer: Uint8Array, order: ByteOrder) => {
   assertEnumObjectKey(ExifByteOrder, order);
   const bufferPtr = malloc(buffer.byteLength);
   HEAPU8.set(buffer, bufferPtr);
@@ -93,45 +90,29 @@ const exifGetSRational = (buffer: Uint8Array, order: ExifByteOrderKey) => {
   return new ExifSRational(exifSRationalPtr);
 };
 
-const exifSetShort = (
-  byteOffset: number,
-  order: ExifByteOrderKey,
-  value: number,
-) => {
+const exifSetShort = (byteOffset: number, order: ByteOrder, value: number) => {
   assertEnumObjectKey(ExifByteOrder, order);
   exif_set_short(byteOffset, ExifByteOrder[order], value);
 };
 
-const exifSetSShort = (
-  byteOffset: number,
-  order: ExifByteOrderKey,
-  value: number,
-) => {
+const exifSetSShort = (byteOffset: number, order: ByteOrder, value: number) => {
   assertEnumObjectKey(ExifByteOrder, order);
   exif_set_sshort(byteOffset, ExifByteOrder[order], value);
 };
 
-const exifSetLong = (
-  byteOffset: number,
-  order: ExifByteOrderKey,
-  value: number,
-) => {
+const exifSetLong = (byteOffset: number, order: ByteOrder, value: number) => {
   assertEnumObjectKey(ExifByteOrder, order);
   exif_set_long(byteOffset, ExifByteOrder[order], value);
 };
 
-const exifSetSLong = (
-  byteOffset: number,
-  order: ExifByteOrderKey,
-  value: number,
-) => {
+const exifSetSLong = (byteOffset: number, order: ByteOrder, value: number) => {
   assertEnumObjectKey(ExifByteOrder, order);
   exif_set_slong(byteOffset, ExifByteOrder[order], value);
 };
 
 const exifSetRational = (
   byteOffset: number,
-  order: ExifByteOrderKey,
+  order: ByteOrder,
   value: ExifRational,
 ) => {
   assertEnumObjectKey(ExifByteOrder, order);
@@ -140,7 +121,7 @@ const exifSetRational = (
 
 const exifSetSRational = (
   byteOffset: number,
-  order: ExifByteOrderKey,
+  order: ByteOrder,
   value: ExifSRational,
 ) => {
   assertEnumObjectKey(ExifByteOrder, order);
@@ -148,11 +129,11 @@ const exifSetSRational = (
 };
 
 const exifArraySetByteOrder = (
-  format: ExifFormatKey,
+  format: Format,
   byteOffset: number,
   count: number,
-  originalOrder: ExifByteOrderKey,
-  newOrder: ExifByteOrderKey,
+  originalOrder: ByteOrder,
+  newOrder: ByteOrder,
 ) => {
   assertEnumObjectKey(ExifFormat, format);
   assertEnumObjectKey(ExifByteOrder, originalOrder);

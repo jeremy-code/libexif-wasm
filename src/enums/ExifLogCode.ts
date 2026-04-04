@@ -6,5 +6,11 @@ const ExifLogCode = mapEmbindEnumToObject(ExifLogCodeEnum);
 type ExifLogCode = typeof ExifLogCode;
 type ExifLogCodeKey = IterableElement<ExifLogCode>[0];
 type ExifLogCodeValue = IterableElement<ExifLogCode>[1];
+type LogCode = ExifLogCodeKey;
 
-export { ExifLogCode, type ExifLogCodeKey, type ExifLogCodeValue };
+export {
+  ExifLogCode,
+  type ExifLogCodeKey,
+  type ExifLogCodeValue,
+  type LogCode,
+};

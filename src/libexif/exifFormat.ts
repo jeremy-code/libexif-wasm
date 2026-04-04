@@ -1,4 +1,4 @@
-import { ExifFormat, type ExifFormatKey } from "../enums/ExifFormat.ts";
+import { ExifFormat, type Format } from "../enums/ExifFormat.ts";
 import { UTF8ToString } from "../internal/emscripten.ts";
 import {
   exif_format_get_name,
@@ -9,7 +9,7 @@ import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
 /**
  * Return a textual representation of the given EXIF data type
  */
-const exifFormatGetName = (format: ExifFormatKey) => {
+const exifFormatGetName = (format: Format) => {
   assertEnumObjectKey(ExifFormat, format);
   return UTF8ToString(exif_format_get_name(ExifFormat[format]));
 };
@@ -17,7 +17,7 @@ const exifFormatGetName = (format: ExifFormatKey) => {
 /**
  * Return the raw size of the given EXIF data type in bytes
  */
-const exifFormatGetSize = (format: ExifFormatKey) => {
+const exifFormatGetSize = (format: Format) => {
   assertEnumObjectKey(ExifFormat, format);
   return exif_format_get_size(ExifFormat[format]);
 };

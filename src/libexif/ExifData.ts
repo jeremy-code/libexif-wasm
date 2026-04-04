@@ -2,20 +2,11 @@ import { ExifContent } from "./ExifContent.ts";
 import type { ExifLog } from "./ExifLog.ts";
 import type { ExifMem } from "./ExifMem.ts";
 import { ExifMnoteData } from "./ExifMnoteData.ts";
-import {
-  ExifByteOrder,
-  type ExifByteOrderKey,
-} from "../enums/ExifByteOrder.ts";
-import {
-  ExifDataOption,
-  type ExifDataOptionKey,
-} from "../enums/ExifDataOption.ts";
-import { ExifDataType, type ExifDataTypeKey } from "../enums/ExifDataType.ts";
+import { ExifByteOrder, type ByteOrder } from "../enums/ExifByteOrder.ts";
+import { ExifDataOption, type DataOption } from "../enums/ExifDataOption.ts";
+import { ExifDataType, type DataType } from "../enums/ExifDataType.ts";
 import { ExifIfd } from "../enums/ExifIfd.ts";
-import {
-  ExifTagUnified,
-  type ExifTagUnifiedKey,
-} from "../enums/ExifTagUnified.ts";
+import { ExifTagUnified, type Tag } from "../enums/ExifTagUnified.ts";
 import type { DisposableDataSegment } from "../interfaces.ts";
 import { ExifEntry } from "./ExifEntry.ts";
 import { POINTER_SIZE } from "../constants.ts";
@@ -173,7 +164,7 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
   }
 
   // Defaults to Motorola on initialization
-  getByteOrder() {
+  getByteOrder(): ByteOrder {
     return (
       getEnumKeyFromValue(
         ExifByteOrder,
@@ -182,7 +173,7 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
     );
   }
 
-  setByteOrder(byteOrder: ExifByteOrderKey) {
+  setByteOrder(byteOrder: ByteOrder) {
     assertEnumObjectKey(ExifByteOrder, byteOrder);
     exif_data_set_byte_order(this.byteOffset, ExifByteOrder[byteOrder]);
   }
@@ -196,23 +187,23 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
     exif_data_fix(this.byteOffset);
   }
 
-  setOption(option: ExifDataOptionKey) {
+  setOption(option: DataOption) {
     assertEnumObjectKey(ExifDataOption, option);
     exif_data_set_option(this.byteOffset, ExifDataOption[option]);
   }
 
-  unsetOption(option: ExifDataOptionKey) {
+  unsetOption(option: DataOption) {
     assertEnumObjectKey(ExifDataOption, option);
     exif_data_unset_option(this.byteOffset, ExifDataOption[option]);
   }
 
-  setDataType(dt: ExifDataTypeKey | null) {
-    assertEnumObjectKey(ExifDataType, dt ?? "COUNT");
+  setDataType(dt: DataType | null) {
+    assertEnumObjectKey(ExifDataType, dt);
 
     exif_data_set_data_type(this.byteOffset, ExifDataType[dt ?? "COUNT"]);
   }
 
-  getDataType() {
+  getDataType(): DataType | null {
     const dataType = getEnumKeyFromValue(
       ExifDataType,
       exif_data_get_data_type(this.byteOffset),
@@ -236,7 +227,7 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
    * This was originally a macro in the C api, but is implemented here as a
    * function for convenience
    */
-  getEntry(tag: ExifTagUnifiedKey) {
+  getEntry(tag: Tag) {
     assertEnumObjectKey(ExifTagUnified, tag);
 
     const entry = exif_data_get_entry(this.byteOffset, ExifTagUnified[tag]);
@@ -249,13 +240,13 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
   }
 }
 
-const exifDataOptionGetDescription = (o: ExifDataOptionKey) => {
+const exifDataOptionGetDescription = (o: DataOption) => {
   assertEnumObjectKey(ExifDataOption, o);
 
   return UTF8ToString(exif_data_option_get_description(ExifDataOption[o]));
 };
 
-const exifDataOptionGetName = (o: ExifDataOptionKey) => {
+const exifDataOptionGetName = (o: DataOption) => {
   assertEnumObjectKey(ExifDataOption, o);
 
   return UTF8ToString(exif_data_option_get_name(ExifDataOption[o]));

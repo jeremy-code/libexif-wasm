@@ -12,5 +12,11 @@ const ExifTagUnified = mapEmbindEnumToObject({
 type ExifTagUnified = typeof ExifTagUnified;
 type ExifTagUnifiedKey = IterableElement<ExifTagUnified>[0];
 type ExifTagUnifiedValue = IterableElement<ExifTagUnified>[1];
+type Tag = ExifTagUnifiedKey;
 
-export { ExifTagUnified, type ExifTagUnifiedKey, type ExifTagUnifiedValue };
+export {
+  ExifTagUnified,
+  type ExifTagUnifiedKey,
+  type ExifTagUnifiedValue,
+  type Tag,
+};

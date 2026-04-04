@@ -47,51 +47,61 @@ export {
   ExifByteOrder,
   type ExifByteOrderKey,
   type ExifByteOrderValue,
+  type ByteOrder,
 } from "./enums/ExifByteOrder.ts";
 export {
   ExifDataOption,
   type ExifDataOptionKey,
   type ExifDataOptionValue,
+  type DataOption,
 } from "./enums/ExifDataOption.ts";
 export {
   ExifDataType,
   type ExifDataTypeKey,
   type ExifDataTypeValue,
+  type DataType,
 } from "./enums/ExifDataType.ts";
 export {
   ExifFormat,
   type ExifFormatKey,
   type ExifFormatValue,
+  type Format,
 } from "./enums/ExifFormat.ts";
 export {
   ExifIfd,
   type ExifIfdKey,
   type ExifIfdValue,
+  type Ifd,
 } from "./enums/ExifIfd.ts";
 export {
   ExifLogCode,
   type ExifLogCodeKey,
   type ExifLogCodeValue,
+  type LogCode,
 } from "./enums/ExifLogCode.ts";
 export {
   ExifSupportLevel,
   type ExifSupportLevelKey,
   type ExifSupportLevelValue,
+  type SupportLevel,
 } from "./enums/ExifSupportLevel.ts";
 export {
   ExifTag,
   type ExifTagKey,
   type ExifTagValue,
+  type TagNonGps,
 } from "./enums/ExifTag.ts";
 export {
   ExifTagGps,
   type ExifTagGpsKey,
   type ExifTagGpsValue,
+  type TagGps,
 } from "./enums/ExifTagGps.ts";
 export {
   ExifTagUnified,
   type ExifTagUnifiedKey,
   type ExifTagUnifiedValue,
+  type Tag,
 } from "./enums/ExifTagUnified.ts";
 
 // Utility functions

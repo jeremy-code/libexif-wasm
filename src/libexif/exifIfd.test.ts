@@ -22,6 +22,7 @@ describe.each(EXIF_IFD_TABLE)(
 
 describe('exifIfdGetName("COUNT")', () => {
   test("should throw an error", () => {
+    // @ts-expect-error -- testing error for wrong type
     expect(() => exifIfdGetName("COUNT")).toThrow(Error);
   });
 });

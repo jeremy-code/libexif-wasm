@@ -1,12 +1,12 @@
 import { describe, expect, test } from "vitest";
 
 import { exifByteOrderGetName } from "./exifByteOrder.ts";
-import type { ExifByteOrderKey } from "../enums/ExifByteOrder.ts";
+import type { ByteOrder } from "../enums/ExifByteOrder.ts";
 
 const EXIF_BYTE_ORDER_TABLE = [
   { byteOrder: "MOTOROLA", expectedName: "Motorola" },
   { byteOrder: "INTEL", expectedName: "Intel" },
-] satisfies { byteOrder: ExifByteOrderKey; expectedName: string }[];
+] satisfies { byteOrder: ByteOrder; expectedName: string }[];
 
 describe.each(EXIF_BYTE_ORDER_TABLE)(
   'exifByteOrderGetName("$byteOrder")',

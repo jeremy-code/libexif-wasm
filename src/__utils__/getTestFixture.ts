@@ -1,12 +1,12 @@
 import { readFile } from "node:fs/promises";
 import { parse } from "node:path";
 
-import type { ExifFormatKey } from "../enums/ExifFormat.ts";
-import type { ExifIfdKey } from "../enums/ExifIfd.ts";
-import type { ExifTagKey } from "../enums/ExifTag.ts";
+import type { Format } from "../enums/ExifFormat.ts";
+import type { Ifd } from "../enums/ExifIfd.ts";
+import type { Tag } from "../enums/ExifTagUnified.ts";
 
 type TestFixtureDataEntry = {
-  format: ExifFormatKey;
+  format: Format;
   size: number;
   components: number;
   value: string;
@@ -24,10 +24,7 @@ type TestFixtureMNoteData = {
 type TestFixture = {
   buffer: Buffer<ArrayBufferLike>;
   json: {
-    data: Record<
-      Exclude<ExifIfdKey, "COUNT">,
-      Partial<Record<ExifTagKey, TestFixtureDataEntry>>
-    >;
+    data: Record<Ifd, Partial<Record<Tag, TestFixtureDataEntry>>>;
     mnoteData: TestFixtureMNoteData | null;
   };
 } & (

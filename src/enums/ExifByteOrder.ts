@@ -6,5 +6,11 @@ const ExifByteOrder = mapEmbindEnumToObject(ExifByteOrderEnum);
 type ExifByteOrder = typeof ExifByteOrder;
 type ExifByteOrderKey = IterableElement<ExifByteOrder>[0];
 type ExifByteOrderValue = IterableElement<ExifByteOrder>[1];
+type ByteOrder = ExifByteOrderKey;
 
-export { ExifByteOrder, type ExifByteOrderKey, type ExifByteOrderValue };
+export {
+  ExifByteOrder,
+  type ExifByteOrderKey,
+  type ExifByteOrderValue,
+  type ByteOrder,
+};
