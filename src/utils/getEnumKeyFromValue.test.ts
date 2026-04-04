@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, test } from "vitest";
 
 import { getEnumKeyFromValue } from "./getEnumKeyFromValue.ts";
 import { mapEmbindEnumToObject } from "./mapEmbindEnumToObject.ts";
@@ -10,7 +10,7 @@ const TestEnumObject = mapEmbindEnumToObject(TestEnum);
 describe.each(["RED", "GREEN", "BLUE"] as const)(
   "getEnumKeyFromValue(TestEnumObject, TestEnumObject.%s)",
   (key) => {
-    it("should return the correct value when the key exists in the enum", () => {
+    test("should return the correct value when the key exists in the enum", () => {
       expect(getEnumKeyFromValue(TestEnumObject, TestEnumObject[key])).toBe(
         key,
       );
@@ -21,7 +21,7 @@ describe.each(["RED", "GREEN", "BLUE"] as const)(
 describe.each([999, 0xffffff, "INVALID_VALUE", Symbol.iterator])(
   "getEnumKeyFromValue(TestEnumObject, %s)",
   (value) => {
-    it("should return null when the value does not exist in the enum", () => {
+    test("should return null when the value does not exist in the enum", () => {
       expect(getEnumKeyFromValue(TestEnumObject, value)).toBeNull();
     });
   },

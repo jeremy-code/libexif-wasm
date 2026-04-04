@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, test, expect } from "vitest";
 
 import { mapEmbindEnumToObject } from "./mapEmbindEnumToObject.ts";
 import { libexif } from "../internal/module.ts";
@@ -21,40 +21,40 @@ describe("TestEnum", () => {
     argCount: number | undefined;
   };
 
-  it("should be a function", () => {
+  test("should be a function", () => {
     expect(typeof TestEnum).toBe("function");
   });
-  it("should be length 0 with name 'ctor'", () => {
+  test("should be length 0 with name 'ctor'", () => {
     expect(TestEnum).toHaveProperty("length", 0);
     expect(TestEnum).toHaveProperty("name", "ctor");
   });
-  it("should have anonymous function prototype", () => {
+  test("should have anonymous function prototype", () => {
     expect(Object.getPrototypeOf(TestEnum)).toBe(
       Object.getPrototypeOf(() => {}),
     );
   });
-  it("should have enum members as properties", () => {
+  test("should have enum members as properties", () => {
     expect(TestEnum.RED).toBeDefined();
     expect(TestEnum.GREEN).toBeDefined();
     expect(TestEnum.BLUE).toBeDefined();
   });
-  it("should have enum members as objects", () => {
+  test("should have enum members as objects", () => {
     expect(typeof TestEnum.RED).toBe("object");
     expect(typeof TestEnum.GREEN).toBe("object");
     expect(typeof TestEnum.BLUE).toBe("object");
   });
-  it("should have correct values for enum members", () => {
+  test("should have correct values for enum members", () => {
     expect(TestEnum.RED.value).toBe(ExpectedEnum.RED);
     expect(TestEnum.GREEN.value).toBe(ExpectedEnum.GREEN);
     expect(TestEnum.BLUE.value).toBe(ExpectedEnum.BLUE);
   });
-  it("should have values property with correct values", () => {
+  test("should have values property with correct values", () => {
     expect(TestEnum.values).toBeDefined();
     expect(TestEnum.values[0xff0000]?.value).toBe(ExpectedEnum.RED);
     expect(TestEnum.values[0x00ff00]?.value).toBe(ExpectedEnum.GREEN);
     expect(TestEnum.values[0x0000ff]?.value).toBe(ExpectedEnum.BLUE);
   });
-  it("should have undefined argCount property", () => {
+  test("should have undefined argCount property", () => {
     expect("argCount" in TestEnum).toBe(true);
     expect(TestEnum.argCount).toBeUndefined();
   });
@@ -63,20 +63,20 @@ describe("TestEnum", () => {
 describe("mapEmbindEnumToObject(TestEnum)", () => {
   const { TestEnum } = libexif;
 
-  it("should map enum members to a plain object with key-value pairs", () => {
+  test("should map enum members to a plain object with key-value pairs", () => {
     expect(mapEmbindEnumToObject(TestEnum)).toEqual({
       RED: ExpectedEnum.RED,
       GREEN: ExpectedEnum.GREEN,
       BLUE: ExpectedEnum.BLUE,
     });
   });
-  it("should not have values or argCount properties", () => {
+  test("should not have values or argCount properties", () => {
     const mappedTestEnum = mapEmbindEnumToObject(TestEnum);
 
     expect("values" in mappedTestEnum).toBe(false);
     expect("argCount" in mappedTestEnum).toBe(false);
   });
-  it("should be iterable", () => {
+  test("should be iterable", () => {
     const iterator = mapEmbindEnumToObject(TestEnum)[Symbol.iterator]();
 
     expect(iterator.next().value).toEqual(["RED", ExpectedEnum.RED]);
@@ -84,7 +84,7 @@ describe("mapEmbindEnumToObject(TestEnum)", () => {
     expect(iterator.next().value).toEqual(["BLUE", ExpectedEnum.BLUE]);
     expect(iterator.next().done).toBe(true);
   });
-  it("should not be extensible", () => {
+  test("should not be extensible", () => {
     const mappedTestEnum = mapEmbindEnumToObject(TestEnum);
 
     expect(Object.isExtensible(mappedTestEnum)).toBe(false);
@@ -99,14 +99,14 @@ describe("mapEmbindEnumToObject(TestEnum)", () => {
       Object.setPrototypeOf(mappedTestEnum, Object.prototype),
     ).toThrow("[object Object] is not extensible");
   });
-  it("should have null prototype", () => {
+  test("should have null prototype", () => {
     expect(Object.getPrototypeOf(mapEmbindEnumToObject(TestEnum))).toBeNull();
   });
-  it("should not have property Symbol.toStringTag", () => {
+  test("should not have property Symbol.toStringTag", () => {
     // @ts-expect-error Testing Symbol.toStringTag
     expect(mapEmbindEnumToObject(TestEnum)[Symbol.toStringTag]).toBeUndefined();
   });
-  it("should have Symbol.iterator with same enumerability as array prototype", () => {
+  test("should have Symbol.iterator with same enumerability as array prototype", () => {
     expect(
       Object.getOwnPropertyDescriptor(
         mapEmbindEnumToObject(TestEnum),
@@ -120,7 +120,7 @@ describe("mapEmbindEnumToObject(TestEnum)", () => {
 });
 
 describe("mapEmbindEnumToObject(EmptyEnum)", () => {
-  it("should return an empty object", () => {
+  test("should return an empty object", () => {
     const EmptyEnum = { values: {}, argCount: 0 };
     // @ts-expect-error Embind enums do not properly represent the type in TypeScript
     const mappedEmptyEnum = mapEmbindEnumToObject(EmptyEnum);
