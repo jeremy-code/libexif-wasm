@@ -19,7 +19,7 @@ import {
 import type { DisposableDataSegment } from "../interfaces.ts";
 import { ExifEntry } from "./ExifEntry.ts";
 import { POINTER_SIZE } from "../constants.ts";
-import { getValue, HEAPU8 } from "../internal/emscripten.ts";
+import { getValue, HEAPU8, UTF8ToString } from "../internal/emscripten.ts";
 import {
   exif_data_new,
   exif_data_new_mem,
@@ -46,7 +46,6 @@ import { exif_data_get_entry } from "../internal/main.ts";
 import { free, malloc } from "../internal/stdlib.ts";
 import { ExifDataStruct } from "../structs/ExifDataStruct.ts";
 import type { IfdPtr } from "../structs/ExifDataStruct.ts";
-import { UTF8ToStringOrNull } from "../utils/UTF8ToStringOrNull.ts";
 import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
 import { getEnumKeyFromValue } from "../utils/getEnumKeyFromValue.ts";
 
@@ -173,10 +172,13 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
     exif_data_free(this.byteOffset);
   }
 
+  // Defaults to Motorola on initialization
   getByteOrder() {
-    return getEnumKeyFromValue(
-      ExifByteOrder,
-      exif_data_get_byte_order(this.byteOffset),
+    return (
+      getEnumKeyFromValue(
+        ExifByteOrder,
+        exif_data_get_byte_order(this.byteOffset),
+      ) ?? "MOTOROLA"
     );
   }
 
@@ -204,17 +206,22 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
     exif_data_unset_option(this.byteOffset, ExifDataOption[option]);
   }
 
-  setDataType(dt: ExifDataTypeKey) {
-    assertEnumObjectKey(ExifDataType, dt);
+  setDataType(dt: ExifDataTypeKey | null) {
+    assertEnumObjectKey(ExifDataType, dt ?? "COUNT");
 
-    exif_data_set_data_type(this.byteOffset, ExifDataType[dt]);
+    exif_data_set_data_type(this.byteOffset, ExifDataType[dt ?? "COUNT"]);
   }
 
   getDataType() {
-    return getEnumKeyFromValue(
+    const dataType = getEnumKeyFromValue(
       ExifDataType,
       exif_data_get_data_type(this.byteOffset),
     );
+
+    if (dataType === "COUNT") {
+      return null;
+    }
+    return dataType;
   }
 
   dump() {
@@ -245,15 +252,13 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
 const exifDataOptionGetDescription = (o: ExifDataOptionKey) => {
   assertEnumObjectKey(ExifDataOption, o);
 
-  return UTF8ToStringOrNull(
-    exif_data_option_get_description(ExifDataOption[o]),
-  );
+  return UTF8ToString(exif_data_option_get_description(ExifDataOption[o]));
 };
 
 const exifDataOptionGetName = (o: ExifDataOptionKey) => {
   assertEnumObjectKey(ExifDataOption, o);
 
-  return UTF8ToStringOrNull(exif_data_option_get_name(ExifDataOption[o]));
+  return UTF8ToString(exif_data_option_get_name(ExifDataOption[o]));
 };
 
 export {

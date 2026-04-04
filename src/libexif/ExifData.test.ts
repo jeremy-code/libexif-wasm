@@ -35,7 +35,7 @@ describe("ExifData", () => {
       });
       expect(exifData.getByteOrder()).toBe("MOTOROLA");
       expect(exifData.getMnoteData()).toBeNull();
-      expect(exifData.getDataType()).toBe("COUNT");
+      expect(exifData.getDataType()).toBeNull();
       exifData.free();
     });
   });
@@ -106,7 +106,7 @@ describe("ExifData", () => {
         expect(exifData.getMnoteData() === null).toBe(
           testFixture.json.mnoteData === null,
         );
-        expect(exifData.getDataType()).toBe("COUNT");
+        expect(exifData.getDataType()).toBeNull();
         exifData.free();
       });
     },
@@ -123,7 +123,7 @@ describe("ExifData", () => {
   describe("exifData.setDataType()", () => {
     test("should set the data type", () => {
       const exifData = ExifData.new();
-      expect(exifData.getDataType()).toBe("COUNT");
+      expect(exifData.getDataType()).toBeNull();
       exifData.setDataType("COMPRESSED");
       expect(exifData.getDataType()).toBe("COMPRESSED");
       exifData.free();

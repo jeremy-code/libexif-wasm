@@ -10,7 +10,7 @@ import {
   type ExifTagUnifiedKey,
 } from "../enums/ExifTagUnified.ts";
 import type { DisposableDataSegment } from "../interfaces.ts";
-import { HEAPU8 } from "../internal/emscripten.ts";
+import { HEAPU8, UTF8ToString } from "../internal/emscripten.ts";
 import {
   exif_entry_new,
   exif_entry_new_mem,
@@ -25,7 +25,6 @@ import {
 import { exif_entry_get_ifd } from "../internal/main.ts";
 import { free, malloc } from "../internal/stdlib.ts";
 import { ExifEntryStruct } from "../structs/ExifEntryStruct.ts";
-import { UTF8ToStringOrNull } from "../utils/UTF8ToStringOrNull.ts";
 import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
 import { getEnumKeyFromValue } from "../utils/getEnumKeyFromValue.ts";
 
@@ -106,7 +105,7 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
   }
 
   get parent() {
-    return new ExifContent(this.parentPtr);
+    return this.parentPtr !== 0 ? new ExifContent(this.parentPtr) : null;
   }
 
   set parent(parent: ExifContent | null) {
@@ -156,6 +155,7 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
     exif_entry_fix(this.byteOffset);
   }
 
+  // Returns empty string when first initialzied with no data
   getValue() {
     const bufferSize =
       this.format === "ASCII" ? this.size : DEFAULT_VALUE_BUFFER_SIZE;
@@ -168,7 +168,7 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
       bufferSize,
     );
 
-    const entryValue = UTF8ToStringOrNull(entryValuePtr);
+    const entryValue = UTF8ToString(entryValuePtr);
     if (entryValuePtr !== 0) {
       free(entryValuePtr);
     }

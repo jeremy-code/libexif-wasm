@@ -9,7 +9,6 @@ const EXIF_IFD_TABLE = [
   { ifd: "EXIF", expectedName: "EXIF" },
   { ifd: "GPS", expectedName: "GPS" },
   { ifd: "INTEROPERABILITY", expectedName: "Interoperability" },
-  { ifd: "COUNT", expectedName: null },
 ] satisfies { ifd: ExifIfdKey; expectedName: string | null }[];
 
 describe.each(EXIF_IFD_TABLE)(
@@ -20,3 +19,9 @@ describe.each(EXIF_IFD_TABLE)(
     });
   },
 );
+
+describe('exifIfdGetName("COUNT")', () => {
+  test("should throw an error", () => {
+    expect(() => exifIfdGetName("COUNT")).toThrow(Error);
+  });
+});

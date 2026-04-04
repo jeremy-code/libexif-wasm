@@ -3,8 +3,8 @@ import {
   type ExifByteOrderKey,
 } from "../enums/ExifByteOrder.ts";
 import type { Sentencize } from "../interfaces.ts";
+import { UTF8ToString } from "../internal/emscripten.ts";
 import { exif_byte_order_get_name } from "../internal/libexif/exifByteOrder.ts";
-import { UTF8ToStringOrNull } from "../utils/UTF8ToStringOrNull.ts";
 import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
 
 /**
@@ -16,7 +16,7 @@ import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
 const exifByteOrderGetName = (order: ExifByteOrderKey) => {
   assertEnumObjectKey(ExifByteOrder, order);
 
-  return UTF8ToStringOrNull(
+  return UTF8ToString(
     exif_byte_order_get_name(ExifByteOrder[order]),
   ) as Sentencize<ExifByteOrderKey>;
 };

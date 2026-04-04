@@ -5,7 +5,7 @@ import {
   ExifTagUnified,
   type ExifTagUnifiedKey,
 } from "../enums/ExifTagUnified.ts";
-import { stringToNewUTF8 } from "../internal/emscripten.ts";
+import { stringToNewUTF8, UTF8ToString } from "../internal/emscripten.ts";
 import {
   exif_tag_from_name,
   exif_tag_get_name_in_ifd,
@@ -83,7 +83,7 @@ class ExifTagInfo {
     assertEnumObjectKey(ExifTagUnified, tag);
     assertEnumObjectKey(ExifIfd, ifd);
 
-    return UTF8ToStringOrNull(
+    return UTF8ToString(
       exif_tag_get_name_in_ifd(ExifTagUnified[tag], ExifIfd[ifd]),
     );
   }
@@ -92,7 +92,7 @@ class ExifTagInfo {
     assertEnumObjectKey(ExifTagUnified, tag);
     assertEnumObjectKey(ExifIfd, ifd);
 
-    return UTF8ToStringOrNull(
+    return UTF8ToString(
       exif_tag_get_title_in_ifd(ExifTagUnified[tag], ExifIfd[ifd]),
     );
   }
@@ -101,7 +101,7 @@ class ExifTagInfo {
     assertEnumObjectKey(ExifTagUnified, tag);
     assertEnumObjectKey(ExifIfd, ifd);
 
-    return UTF8ToStringOrNull(
+    return UTF8ToString(
       exif_tag_get_description_in_ifd(ExifTagUnified[tag], ExifIfd[ifd]),
     );
   }
@@ -120,7 +120,7 @@ class ExifTagInfo {
       ExifIfd[ifd],
       ExifDataType[dataType],
     );
-    return getEnumKeyFromValue(ExifSupportLevel, supportLevel);
+    return getEnumKeyFromValue(ExifSupportLevel, supportLevel) ?? "UNKNOWN";
   }
 }
 

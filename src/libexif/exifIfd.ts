@@ -1,6 +1,5 @@
 import { ExifIfd, type ExifIfdKey } from "../enums/ExifIfd.ts";
-import { exif_ifd_get_name } from "../internal/index.ts";
-import { UTF8ToStringOrNull } from "../utils/UTF8ToStringOrNull.ts";
+import { exif_ifd_get_name, UTF8ToString } from "../internal/index.ts";
 import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
 
 /**
@@ -10,9 +9,11 @@ import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
 const exifIfdGetName = (ifd: ExifIfdKey) => {
   assertEnumObjectKey(ExifIfd, ifd);
 
-  return ifd !== "COUNT" ?
-      UTF8ToStringOrNull(exif_ifd_get_name(ExifIfd[ifd]))
-    : null;
+  if (ifd === "COUNT") {
+    throw new Error("Cannot get name of Ifd 'COUNT'");
+  }
+
+  return UTF8ToString(exif_ifd_get_name(ExifIfd[ifd]));
 };
 
 export { exifIfdGetName };
