@@ -52,6 +52,18 @@ class ExifContent extends ExifContentStruct implements DisposableDataSegment {
     this.parentPtr = parent?.byteOffset ?? 0;
   }
 
+  /**
+   * Return the IFD in which the given ExifContent is found. This was a function
+   * in the original API
+   */
+  get ifd(): Ifd | null {
+    const ifdValue = exif_content_get_ifd(this.byteOffset);
+
+    const ifd = getEnumKeyFromValue(ExifIfd, ifdValue);
+
+    return ifd !== "COUNT" ? ifd : null;
+  }
+
   static new() {
     const exifContentPtr = exif_content_new();
 
@@ -136,17 +148,6 @@ class ExifContent extends ExifContentStruct implements DisposableDataSegment {
    */
   forEachEntry() {
     throw new Error("ExifContent.forEachEntry() is not implemented");
-  }
-
-  /**
-   * Return the IFD in which the given ExifContent is found
-   */
-  getIfd(): Ifd | null {
-    const ifdValue = exif_content_get_ifd(this.byteOffset);
-
-    const ifd = getEnumKeyFromValue(ExifIfd, ifdValue);
-
-    return ifd !== "COUNT" ? ifd : null;
   }
 
   /**

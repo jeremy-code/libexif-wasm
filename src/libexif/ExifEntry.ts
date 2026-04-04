@@ -56,10 +56,9 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
       return null;
     }
 
-    const ifd = this.getIfd();
     // GPS tags have their own tag table (e.g. 1 is LATITUDE_REF in GPS,
     // INTEROPERABILITY_INDEX, otherwise)
-    if (ifd === "GPS") {
+    if (this.ifd === "GPS") {
       return getEnumKeyFromValue(ExifTagGps, this.tagVal) ?? null;
     }
     return getEnumKeyFromValue(ExifTag, this.tagVal) ?? null;
@@ -113,6 +112,42 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
     this.parentPtr = parent?.byteOffset ?? 0;
   }
 
+  /**
+   * This was a function in the original API. Returns empty string when first
+   * initialized with no data
+   */
+  get value() {
+    const bufferSize =
+      this.format === "ASCII" ? this.size : DEFAULT_VALUE_BUFFER_SIZE;
+
+    const entryValueBuffer = malloc(bufferSize);
+
+    const entryValuePtr = exif_entry_get_value(
+      this.byteOffset,
+      entryValueBuffer,
+      bufferSize,
+    );
+
+    const entryValue = UTF8ToString(entryValuePtr);
+    if (entryValuePtr !== 0) {
+      free(entryValuePtr);
+    }
+
+    return entryValue;
+  }
+
+  /**
+   * This was a function in the original API
+   */
+  get ifd(): Ifd | null {
+    const exifIfd = exif_entry_get_ifd(this.byteOffset);
+    if (exifIfd === ExifIfd.COUNT) {
+      return null;
+    }
+
+    return getEnumKeyFromValue(ExifIfd, exifIfd) as Ifd | null;
+  }
+
   static new() {
     return new ExifEntry(exif_entry_new());
   }
@@ -156,38 +191,8 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
     exif_entry_fix(this.byteOffset);
   }
 
-  // Returns empty string when first initialzied with no data
-  getValue() {
-    const bufferSize =
-      this.format === "ASCII" ? this.size : DEFAULT_VALUE_BUFFER_SIZE;
-
-    const entryValueBuffer = malloc(bufferSize);
-
-    const entryValuePtr = exif_entry_get_value(
-      this.byteOffset,
-      entryValueBuffer,
-      bufferSize,
-    );
-
-    const entryValue = UTF8ToString(entryValuePtr);
-    if (entryValuePtr !== 0) {
-      free(entryValuePtr);
-    }
-
-    return entryValue;
-  }
-
   dump(indent = 0) {
     exif_entry_dump(this.byteOffset, indent);
-  }
-
-  getIfd(): Ifd | null {
-    const exifIfd = exif_entry_get_ifd(this.byteOffset);
-    if (exifIfd === ExifIfd.COUNT) {
-      return null;
-    }
-
-    return getEnumKeyFromValue(ExifIfd, exifIfd) as Ifd | null;
   }
 
   [Symbol.dispose]() {

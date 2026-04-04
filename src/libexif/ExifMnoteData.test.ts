@@ -11,13 +11,13 @@ describe("ExifMnoteData", () => {
       test("should create a new ExifMnoteData instance from data", async () => {
         const testFixture = await getTestFixture(testFixtureFile);
         const exifData = ExifData.newFromData(testFixture.buffer);
-        const mnoteData = exifData.getMnoteData();
+        const mnoteData = exifData.mnoteData;
         expect(mnoteData).not.toBeNull();
         expect(mnoteData).toBeInstanceOf(ExifMnoteData);
 
         const { mnoteData: expectedMnoteData } = testFixture.json;
 
-        expect(mnoteData?.dataCount()).toBe(expectedMnoteData?.length);
+        expect(mnoteData?.dataCount).toBe(expectedMnoteData?.length);
         expect(mnoteData).toHaveProperty("data", expectedMnoteData);
 
         expectedMnoteData?.forEach((exifMnoteEntry, index) => {

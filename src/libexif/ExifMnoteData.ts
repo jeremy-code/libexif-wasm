@@ -24,6 +24,16 @@ const MAX_LENGTH = 1024;
 class ExifMnoteData implements DataSegment {
   constructor(public readonly byteOffset: number) {}
 
+  /**
+   * Return the number of tags in the MakerNote. This was a function in the
+   * original API
+   *
+   * @returns number of tags, or 0 if no MakerNote or the type is not supported
+   */
+  get dataCount() {
+    return exif_mnote_data_count(this.byteOffset);
+  }
+
   ref() {
     exif_mnote_data_ref(this.byteOffset);
   }
@@ -53,15 +63,6 @@ class ExifMnoteData implements DataSegment {
    */
   save() {
     throw new ReferenceError("ExifMnoteData.save() is not implemented");
-  }
-
-  /**
-   * Return the number of tags in the MakerNote
-   *
-   * @returns number of tags, or 0 if no MakerNote or the type is not supported
-   */
-  dataCount() {
-    return exif_mnote_data_count(this.byteOffset);
   }
 
   /**
@@ -141,7 +142,7 @@ class ExifMnoteData implements DataSegment {
    * `getValue` allocates a fixed size buffer of `MAX_LENGTH` bytes.
    */
   get data() {
-    return Array.from({ length: this.dataCount() }, (_, index) => ({
+    return Array.from({ length: this.dataCount }, (_, index) => ({
       id: this.getId(index),
       name: this.getName(index),
       title: this.getTitle(index),

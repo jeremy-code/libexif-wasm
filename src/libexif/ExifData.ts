@@ -86,6 +86,59 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
     this.size = data.byteLength;
   }
 
+  /**
+   * This was a function in the original API. Defaults to Motorola on
+   * initialization
+   */
+  get byteOrder(): ByteOrder {
+    return (
+      getEnumKeyFromValue(
+        ExifByteOrder,
+        exif_data_get_byte_order(this.byteOffset),
+      ) ?? "MOTOROLA"
+    );
+  }
+
+  /**
+   * This was a function in the original API
+   */
+  set byteOrder(byteOrder: ByteOrder) {
+    assertEnumObjectKey(ExifByteOrder, byteOrder);
+    exif_data_set_byte_order(this.byteOffset, ExifByteOrder[byteOrder]);
+  }
+
+  /**
+   * This was a function in the original API
+   */
+  get mnoteData() {
+    const mnoteDataPtr = exif_data_get_mnote_data(this.byteOffset);
+    return mnoteDataPtr !== 0 ? new ExifMnoteData(mnoteDataPtr) : null;
+  }
+
+  /**
+   * This was a function in the original API
+   */
+  get dataType(): DataType | null {
+    const dataType = getEnumKeyFromValue(
+      ExifDataType,
+      exif_data_get_data_type(this.byteOffset),
+    );
+
+    if (dataType === "COUNT") {
+      return null;
+    }
+    return dataType;
+  }
+
+  /**
+   * This was a function in the original API
+   */
+  set dataType(dt: DataType | null) {
+    assertEnumObjectKey(ExifDataType, dt);
+
+    exif_data_set_data_type(this.byteOffset, ExifDataType[dt ?? "COUNT"]);
+  }
+
   static new() {
     return new ExifData(exif_data_new());
   }
@@ -163,26 +216,6 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
     exif_data_free(this.byteOffset);
   }
 
-  // Defaults to Motorola on initialization
-  getByteOrder(): ByteOrder {
-    return (
-      getEnumKeyFromValue(
-        ExifByteOrder,
-        exif_data_get_byte_order(this.byteOffset),
-      ) ?? "MOTOROLA"
-    );
-  }
-
-  setByteOrder(byteOrder: ByteOrder) {
-    assertEnumObjectKey(ExifByteOrder, byteOrder);
-    exif_data_set_byte_order(this.byteOffset, ExifByteOrder[byteOrder]);
-  }
-
-  getMnoteData() {
-    const mnoteDataPtr = exif_data_get_mnote_data(this.byteOffset);
-    return mnoteDataPtr !== 0 ? new ExifMnoteData(mnoteDataPtr) : null;
-  }
-
   fix() {
     exif_data_fix(this.byteOffset);
   }
@@ -195,24 +228,6 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
   unsetOption(option: DataOption) {
     assertEnumObjectKey(ExifDataOption, option);
     exif_data_unset_option(this.byteOffset, ExifDataOption[option]);
-  }
-
-  setDataType(dt: DataType | null) {
-    assertEnumObjectKey(ExifDataType, dt);
-
-    exif_data_set_data_type(this.byteOffset, ExifDataType[dt ?? "COUNT"]);
-  }
-
-  getDataType(): DataType | null {
-    const dataType = getEnumKeyFromValue(
-      ExifDataType,
-      exif_data_get_data_type(this.byteOffset),
-    );
-
-    if (dataType === "COUNT") {
-      return null;
-    }
-    return dataType;
   }
 
   dump() {

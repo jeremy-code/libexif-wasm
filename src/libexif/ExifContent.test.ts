@@ -18,7 +18,7 @@ describe("ExifContent", () => {
       expect(exifContent).toHaveProperty("parentPtr", 0);
       expect(exifContent).toHaveProperty("entries", []);
       expect(exifContent).toHaveProperty("parent", null);
-      expect(exifContent.getIfd()).toBeNull();
+      expect(exifContent.ifd).toBeNull();
       exifContent.free();
     });
   });
@@ -33,10 +33,8 @@ describe("ExifContent", () => {
           expect(exifContent).toBeInstanceOf(ExifContent);
           expect(exifContent.byteOffset).toBeGreaterThan(0);
           expect(exifContent).toHaveProperty("parentPtr", exifData.byteOffset);
-          expect(exifContent.getIfd()).not.toBeNull();
-          expect(exifContent.getIfd()).toBe(
-            getEnumKeyFromValue(ExifIfd, index),
-          );
+          expect(exifContent.ifd).not.toBeNull();
+          expect(exifContent.ifd).toBe(getEnumKeyFromValue(ExifIfd, index));
           expect(exifContent.entries).toHaveLength(exifContent.count);
         });
         exifData.free();

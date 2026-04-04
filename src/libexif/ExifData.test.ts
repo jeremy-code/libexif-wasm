@@ -33,9 +33,9 @@ describe("ExifData", () => {
         expect(exifContent.count).toBe(0);
         expect(exifContent.parentPtr).toBe(exifData.byteOffset);
       });
-      expect(exifData.getByteOrder()).toBe("MOTOROLA");
-      expect(exifData.getMnoteData()).toBeNull();
-      expect(exifData.getDataType()).toBeNull();
+      expect(exifData.byteOrder).toBe("MOTOROLA");
+      expect(exifData.mnoteData).toBeNull();
+      expect(exifData.dataType).toBeNull();
       exifData.free();
     });
   });
@@ -98,15 +98,15 @@ describe("ExifData", () => {
               "data",
               Uint8Array.from(expectedExifEntry.data),
             );
-            expect(exifEntry?.getValue()).toEqual(expectedExifEntry.value);
+            expect(exifEntry?.value).toEqual(expectedExifEntry.value);
           });
         });
 
-        expect(exifData.getByteOrder()).toBe("MOTOROLA");
-        expect(exifData.getMnoteData() === null).toBe(
+        expect(exifData.byteOrder).toBe("MOTOROLA");
+        expect(exifData.mnoteData === null).toBe(
           testFixture.json.mnoteData === null,
         );
-        expect(exifData.getDataType()).toBeNull();
+        expect(exifData.dataType).toBeNull();
         exifData.free();
       });
     },
@@ -114,18 +114,18 @@ describe("ExifData", () => {
   describe("exifData.setByteOrder()", () => {
     test("should set the byte order", () => {
       const exifData = ExifData.new();
-      expect(exifData.getByteOrder()).toBe("MOTOROLA");
-      exifData.setByteOrder("INTEL");
-      expect(exifData.getByteOrder()).toBe("INTEL");
+      expect(exifData.byteOrder).toBe("MOTOROLA");
+      exifData.byteOrder = "INTEL";
+      expect(exifData.byteOrder).toBe("INTEL");
       exifData.free();
     });
   });
   describe("exifData.setDataType()", () => {
     test("should set the data type", () => {
       const exifData = ExifData.new();
-      expect(exifData.getDataType()).toBeNull();
-      exifData.setDataType("COMPRESSED");
-      expect(exifData.getDataType()).toBe("COMPRESSED");
+      expect(exifData.dataType).toBeNull();
+      exifData.dataType = "COMPRESSED";
+      expect(exifData.dataType).toBe("COMPRESSED");
       exifData.free();
     });
   });
@@ -157,7 +157,7 @@ describe("ExifData", () => {
               "data",
               Uint8Array.from(expectedExifEntry.data),
             );
-            expect(exifEntry?.getValue()).toEqual(expectedExifEntry.value);
+            expect(exifEntry?.value).toEqual(expectedExifEntry.value);
           });
         exifData.free();
       });
