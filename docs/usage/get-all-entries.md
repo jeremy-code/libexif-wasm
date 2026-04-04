@@ -4,11 +4,11 @@ Most likely, the classes you will be dealing with most often will be `ExifData`,
 
 ## Map IFDs to `ExifEntry` arrays
 
-Since most likely you will be using `ExifData` as an entrypoint to the library, after obtaining your image as a `Buffer` or `Uint8Array`. For this example, we will be using `fs/promises` and Node.js `Buffer`s.
+Since most likely you will be using `ExifData` as an entrypoint to the library, after obtaining your image as a `Buffer` or `Uint8Array`. For this example, we will be using `node:fs/promises` and Node.js `Buffer`s.
 
 ```ts
 import { readFile } from "fs/promises";
-import { ExifData, ExifIfd } from "libexif-wasm";
+import { ExifData, type Ifd } from "libexif-wasm";
 import { getEnumKeyFromValue } from "libexif-wasm/utils";
 
 const exifData = ExifData.newFromData(await readFile("./path/to/image.jpg"));
@@ -17,12 +17,14 @@ const exifData = ExifData.newFromData(await readFile("./path/to/image.jpg"));
 Now, by default, `exifData.ifd` is a tuple of size `ExifIfd.COUNT`, as similar to how it is implemented in the C library. However, suppose you would rather have a lookup object with the IFD names as keys. Since `ExifContent` is just a wrapper around an array of `ExifEntry` (though you will lose `.parent`, `.ifd`, and the `ExifEntry` utility methods), it may be more convenient to just map to an array of `ExifEntry` objects.
 
 ```ts
-const exifIfdContent = exifData.ifd.reduce<Record<string, ExifEntry[]>>(
-  (acc, exifContent, index) => ({
-    ...acc,
-    [getEnumKeyFromValue(ExifIfd, index) ?? "COUNT"]: exifContent.entries,
-  }),
-  {},
+const exifIfdContent = exifData.ifd.reduce<Record<Ifd, ExifEntry[]>>(
+  (acc, exifContent) => {
+    if (exifContent.ifd === null) {
+      throw new Error("exifData is invalid!");
+    }
+    return { ...acc, [exifContent.ifd]: exifContent.entries };
+  },
+  { IFD_0: [], IFD_1: [], EXIF: [], GPS: [], INTEROPERABILITY: [] },
 );
 console.log(exifIfdContent);
 // {
@@ -39,16 +41,19 @@ console.log(exifIfdContent);
 `ExifEntry` array may not be very useful to you since it's more geared towards those who want to manipulate the individual bytes of the entry. If all you want to do is read the value of the entry, this may be more useful:
 
 ```ts
-const exifIfdContent = exifData.ifd.reduce<
-  Record<string, [string | null, string | null][]>
->(
-  (acc, exifContent, index) => ({
-    ...acc,
-    [getEnumKeyFromValue(ExifIfd, index) ?? "COUNT"]: Object.fromEntries(
-      exifContent.entries.map((entry) => [entry.tag, entry.getValue()]),
-    ),
-  }),
-  {},
+type ExifEntryObject = { tag: Tag; value: string };
+
+const exifIfdContent = exifData.ifd.reduce<Record<Ifd, ExifEntryObject[]>>(
+  (acc, exifContent) => {
+    if (exifContent.ifd === null) {
+      throw new Error("exifData is invalid!");
+    }
+    acc[exifContent.ifd] = exifContent.entries
+      .map((entry) => ({ tag: entry.tag, value: entry.value }))
+      .filter((entry) => entry.tag !== null);
+    return acc;
+  },
+  { IFD_0: [], IFD_1: [], EXIF: [], GPS: [], INTEROPERABILITY: [] },
 );
 
 console.log(exifIfdContent);
