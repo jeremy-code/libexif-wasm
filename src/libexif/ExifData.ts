@@ -65,7 +65,10 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
     return this.ifdPtr.map((ifdPtr) => new ExifContent(ifdPtr)) as IfdTuple;
   }
 
-  set ifd(ifd: IfdTuple) {
+  /**
+   * Will update all ifd's .parent correctly.
+   */
+  set ifd(ifd: ExifContent[]) {
     if (ifd.length !== ExifIfd.COUNT) {
       throw new Error(
         `ExifData.ifd: Expected ${ExifIfd.COUNT} IFDs, got ${ifd.length}`,
@@ -73,6 +76,9 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
     }
 
     this.ifdPtr = ifd.map((ifd) => ifd.byteOffset) as IfdPtr;
+    ifd.forEach((exifContent) => {
+      exifContent.parent = this;
+    });
   }
 
   get data() {

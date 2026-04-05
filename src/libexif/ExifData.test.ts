@@ -39,6 +39,24 @@ describe("ExifData", () => {
       exifData.free();
     });
   });
+  describe("exifData.ifd", () => {
+    describe("setter", () => {
+      test("should set exifData.ifd", () => {
+        const exifData = ExifData.new();
+        const exifContent = ExifContent.new();
+
+        exifData.ifd[0].free();
+        exifData.ifd = exifData.ifd.with(0, exifContent);
+
+        expect(exifData.ifd[0]).toHaveProperty(
+          "byteOffset",
+          exifContent.byteOffset,
+        );
+
+        exifData.free();
+      });
+    });
+  });
   describe.each(["T-45A_Goshawk_03.jpg", "Sumo_Museum.jpg"])(
     "ExifData.newFromData(%s)",
     (testFixtureFile) => {
