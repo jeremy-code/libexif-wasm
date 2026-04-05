@@ -1,38 +1,26 @@
 import { describe, expect, test } from "vitest";
 
 import { getDataAsTypedArray } from "./getDataAsTypedArray.ts";
-import {
-  mapTypedArrayToDataView,
-  type TypedArray,
-} from "../../__utils__/mapTypedArrayToDataView.ts";
+import { DisposablePtr } from "../../__utils__/DisposablePtr.ts";
+import { mapTypedArrayToDataView } from "../../__utils__/mapTypedArrayToDataView.ts";
+import { withDisposable } from "../../__utils__/withDisposable.ts";
 import type { ByteOrder } from "../../enums/ExifByteOrder.ts";
 import type { Format } from "../../enums/ExifFormat.ts";
+import type { ValidTypedArray } from "../../interfaces/libexif.ts";
 import { HEAPU8, intArrayFromString } from "../../internal/emscripten.ts";
-import { free, malloc } from "../../internal/stdlib.ts";
+import { malloc } from "../../internal/stdlib.ts";
 
-const allocate = (data: TypedArray, byteOrder: ByteOrder) => {
+const allocate = (data: ValidTypedArray, byteOrder: ByteOrder) => {
   const isLittleEndian = byteOrder === "INTEL";
-  const view = mapTypedArrayToDataView(data, isLittleEndian);
-  const dataPtr = malloc(view.byteLength);
-  HEAPU8.set(new Uint8Array(view.buffer), dataPtr);
-  return dataPtr;
-};
+  const dataView = mapTypedArrayToDataView(data, isLittleEndian);
+  const dataPtr = malloc(dataView.byteLength);
+  HEAPU8.set(new Uint8Array(dataView.buffer), dataPtr);
 
-const withHeapData = <T>(
-  data: TypedArray,
-  byteOrder: ByteOrder,
-  fn: (ptr: number) => T,
-): T => {
-  const ptr = allocate(data, byteOrder);
-  try {
-    return fn(ptr);
-  } finally {
-    free(ptr);
-  }
+  return new DisposablePtr(dataPtr);
 };
 
 type IdentityTestCase = {
-  data: TypedArray;
+  data: ValidTypedArray;
   format: Format;
   byteOrder: ByteOrder;
   length: number;
@@ -96,7 +84,7 @@ type DecodeTestCase = {
   format: Format;
   byteOrder: ByteOrder;
   length: number;
-  expected: TypedArray;
+  expected: ValidTypedArray;
 };
 
 const DECODE_TEST_CASES = [
@@ -199,11 +187,14 @@ describe("getDataAsTypedArray()", () => {
     test.each(IDENTITY_TEST_CASES)(
       "returns $data as TypedArray with byteOrder $byteOrder and format $format",
       ({ data, format, byteOrder, length }) => {
-        expect(
-          withHeapData(data, byteOrder, (ptr) =>
-            getDataAsTypedArray(ptr, length, format, byteOrder),
-          ),
-        ).toEqual(data);
+        const memory = withDisposable(allocate(data, byteOrder));
+        const typedArray = getDataAsTypedArray(
+          memory.byteOffset,
+          length,
+          format,
+          byteOrder,
+        );
+        expect(typedArray).toEqual(data);
       },
     );
   });
@@ -212,11 +203,14 @@ describe("getDataAsTypedArray()", () => {
     test.each(DECODE_TEST_CASES)(
       "returns $data as TypedArray with byteOrder $byteOrder and format $format",
       ({ data, format, byteOrder, length, expected }) => {
-        expect(
-          withHeapData(data, byteOrder, (ptr) =>
-            getDataAsTypedArray(ptr, length, format, byteOrder),
-          ),
-        ).toEqual(expected);
+        const memory = withDisposable(allocate(data, byteOrder));
+        const typedArray = getDataAsTypedArray(
+          memory.byteOffset,
+          length,
+          format,
+          byteOrder,
+        );
+        expect(typedArray).toEqual(expected);
       },
     );
   });
@@ -227,14 +221,15 @@ describe("getDataAsTypedArray()", () => {
     });
 
     test("handles zero-length input", () => {
-      const ptr = malloc(0);
-
-      try {
-        const result = getDataAsTypedArray(ptr, 0, "BYTE", "INTEL");
-        expect(result.length).toBe(0);
-      } finally {
-        free(ptr);
-      }
+      const memory = withDisposable(allocate(new Uint8Array([]), "INTEL"));
+      const typedArray = getDataAsTypedArray(
+        memory.byteOffset,
+        0,
+        "BYTE",
+        "INTEL",
+      );
+      expect(typedArray).toHaveLength(0);
+      expect(typedArray).toEqual(new Uint8Array([]));
     });
   });
 });

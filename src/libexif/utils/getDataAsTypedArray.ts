@@ -1,5 +1,6 @@
 import { ExifByteOrder, type ByteOrder } from "../../enums/ExifByteOrder.ts";
 import type { Format } from "../../enums/ExifFormat.ts";
+import type { ValidTypedArray } from "../../interfaces/libexif.ts";
 import { HEAPU8, HEAP8 } from "../../internal/emscripten.ts";
 import {
   exif_get_long,
@@ -14,7 +15,7 @@ const getDataAsTypedArray = (
   components: number, // number of elements in the array (.components)
   format: Format,
   byteOrder: ByteOrder,
-) => {
+): ValidTypedArray => {
   const formatSize = exifFormatGetSize(format);
 
   switch (format) {
