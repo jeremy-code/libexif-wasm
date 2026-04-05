@@ -3,6 +3,7 @@ import { describe, expect, test } from "vitest";
 import { ExifData } from "./ExifData.ts";
 import { ExifLoader } from "./ExifLoader.ts";
 import { getTestFixture } from "../__utils__/getTestFixture.ts";
+import { withDisposable } from "../__utils__/withDisposable.ts";
 
 describe("ExifLoader", () => {
   describe("ExifLoader.new()", () => {
@@ -12,7 +13,6 @@ describe("ExifLoader", () => {
       expect(exifLoader.byteOffset).toBeGreaterThan(0);
       expect(exifLoader.getData()).toBeNull();
       expect(exifLoader.getBuf()).toBeNull();
-      exifLoader.unref();
     });
   });
   describe.each(["T-45A_Goshawk_03.jpg", "Sumo_Museum.jpg"])(
@@ -33,16 +33,19 @@ describe("ExifLoader", () => {
         expect(buf).toBeInstanceOf(Uint8Array);
         expect(buf).not.toHaveLength(0);
 
-        const exifData = exifLoader.getData();
-        expect(exifData).not.toBeNull();
+        const exifData = withDisposable(() => {
+          const exifData = exifLoader.getData();
+          if (exifData === null) {
+            throw new Error("exifData is null");
+          }
+          return exifData;
+        });
         expect(exifData).toBeInstanceOf(ExifData);
         expect(exifData?.byteOffset).toBeGreaterThan(0);
 
         exifLoader.reset();
         expect(exifLoader.getBuf()).toBeNull();
         expect(exifLoader.getData()).toBeNull();
-
-        exifData?.free();
         exifLoader.unref();
       });
     },

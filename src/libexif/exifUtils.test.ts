@@ -1,5 +1,6 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, test } from "vitest";
 
+import { exifFormatGetSize } from "./exifFormat.ts";
 import {
   exifGetShort,
   exifGetSShort,
@@ -7,7 +8,49 @@ import {
   exifGetSLong,
   exifGetRational,
   exifGetSRational,
+  ExifRational,
+  ExifSRational,
 } from "./exifUtils.ts";
+import { HEAPU8 } from "../internal/emscripten.ts";
+import { malloc } from "../internal/stdlib.ts";
+
+describe("ExifRational", () => {
+  test("setters and getters work correctly", () => {
+    const rationalPtr = malloc(exifFormatGetSize("RATIONAL"));
+    const exifRational = new ExifRational(rationalPtr);
+    exifRational.numerator = 355;
+    exifRational.denominator = 113;
+    expect(exifRational).toHaveProperty("numerator", 355);
+    expect(exifRational).toHaveProperty("denominator", 113);
+    expect(
+      new Uint32Array(
+        HEAPU8.slice(rationalPtr, rationalPtr + exifFormatGetSize("RATIONAL"))
+          .buffer,
+      ),
+    ).toEqual(new Uint32Array([355, 113]));
+    exifRational.free();
+  });
+});
+
+describe("ExifSRational", () => {
+  test("setters and getters work correctly", () => {
+    const sRationalPtr = malloc(exifFormatGetSize("SRATIONAL"));
+    const exifSRational = new ExifSRational(sRationalPtr);
+    exifSRational.numerator = -2147483648;
+    exifSRational.denominator = 524288;
+    expect(exifSRational).toHaveProperty("numerator", -2147483648);
+    expect(exifSRational).toHaveProperty("denominator", 524288);
+    expect(
+      new Int32Array(
+        HEAPU8.slice(
+          sRationalPtr,
+          sRationalPtr + exifFormatGetSize("SRATIONAL"),
+        ).buffer,
+      ),
+    ).toEqual(new Int32Array([-2147483648, 524288]));
+    exifSRational.free();
+  });
+});
 
 // ---------------------------------------------------------------------------
 // SHORT  (unsigned 16-bit)

@@ -1,17 +1,17 @@
-import { describe, expect, onTestFinished, test } from "vitest";
+import { describe, expect, test } from "vitest";
 
 import { ExifContent } from "./ExifContent.ts";
 import { ExifData } from "./ExifData.ts";
 import { ExifEntry } from "./ExifEntry.ts";
 import { getTestFixture } from "../__utils__/getTestFixture.ts";
+import { withDisposable } from "../__utils__/withDisposable.ts";
 import { ExifIfd } from "../enums/ExifIfd.ts";
 import { getEnumKeyFromValue } from "../utils/getEnumKeyFromValue.ts";
 
 describe("ExifContent", () => {
   describe("ExifContent.new()", () => {
     test("should create a new ExifContent instance", () => {
-      const exifContent = ExifContent.new();
-      onTestFinished(() => exifContent.free());
+      const exifContent = withDisposable(ExifContent.new());
       expect(exifContent).toBeInstanceOf(ExifContent);
       expect(exifContent.byteOffset).toBeGreaterThan(0);
       expect(exifContent).toHaveProperty("entriesPtr", 0);
@@ -28,8 +28,9 @@ describe("ExifContent", () => {
       test("should create an array of new ExifContent instances", async () => {
         const testFixture = await getTestFixture(testFixtureFile);
 
-        const exifData = ExifData.newFromData(testFixture.buffer);
-        onTestFinished(() => exifData.free());
+        const exifData = withDisposable(
+          ExifData.newFromData(testFixture.buffer),
+        );
         exifData.ifd.forEach((exifContent, index) => {
           expect(exifContent).toBeInstanceOf(ExifContent);
           expect(exifContent.byteOffset).toBeGreaterThan(0);
@@ -43,12 +44,10 @@ describe("ExifContent", () => {
   );
   describe("exifContent.addEntry()", () => {
     test("should add an entry to ExifContent", () => {
-      const exifContent = ExifContent.new();
-      onTestFinished(() => exifContent.free());
+      const exifContent = withDisposable(ExifContent.new());
       expect(exifContent).toHaveProperty("count", 0);
 
-      const exifEntry = ExifEntry.new();
-      onTestFinished(() => exifEntry.free());
+      const exifEntry = withDisposable(ExifEntry.new());
       exifContent.addEntry(exifEntry);
       expect(exifContent.entriesPtr).toBeGreaterThan(0);
       expect(exifContent).toHaveProperty("count", 1);
@@ -64,26 +63,22 @@ describe("ExifContent", () => {
   });
   describe("exifContent.getEntry()", () => {
     test("should get an entry from ExifContent", () => {
-      const exifContent = ExifContent.new();
-      onTestFinished(() => exifContent.free());
+      const exifContent = withDisposable(ExifContent.new());
+      // withDisposable is not necessary since exifEntry now belongs to exifData
       const exifEntry = ExifEntry.new();
-      onTestFinished(() => exifEntry.free());
       exifEntry.tag = "IMAGE_DESCRIPTION";
       exifContent.addEntry(exifEntry);
       expect(exifContent.getEntry("IMAGE_DESCRIPTION")).toEqual(exifEntry);
     });
     test("should return null if entry not found", () => {
-      const exifContent = ExifContent.new();
-      onTestFinished(() => exifContent.free());
+      const exifContent = withDisposable(ExifContent.new());
       expect(exifContent.getEntry("LATITUDE")).toBeNull();
     });
   });
   describe("exifContent.removeEntry()", () => {
     test("should remove an entry from ExifContent", () => {
-      const exifContent = ExifContent.new();
-      onTestFinished(() => exifContent.free());
-      const exifEntry = ExifEntry.new();
-      onTestFinished(() => exifEntry.free());
+      const exifContent = withDisposable(ExifContent.new());
+      const exifEntry = withDisposable(ExifEntry.new());
       exifEntry.tag = "IMAGE_DESCRIPTION";
       exifContent.addEntry(exifEntry);
       expect(exifContent.getEntry("IMAGE_DESCRIPTION")).toEqual(exifEntry);
@@ -94,11 +89,9 @@ describe("ExifContent", () => {
   });
   describe("exifContent.ifd", () => {
     test("should return correct ifd", () => {
+      // withDisposable is not necessary since exifContent now belongs to exifData
       const exifContent = ExifContent.new();
-      // Not necessary since exifContent now belongs to exifData
-      // onTestFinished(() => exifContent.free());
-      const exifData = ExifData.new();
-      onTestFinished(() => exifData.free());
+      const exifData = withDisposable(ExifData.new());
 
       expect(exifContent).toHaveProperty("ifd", null);
       exifData.ifd[0].free();

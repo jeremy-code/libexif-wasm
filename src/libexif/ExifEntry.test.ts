@@ -3,13 +3,14 @@ import { describe, expect, test } from "vitest";
 import { ExifData } from "./ExifData.ts";
 import { ExifEntry } from "./ExifEntry.ts";
 import { EXIF_SENTINEL_TAG } from "./ExifTag.ts";
+import { withDisposable } from "../__utils__/withDisposable.ts";
 import { ExifIfd } from "../enums/ExifIfd.ts";
 import { intArrayFromString } from "../internal/emscripten.ts";
 
 describe("ExifEntry", () => {
   describe("ExifEntry.new()", () => {
     test("should create a new ExifEntry instance", () => {
-      const exifEntry = ExifEntry.new();
+      const exifEntry = withDisposable(ExifEntry.new());
       // By default, `tagVal` is 0, which is the GPS `VERSION_ID` tag. For this
       // library's convention, `tagVal` is set to `EXIF_SENTINEL_TAG` to indicate
       // that the tag is not set
@@ -25,12 +26,11 @@ describe("ExifEntry", () => {
       expect(exifEntry.data).toHaveLength(0);
       expect(exifEntry.data).toHaveProperty("byteOffset", 0);
       expect(exifEntry.data).toHaveProperty("byteLength", 0);
-      exifEntry.free();
     });
   });
   describe("exifEntry.getValue()", () => {
     test("should return empty string on new entry", () => {
-      const exifEntry = ExifEntry.new();
+      const exifEntry = withDisposable(ExifEntry.new());
       exifEntry.format = "ASCII";
       exifEntry.tag = "MAKE";
       expect(exifEntry).toHaveProperty("format", "ASCII");
@@ -41,7 +41,7 @@ describe("ExifEntry", () => {
     test("should return ASCII value", () => {
       const EXPECTED_ASCII_VALUE = "Canon";
 
-      const exifEntry = ExifEntry.new();
+      const exifEntry = withDisposable(ExifEntry.new());
       exifEntry.format = "ASCII";
       exifEntry.tag = "MAKE";
       const data = Buffer.from(`${EXPECTED_ASCII_VALUE}\0`, "ascii");
@@ -54,38 +54,33 @@ describe("ExifEntry", () => {
        *
        * @see {@link https://github.com/libexif/libexif/blob/master/libexif/exif-entry.c#L884-L885}
        */
-      const exifData = ExifData.new();
+      const exifData = withDisposable(ExifData.new());
       const exifContent = exifData.ifd[ExifIfd.IFD_0];
       exifContent.addEntry(exifEntry);
       expect(exifEntry.value).toBe(EXPECTED_ASCII_VALUE);
       exifContent.removeEntry(exifEntry);
-      exifEntry.free();
-      exifData.free();
     });
     test("should return byte value", () => {
       const EXPECTED_BYTE_VALUE = 0x2a; // 42
-      const exifEntry = ExifEntry.new();
+      const exifEntry = withDisposable(ExifEntry.new());
       exifEntry.format = "BYTE";
       exifEntry.tag = "JPEG_INTERCHANGE_FORMAT";
       exifEntry.components = 1;
       exifEntry.data = new Uint8Array([EXPECTED_BYTE_VALUE]);
-      const exifData = ExifData.new();
+      const exifData = withDisposable(ExifData.new());
       const exifContent = exifData.ifd[ExifIfd.IFD_0];
       exifContent.addEntry(exifEntry);
       expect(exifEntry.value).toBe(`0x${EXPECTED_BYTE_VALUE.toString(16)}`);
       exifContent.removeEntry(exifEntry);
-      exifEntry.free();
-      exifData.free();
     });
   });
   describe("ExifEntry.toTypedArray()", () => {
     test("should return empty array on new entry", () => {
-      const exifEntry = ExifEntry.new();
+      const exifEntry = withDisposable(ExifEntry.new());
       expect(exifEntry.toTypedArray()).toStrictEqual(new Uint8Array([]));
-      exifEntry.free();
     });
     test("should return ASCII uint8array on new entry", () => {
-      const exifEntry = ExifEntry.new();
+      const exifEntry = withDisposable(ExifEntry.new());
       exifEntry.format = "ASCII";
       const asciiIntArray = new Uint8Array(
         intArrayFromString("My Ascii String", false),
@@ -93,7 +88,6 @@ describe("ExifEntry", () => {
       exifEntry.data = asciiIntArray;
       exifEntry.components = asciiIntArray.length;
       expect(exifEntry.toTypedArray()).toStrictEqual(asciiIntArray);
-      exifEntry.free();
     });
   });
 });

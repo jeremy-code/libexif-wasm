@@ -13,11 +13,11 @@ import { ExifTagUnified } from "./ExifTagUnified.ts";
  */
 describe("ExifTagUnified", () => {
   test("should be an object", () => {
-    expect(typeof ExifTagUnified).toBe("object");
+    expect(ExifTagUnified).toBeTypeOf("object");
   });
   test("should have an iterator", () => {
     expect(ExifTagUnified[Symbol.iterator]).toBeDefined();
-    expect(typeof ExifTagUnified[Symbol.iterator]).toBe("function");
+    expect(ExifTagUnified[Symbol.iterator]).toBeTypeOf("function");
     expect(ExifTagUnified[Symbol.iterator]()).toHaveProperty("next");
   });
   test("should have all ExifTag keys with correct values", () => {
@@ -32,21 +32,15 @@ describe("ExifTagUnified", () => {
   });
   test("should have correct entries in order", () => {
     // After the first `ExifTag` entries, the `ExifTagGps` entries are added
-    const exifTagLength = Array.from(ExifTag).length;
-    const exifTagUnifiedEntries = Array.from(ExifTagUnified);
-    expect(exifTagUnifiedEntries.slice(undefined, exifTagLength)).toEqual(
-      Array.from(ExifTag),
+    const exifTagArray = Array.from(ExifTag);
+    const exifTagGpsArray = Array.from(ExifTagGps);
+    const exifTagUnifiedArray = Array.from(ExifTagUnified);
+    expect(exifTagUnifiedArray.slice(undefined, exifTagArray.length)).toEqual(
+      exifTagArray,
     );
-    expect(exifTagUnifiedEntries.slice(exifTagLength)).toEqual(
-      Array.from(ExifTagGps),
+    expect(exifTagUnifiedArray.slice(exifTagArray.length)).toEqual(
+      exifTagGpsArray,
     );
-    expect([...ExifTag, ...ExifTagGps]).toEqual(Array.from(ExifTagUnified));
+    expect([...exifTagArray, ...exifTagGpsArray]).toEqual(exifTagUnifiedArray);
   });
-
-  test.skip.each([...ExifTag, ...ExifTagGps])(
-    "should have value %j for key %j",
-    (key, value) => {
-      expect(ExifTagUnified).toHaveProperty(key, value);
-    },
-  );
 });

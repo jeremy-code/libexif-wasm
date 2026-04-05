@@ -11,6 +11,7 @@ import {
   type TestFixture,
   getTestFixture,
 } from "../__utils__/getTestFixture.ts";
+import { withDisposable } from "../__utils__/withDisposable.ts";
 import { ExifIfd } from "../enums/ExifIfd.ts";
 import type { Tag } from "../enums/ExifTagUnified.ts";
 import type { Entry } from "../interfaces/utils.ts";
@@ -18,7 +19,7 @@ import type { Entry } from "../interfaces/utils.ts";
 describe("ExifData", () => {
   describe("ExifData.new()", () => {
     test("should create a new ExifData instance", () => {
-      const exifData = ExifData.new();
+      const exifData = withDisposable(ExifData.new());
       expect(exifData).toBeInstanceOf(ExifData);
       expect(exifData.byteOffset).toBeGreaterThan(0);
       expect(exifData.data).toHaveLength(0);
@@ -36,13 +37,13 @@ describe("ExifData", () => {
       expect(exifData.byteOrder).toBe("MOTOROLA");
       expect(exifData.mnoteData).toBeNull();
       expect(exifData.dataType).toBeNull();
-      exifData.free();
     });
   });
   describe("exifData.ifd", () => {
     describe("setter", () => {
       test("should set exifData.ifd", () => {
-        const exifData = ExifData.new();
+        const exifData = withDisposable(ExifData.new());
+        // withDisposable is not necessary since exifContent now belongs to exifData
         const exifContent = ExifContent.new();
 
         exifData.ifd[0].free();
@@ -52,8 +53,6 @@ describe("ExifData", () => {
           "byteOffset",
           exifContent.byteOffset,
         );
-
-        exifData.free();
       });
     });
   });
@@ -62,7 +61,9 @@ describe("ExifData", () => {
     (testFixtureFile) => {
       test("should create a new ExifData instance from data", async () => {
         const testFixture = await getTestFixture(testFixtureFile);
-        const exifData = ExifData.newFromData(testFixture.buffer);
+        const exifData = withDisposable(
+          ExifData.newFromData(testFixture.buffer),
+        );
 
         expect(exifData).not.toBeNull();
         expect(exifData).toBeInstanceOf(ExifData);
@@ -125,26 +126,23 @@ describe("ExifData", () => {
           testFixture.json.mnoteData === null,
         );
         expect(exifData.dataType).toBeNull();
-        exifData.free();
       });
     },
   );
   describe("exifData.setByteOrder()", () => {
     test("should set the byte order", () => {
-      const exifData = ExifData.new();
+      const exifData = withDisposable(ExifData.new());
       expect(exifData.byteOrder).toBe("MOTOROLA");
       exifData.byteOrder = "INTEL";
       expect(exifData.byteOrder).toBe("INTEL");
-      exifData.free();
     });
   });
   describe("exifData.setDataType()", () => {
     test("should set the data type", () => {
-      const exifData = ExifData.new();
+      const exifData = withDisposable(ExifData.new());
       expect(exifData.dataType).toBeNull();
       exifData.dataType = "COMPRESSED";
       expect(exifData.dataType).toBe("COMPRESSED");
-      exifData.free();
     });
   });
   describe.each(["T-45A_Goshawk_03.jpg", "Sumo_Museum.jpg"])(
@@ -152,7 +150,9 @@ describe("ExifData", () => {
     (testFixtureFile) => {
       test("should get an entry by tag", async () => {
         const testFixture = await getTestFixture(testFixtureFile);
-        const exifData = ExifData.newFromData(testFixture.buffer);
+        const exifData = withDisposable(
+          ExifData.newFromData(testFixture.buffer),
+        );
 
         Object.values(testFixture.json.data)
           .flatMap((datum) => Object.entries(datum))
@@ -177,7 +177,6 @@ describe("ExifData", () => {
             );
             expect(exifEntry?.value).toEqual(expectedExifEntry.value);
           });
-        exifData.free();
       });
     },
   );

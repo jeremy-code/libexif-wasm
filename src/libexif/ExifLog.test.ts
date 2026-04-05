@@ -6,6 +6,7 @@ import {
   exifLogCodeGetTitle,
 } from "./ExifLog.ts";
 import { ExifMem } from "./ExifMem.ts";
+import { withDisposable } from "../__utils__/withDisposable.ts";
 import type { ExifLogCodeKey } from "../enums/ExifLogCode.ts";
 
 type ExifLogCodeTableItem = {
@@ -54,19 +55,17 @@ describe.each(EXIF_LOG_CODE_TABLE)(
 describe("ExifLog", () => {
   describe("ExifLog.new()", () => {
     test("should create a new ExifLog instance", () => {
-      const exifLog = ExifLog.new();
+      const exifLog = withDisposable(ExifLog.new());
       expect(exifLog).toBeInstanceOf(ExifLog);
       expect(exifLog.byteOffset).toBeGreaterThan(0);
-      exifLog.free();
     });
   });
   describe("ExifLog.newMem()", () => {
     test("should create a new ExifLog instance with memory", () => {
       const exifLogMem = ExifMem.new();
-      const exifLog = ExifLog.newMem(exifLogMem);
+      const exifLog = withDisposable(ExifLog.newMem(exifLogMem));
       expect(exifLog).toBeInstanceOf(ExifLog);
       expect(exifLog.byteOffset).toBeGreaterThan(exifLogMem.byteOffset);
-      exifLog.free();
       exifLogMem.unref();
     });
   });

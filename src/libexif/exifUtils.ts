@@ -22,7 +22,7 @@ import { ExifRationalStruct } from "../structs/ExifRationalStruct.ts";
 import { ExifSRationalStruct } from "../structs/ExifSRationalStruct.ts";
 import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
 
-class ExifRational extends ExifRationalStruct {
+class ExifRational extends ExifRationalStruct implements Disposable {
   constructor(public readonly byteOffset: number) {
     super();
   }
@@ -36,7 +36,7 @@ class ExifRational extends ExifRationalStruct {
   }
 }
 
-class ExifSRational extends ExifSRationalStruct {
+class ExifSRational extends ExifSRationalStruct implements Disposable {
   constructor(public readonly byteOffset: number) {
     super();
   }
