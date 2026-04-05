@@ -1,5 +1,19 @@
 # libexif-wasm
 
+## 0.3.0
+
+### Minor Changes
+
+- 4222093: chore: add IFD_NAMES constant
+
+### Patch Changes
+
+- 361bf7b: chore: add ValidTypedArray interface, update getDataAsTypedArray tests
+- 5284355: chore: remove TestEnum
+- 2d5ae99: feat: add .fromTypedArray() to ExifEntry
+- 1a49e32: chore: update ExifData .ifd setter to set ExifContent .parent
+- d509545: chore: break up interfaces.ts into interfaces directory
+
 ## 0.2.0
 
 ### Minor Changes
