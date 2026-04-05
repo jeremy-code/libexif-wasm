@@ -4,7 +4,6 @@ export {
   ExifData,
   exifDataOptionGetDescription,
   exifDataOptionGetName,
-  type IfdTuple,
 } from "./libexif/ExifData.ts";
 export { ExifEntry } from "./libexif/ExifEntry.ts";
 export { exifFormatGetName, exifFormatGetSize } from "./libexif/exifFormat.ts";
@@ -103,6 +102,13 @@ export {
   type ExifTagUnifiedValue,
   type Tag,
 } from "./enums/ExifTagUnified.ts";
+
+// Interfaces
+export type {
+  ValidTypedArray,
+  IfdPtr,
+  IfdTuple,
+} from "./interfaces/libexif.ts";
 
 // Utility functions
 export { getDataAsTypedArray } from "./libexif/utils/getDataAsTypedArray.ts";

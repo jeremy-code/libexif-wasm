@@ -10,6 +10,7 @@ import { ExifDataType, type DataType } from "../enums/ExifDataType.ts";
 import { ExifIfd } from "../enums/ExifIfd.ts";
 import { ExifTagUnified, type Tag } from "../enums/ExifTagUnified.ts";
 import type { DisposableDataSegment } from "../interfaces/dataSegment.ts";
+import type { IfdTuple } from "../interfaces/libexif.ts";
 import { getValue, HEAPU8, UTF8ToString } from "../internal/emscripten.ts";
 import {
   exif_data_new,
@@ -39,14 +40,6 @@ import { ExifDataStruct } from "../structs/ExifDataStruct.ts";
 import type { IfdPtr } from "../structs/ExifDataStruct.ts";
 import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
 import { getEnumKeyFromValue } from "../utils/getEnumKeyFromValue.ts";
-
-type IfdTuple = [
-  IFD_0: ExifContent,
-  IFD_1: ExifContent,
-  EXIF: ExifContent,
-  GPS: ExifContent,
-  INTEROPERABILITY: ExifContent,
-];
 
 class ExifData extends ExifDataStruct implements DisposableDataSegment {
   constructor(public readonly byteOffset: number) {
@@ -281,9 +274,4 @@ const exifDataOptionGetName = (o: DataOption) => {
   return UTF8ToString(exif_data_option_get_name(ExifDataOption[o]));
 };
 
-export {
-  ExifData,
-  exifDataOptionGetDescription,
-  exifDataOptionGetName,
-  type IfdTuple,
-};
+export { ExifData, exifDataOptionGetDescription, exifDataOptionGetName };

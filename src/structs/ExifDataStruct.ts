@@ -1,4 +1,5 @@
 import { ExifIfd } from "../enums/ExifIfd.ts";
+import type { IfdPtr } from "../interfaces/libexif.ts";
 import {
   exif_data_get_ifd,
   exif_data_set_ifd,
@@ -7,14 +8,6 @@ import {
   exif_data_get_size,
   exif_data_set_size,
 } from "../internal/main.ts";
-
-type IfdPtr = [
-  IFD_0: number,
-  IFD_1: number,
-  EXIF: number,
-  GPS: number,
-  INTEROPERABILITY: number,
-];
 
 abstract class ExifDataStruct {
   abstract byteOffset: number;
