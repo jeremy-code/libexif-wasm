@@ -1,5 +1,12 @@
 # libexif-wasm
 
+## 0.3.1
+
+### Patch Changes
+
+- ac08cc7: export TagEntry type from getExifTagTable
+- c210ed1: move IfdTuple, IfdPtr types to /interfaces/libexif.ts and export those interfaces in index
+
 ## 0.3.0
 
 ### Minor Changes
