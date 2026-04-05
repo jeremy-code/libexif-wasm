@@ -30,6 +30,8 @@ import { ExifEntryStruct } from "../structs/ExifEntryStruct.ts";
 import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
 import { getEnumKeyFromValue } from "../utils/getEnumKeyFromValue.ts";
 import { getDataAsTypedArray } from "./utils/getDataAsTypedArray.ts";
+import type { ValidTypedArray } from "../interfaces/libexif.ts";
+import { setDataFromTypedArray } from "./utils/setDataFromTypedArray.ts";
 
 /**
  * For any format other than ASCII, the maximum length of `.getValue()` does not
@@ -215,7 +217,23 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
     this.free();
   }
 
-  toTypedArray() {
+  /**
+   * Updates ExifEntry.data using a TypedArray
+   */
+  fromTypedArray(typedArray: ValidTypedArray) {
+    const prevPtr = this.dataPtr;
+    const newPtr = setDataFromTypedArray(
+      typedArray,
+      this.format ?? "UNDEFINED",
+      this.byteOrder,
+    );
+    this.dataPtr = newPtr;
+    this.components = typedArray.length;
+    this.size = typedArray.byteLength;
+    free(prevPtr);
+  }
+
+  toTypedArray(): ValidTypedArray {
     return getDataAsTypedArray(
       this.dataPtr,
       this.components,

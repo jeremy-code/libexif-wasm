@@ -106,6 +106,7 @@ export {
 
 // Utility functions
 export { getDataAsTypedArray } from "./libexif/utils/getDataAsTypedArray.ts";
+export { setDataFromTypedArray } from "./libexif/utils/setDataFromTypedArray.ts";
 export { getExifTagTable } from "./libexif/utils/getExifTagTable.ts";
 export { assertEnumObjectKey } from "./utils/assertEnumObjectKey.ts";
 export { getEnumKeyFromValue } from "./utils/getEnumKeyFromValue.ts";

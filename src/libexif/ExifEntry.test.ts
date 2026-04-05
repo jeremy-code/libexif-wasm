@@ -3,6 +3,7 @@ import { describe, expect, test } from "vitest";
 import { ExifData } from "./ExifData.ts";
 import { ExifEntry } from "./ExifEntry.ts";
 import { EXIF_SENTINEL_TAG } from "./ExifTag.ts";
+import { mapTypedArrayToDataView } from "../__utils__/mapTypedArrayToDataView.ts";
 import { withDisposable } from "../__utils__/withDisposable.ts";
 import { ExifIfd } from "../enums/ExifIfd.ts";
 import { intArrayFromString } from "../internal/emscripten.ts";
@@ -88,6 +89,39 @@ describe("ExifEntry", () => {
       exifEntry.data = asciiIntArray;
       exifEntry.components = asciiIntArray.length;
       expect(exifEntry.toTypedArray()).toStrictEqual(asciiIntArray);
+    });
+  });
+  describe("ExifEntry.fromTypedArray()", () => {
+    test("should update short data correctly", () => {
+      const exifEntry = withDisposable(ExifEntry.new());
+      exifEntry.tag = "COLOR_SPACE";
+      exifEntry.format = "SHORT";
+      const typedArray = new Uint16Array([65535]);
+      exifEntry.fromTypedArray(typedArray);
+      expect(exifEntry.data).toHaveLength(typedArray.byteLength);
+      expect(exifEntry.data).toEqual(
+        new Uint8Array(mapTypedArrayToDataView(typedArray, false).buffer),
+      );
+      expect(exifEntry.components).toBe(typedArray.length);
+      expect(exifEntry.toTypedArray()).toStrictEqual(typedArray);
+    });
+    test("should update based on byte order", () => {
+      const exifData = withDisposable(ExifData.new());
+      exifData.byteOrder = "INTEL";
+      const exifContent = exifData.ifd[0];
+      const exifEntry = ExifEntry.new();
+      exifEntry.tag = "COLOR_SPACE";
+      exifEntry.format = "SHORT";
+      exifContent.addEntry(exifEntry);
+
+      const typedArray = new Uint16Array([65535]);
+      exifEntry.fromTypedArray(typedArray);
+      expect(exifEntry.data).toHaveLength(typedArray.byteLength);
+      expect(exifEntry.data).toEqual(
+        new Uint8Array(mapTypedArrayToDataView(typedArray, true).buffer),
+      );
+      expect(exifEntry.components).toBe(typedArray.length);
+      expect(exifEntry.toTypedArray()).toStrictEqual(typedArray);
     });
   });
 });
