@@ -133,4 +133,4 @@ const getExifTagTable = (): TagEntry[] => {
   });
 };
 
-export { getExifTagTable };
+export { getExifTagTable, type TagEntry };
