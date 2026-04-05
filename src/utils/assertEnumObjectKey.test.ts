@@ -96,14 +96,14 @@ describe("assertEnumObjectKey(MockEnumObjectWithNumberKeys)", () => {
 });
 
 describe("assertEnumObjectKey(TestEnumObject)", () => {
-  const TestEnumObject = mapEmbindEnumToObject(libexif.TestEnum);
+  const TestEnumObject = mapEmbindEnumToObject(libexif.ExifIfd);
 
   test("should not throw an error if key exists", () => {
-    expect(() => assertEnumObjectKey(TestEnumObject, "RED")).not.toThrow();
+    expect(() => assertEnumObjectKey(TestEnumObject, "IFD_0")).not.toThrow();
   });
   test("should throw an error if the key does not exist", () => {
     expect(() => assertEnumObjectKey(TestEnumObject, "UNKNOWN")).toThrow(
-      "Enum key must be one of RED, GREEN, BLUE",
+      "Enum key must be one of IFD_0, IFD_1, EXIF, GPS, INTEROPERABILITY, COUNT",
     );
   });
   test("should throw a TypeError if the key is not a string, number, or symbol", () => {

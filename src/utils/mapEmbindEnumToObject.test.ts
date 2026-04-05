@@ -1,22 +1,26 @@
-import { describe, test, expect } from "vitest";
+import { describe, test, expect, assert } from "vitest";
 
 import { mapEmbindEnumToObject } from "./mapEmbindEnumToObject.ts";
+import { IFD_NAMES } from "../constants.ts";
 import { libexif } from "../internal/module.ts";
 
 enum ExpectedEnum {
-  RED = 0xff0000,
-  GREEN = 0x00ff00,
-  BLUE = 0x0000ff,
+  IFD_0,
+  IFD_1,
+  EXIF,
+  GPS,
+  INTEROPERABILITY,
+  COUNT,
 }
 
 /**
  * While generally you would not want to test library code, Emscripten's Embind
- * generates enums that have some bizarre properties and behaviors, so it is
+ * generates enums that have some unexpected properties and behaviors, so it is
  * necessary to test them to ensure they are correct and that updates to the
  * library do not break them
  */
 describe("TestEnum", () => {
-  const TestEnum = libexif.TestEnum as typeof libexif.TestEnum & {
+  const TestEnum = libexif.ExifIfd as typeof libexif.ExifIfd & {
     values: { [key: string]: { value: number } };
     argCount: number | undefined;
   };
@@ -34,55 +38,85 @@ describe("TestEnum", () => {
     );
   });
   test("should have enum members as properties", () => {
-    expect(TestEnum.RED).toBeDefined();
-    expect(TestEnum.GREEN).toBeDefined();
-    expect(TestEnum.BLUE).toBeDefined();
+    assert.containsAllKeys(TestEnum, [...IFD_NAMES, "COUNT"]);
+    assert.hasAllKeys(TestEnum, [...IFD_NAMES, "COUNT", "argCount", "values"]);
   });
   test("should have enum members as objects", () => {
-    expect(typeof TestEnum.RED).toBe("object");
-    expect(typeof TestEnum.GREEN).toBe("object");
-    expect(typeof TestEnum.BLUE).toBe("object");
+    expect(TestEnum.IFD_0).toBeTypeOf("object");
+    expect(TestEnum.IFD_1).toBeTypeOf("object");
+    expect(TestEnum.EXIF).toBeTypeOf("object");
+    expect(TestEnum.GPS).toBeTypeOf("object");
+    expect(TestEnum.INTEROPERABILITY).toBeTypeOf("object");
+    expect(TestEnum.GPS).toBeTypeOf("object");
+    expect(TestEnum.COUNT).toBeTypeOf("object");
   });
   test("should have correct values for enum members", () => {
-    expect(TestEnum.RED.value).toBe(ExpectedEnum.RED);
-    expect(TestEnum.GREEN.value).toBe(ExpectedEnum.GREEN);
-    expect(TestEnum.BLUE.value).toBe(ExpectedEnum.BLUE);
+    expect(TestEnum.IFD_0.value).toBe(ExpectedEnum.IFD_0);
+    expect(TestEnum.IFD_1.value).toBe(ExpectedEnum.IFD_1);
+    expect(TestEnum.EXIF.value).toBe(ExpectedEnum.EXIF);
+    expect(TestEnum.GPS.value).toBe(ExpectedEnum.GPS);
+    expect(TestEnum.INTEROPERABILITY.value).toBe(ExpectedEnum.INTEROPERABILITY);
+    expect(TestEnum.GPS.value).toBe(ExpectedEnum.GPS);
+    expect(TestEnum.COUNT.value).toBe(ExpectedEnum.COUNT);
   });
   test("should have values property with correct values", () => {
     expect(TestEnum.values).toBeDefined();
-    expect(TestEnum.values[0xff0000]?.value).toBe(ExpectedEnum.RED);
-    expect(TestEnum.values[0x00ff00]?.value).toBe(ExpectedEnum.GREEN);
-    expect(TestEnum.values[0x0000ff]?.value).toBe(ExpectedEnum.BLUE);
+    expect(TestEnum.values[0]?.value).toBe(ExpectedEnum.IFD_0);
+    expect(TestEnum.values[1]?.value).toBe(ExpectedEnum.IFD_1);
+    expect(TestEnum.values[2]?.value).toBe(ExpectedEnum.EXIF);
+    expect(TestEnum.values[3]?.value).toBe(ExpectedEnum.GPS);
+    expect(TestEnum.values[4]?.value).toBe(ExpectedEnum.INTEROPERABILITY);
+    expect(TestEnum.values[5]?.value).toBe(ExpectedEnum.COUNT);
   });
   test("should have undefined argCount property", () => {
-    expect("argCount" in TestEnum).toBe(true);
-    expect(TestEnum.argCount).toBeUndefined();
+    expect(TestEnum).toHaveProperty("argCount", undefined);
   });
 });
 
 describe("mapEmbindEnumToObject(TestEnum)", () => {
-  const { TestEnum } = libexif;
+  const TestEnum = libexif.ExifIfd;
 
   test("should map enum members to a plain object with key-value pairs", () => {
     expect(mapEmbindEnumToObject(TestEnum)).toEqual({
-      RED: ExpectedEnum.RED,
-      GREEN: ExpectedEnum.GREEN,
-      BLUE: ExpectedEnum.BLUE,
+      IFD_0: ExpectedEnum.IFD_0,
+      IFD_1: ExpectedEnum.IFD_1,
+      EXIF: ExpectedEnum.EXIF,
+      GPS: ExpectedEnum.GPS,
+      INTEROPERABILITY: ExpectedEnum.INTEROPERABILITY,
+      COUNT: ExpectedEnum.COUNT,
     });
   });
   test("should not have values or argCount properties", () => {
     const mappedTestEnum = mapEmbindEnumToObject(TestEnum);
 
-    expect("values" in mappedTestEnum).toBe(false);
-    expect("argCount" in mappedTestEnum).toBe(false);
+    expect(mappedTestEnum).not.toHaveProperty("values");
+    expect(mappedTestEnum).not.toHaveProperty("argCount");
   });
   test("should be iterable", () => {
     const iterator = mapEmbindEnumToObject(TestEnum)[Symbol.iterator]();
 
-    expect(iterator.next().value).toEqual(["RED", ExpectedEnum.RED]);
-    expect(iterator.next().value).toEqual(["GREEN", ExpectedEnum.GREEN]);
-    expect(iterator.next().value).toEqual(["BLUE", ExpectedEnum.BLUE]);
-    expect(iterator.next().done).toBe(true);
+    expect(iterator.next()).toHaveProperty("value", [
+      "IFD_0",
+      ExpectedEnum.IFD_0,
+    ]);
+    expect(iterator.next()).toHaveProperty("value", [
+      "IFD_1",
+      ExpectedEnum.IFD_1,
+    ]);
+    expect(iterator.next()).toHaveProperty("value", [
+      "EXIF",
+      ExpectedEnum.EXIF,
+    ]);
+    expect(iterator.next()).toHaveProperty("value", ["GPS", ExpectedEnum.GPS]);
+    expect(iterator.next().value).toEqual([
+      "INTEROPERABILITY",
+      ExpectedEnum.INTEROPERABILITY,
+    ]);
+    expect(iterator.next()).toHaveProperty("value", [
+      "COUNT",
+      ExpectedEnum.COUNT,
+    ]);
+    expect(iterator.next()).toHaveProperty("done", true);
   });
   test("should not be extensible", () => {
     const mappedTestEnum = mapEmbindEnumToObject(TestEnum);

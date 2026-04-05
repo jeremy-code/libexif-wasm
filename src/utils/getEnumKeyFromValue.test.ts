@@ -2,12 +2,12 @@ import { describe, expect, test } from "vitest";
 
 import { getEnumKeyFromValue } from "./getEnumKeyFromValue.ts";
 import { mapEmbindEnumToObject } from "./mapEmbindEnumToObject.ts";
+import { IFD_NAMES } from "../constants.ts";
 import { libexif } from "../internal/module.ts";
 
-const { TestEnum } = libexif;
-const TestEnumObject = mapEmbindEnumToObject(TestEnum);
+const TestEnumObject = mapEmbindEnumToObject(libexif.ExifIfd);
 
-describe.each(["RED", "GREEN", "BLUE"] as const)(
+describe.each([...IFD_NAMES, "COUNT"] as const)(
   "getEnumKeyFromValue(TestEnumObject, TestEnumObject.%s)",
   (key) => {
     test("should return the correct value when the key exists in the enum", () => {
