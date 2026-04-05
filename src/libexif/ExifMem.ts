@@ -1,4 +1,4 @@
-import type { DataSegment } from "../interfaces.ts";
+import type { DataSegment } from "../interfaces/dataSegment.ts";
 import {
   exif_mem_ref,
   exif_mem_unref,

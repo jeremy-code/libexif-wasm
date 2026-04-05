@@ -13,7 +13,7 @@ import {
 } from "../__utils__/getTestFixture.ts";
 import { ExifIfd } from "../enums/ExifIfd.ts";
 import type { Tag } from "../enums/ExifTagUnified.ts";
-import type { Entry } from "../interfaces.ts";
+import type { Entry } from "../interfaces/utils.ts";
 
 describe("ExifData", () => {
   describe("ExifData.new()", () => {

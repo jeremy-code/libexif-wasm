@@ -1,4 +1,4 @@
-import type { IterableElement } from "../interfaces.ts";
+import type { IterableElement } from "../interfaces/utils.ts";
 import { ExifTagGps as ExifTagGpsEnum } from "../internal/libexif/exifTag.ts";
 import { mapEmbindEnumToObject } from "../utils/mapEmbindEnumToObject.ts";
 

@@ -1,15 +1,15 @@
 import { ExifContent } from "./ExifContent.ts";
+import { ExifEntry } from "./ExifEntry.ts";
 import type { ExifLog } from "./ExifLog.ts";
 import type { ExifMem } from "./ExifMem.ts";
 import { ExifMnoteData } from "./ExifMnoteData.ts";
+import { POINTER_SIZE } from "../constants.ts";
 import { ExifByteOrder, type ByteOrder } from "../enums/ExifByteOrder.ts";
 import { ExifDataOption, type DataOption } from "../enums/ExifDataOption.ts";
 import { ExifDataType, type DataType } from "../enums/ExifDataType.ts";
 import { ExifIfd } from "../enums/ExifIfd.ts";
 import { ExifTagUnified, type Tag } from "../enums/ExifTagUnified.ts";
-import type { DisposableDataSegment } from "../interfaces.ts";
-import { ExifEntry } from "./ExifEntry.ts";
-import { POINTER_SIZE } from "../constants.ts";
+import type { DisposableDataSegment } from "../interfaces/dataSegment.ts";
 import { getValue, HEAPU8, UTF8ToString } from "../internal/emscripten.ts";
 import {
   exif_data_new,

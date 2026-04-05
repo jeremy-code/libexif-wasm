@@ -1,9 +1,10 @@
 import { isPropertyKey } from "./isPropertyKey.ts";
 import type { EmbindEnumObject } from "./mapEmbindEnumToObject.ts";
+import type { UnknownRecord } from "../interfaces/utils.ts";
 
 const MAX_NUMBER_OF_KEYS = 10;
 
-const assertEnumObjectKey = <T extends Record<PropertyKey, unknown>>(
+const assertEnumObjectKey = <T extends UnknownRecord>(
   enumObj: EmbindEnumObject<T>,
   enumKey: unknown,
 ): enumKey is keyof T => {

@@ -1,4 +1,4 @@
-import type { IterableElement } from "../interfaces.ts";
+import type { IterableElement } from "../interfaces/utils.ts";
 import { ExifByteOrder as ExifByteOrderEnum } from "../internal/libexif/exifByteOrder.ts";
 import { mapEmbindEnumToObject } from "../utils/mapEmbindEnumToObject.ts";
 

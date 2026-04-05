@@ -1,6 +1,6 @@
 import type { ExifMem } from "./ExifMem.ts";
 import { ExifLogCode, type LogCode } from "../enums/ExifLogCode.ts";
-import type { DisposableDataSegment } from "../interfaces.ts";
+import type { DisposableDataSegment } from "../interfaces/dataSegment.ts";
 import {
   exif_log_new,
   exif_log_new_mem,

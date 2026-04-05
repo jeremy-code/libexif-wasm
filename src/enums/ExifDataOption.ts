@@ -1,4 +1,4 @@
-import type { IterableElement } from "../interfaces.ts";
+import type { IterableElement } from "../interfaces/utils.ts";
 import { ExifDataOption as ExifDataOptionEnum } from "../internal/libexif/exifData.ts";
 import { mapEmbindEnumToObject } from "../utils/mapEmbindEnumToObject.ts";
 

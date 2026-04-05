@@ -11,7 +11,7 @@ import {
   type ExifTagUnifiedKey,
   type Tag,
 } from "../enums/ExifTagUnified.ts";
-import type { DisposableDataSegment } from "../interfaces.ts";
+import type { DisposableDataSegment } from "../interfaces/dataSegment.ts";
 import { HEAPU8, UTF8ToString } from "../internal/emscripten.ts";
 import {
   exif_entry_new,

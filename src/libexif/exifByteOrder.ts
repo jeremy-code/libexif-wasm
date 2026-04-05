@@ -1,5 +1,5 @@
 import { ExifByteOrder, type ByteOrder } from "../enums/ExifByteOrder.ts";
-import type { Sentencize } from "../interfaces.ts";
+import type { Sentencize } from "../interfaces/utils.ts";
 import { UTF8ToString } from "../internal/emscripten.ts";
 import { exif_byte_order_get_name } from "../internal/libexif/exifByteOrder.ts";
 import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";

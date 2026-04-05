@@ -1,10 +1,11 @@
-import type { EmbindEnum, Entry } from "../interfaces.ts";
+import type { EmbindEnum } from "../interfaces/emscripten.ts";
+import type { UnknownRecord, Entry } from "../interfaces/utils.ts";
 
 /**
  * Extends a plain object with key-value pairs to include an iterator of tuples
  * of the key-value pairs in order
  */
-type EmbindEnumObject<T extends Record<PropertyKey, unknown>> = T & {
+type EmbindEnumObject<T extends UnknownRecord> = T & {
   [Symbol.iterator]: () => ArrayIterator<Entry<T>>;
 };
 
@@ -18,7 +19,7 @@ type EmbindEnumObject<T extends Record<PropertyKey, unknown>> = T & {
  * @see {@link https://github.com/emscripten-core/emscripten/blob/main/src/lib/libembind_gen.js#L277-L310}
  * @see {@link https://github.com/tc39/proposal-enum Proposal for ECMAScript enums}
  */
-const mapEmbindEnumToObject = <T extends Record<PropertyKey, unknown>>(
+const mapEmbindEnumToObject = <T extends UnknownRecord>(
   embindEnum: EmbindEnum<T>,
 ): EmbindEnumObject<T> => {
   const entries = Object.entries<EmbindEnum<T>[keyof T]>(embindEnum)

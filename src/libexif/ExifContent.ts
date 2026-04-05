@@ -4,7 +4,7 @@ import type { ExifLog } from "./ExifLog.ts";
 import type { ExifMem } from "./ExifMem.ts";
 import { ExifIfd, type Ifd } from "../enums/ExifIfd.ts";
 import { ExifTagUnified, type Tag } from "../enums/ExifTagUnified.ts";
-import type { DisposableDataSegment } from "../interfaces.ts";
+import type { DisposableDataSegment } from "../interfaces/dataSegment.ts";
 import {
   exif_content_new,
   exif_content_new_mem,

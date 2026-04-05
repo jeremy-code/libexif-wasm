@@ -1,5 +1,5 @@
 import type { ExifLog } from "./ExifLog.ts";
-import type { DataSegment } from "../interfaces.ts";
+import type { DataSegment } from "../interfaces/dataSegment.ts";
 import { HEAPU8 } from "../internal/emscripten.ts";
 import {
   exif_mnote_data_ref,
