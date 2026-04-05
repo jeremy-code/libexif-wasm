@@ -1,5 +1,11 @@
 # libexif-wasm
 
+## 0.2.0
+
+### Minor Changes
+
+- f24eae1: add getExifTagTable.ts util, ExifEntry.toTypedArray(), update ExifTag.ts
+
 ## 0.1.0
 
 ### Minor Changes
