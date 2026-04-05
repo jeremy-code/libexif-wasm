@@ -1,3 +1,4 @@
+import { IFD_NAMES } from "../../constants.ts";
 import type { Ifd } from "../../enums/ExifIfd.ts";
 import type { SupportLevel } from "../../enums/ExifSupportLevel.ts";
 import { ExifTag } from "../../enums/ExifTag.ts";
@@ -21,14 +22,6 @@ type TagEntry = {
 };
 
 type IndexedTagEntry = TagEntry & { index: number };
-
-const IFD_NAMES = [
-  "IFD_0",
-  "IFD_1",
-  "EXIF",
-  "GPS",
-  "INTEROPERABILITY",
-] as const;
 
 const DEFAULT_SUPPORT_LEVEL: Record<Ifd, SupportLevel> = {
   IFD_0: "UNKNOWN",
