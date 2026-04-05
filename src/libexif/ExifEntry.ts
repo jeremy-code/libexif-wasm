@@ -105,20 +105,22 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
    * Running this setter will free .dataPtr beforehand
    */
   set data(data: Uint8Array) {
-    if (this.dataPtr !== 0) {
-      free(this.dataPtr);
-    }
-
+    const prevDataPtr = this.dataPtr;
     this.size = data.length;
     const dataPtr = malloc(data.byteLength);
     HEAPU8.set(data, dataPtr);
     this.dataPtr = dataPtr;
+
+    if (prevDataPtr !== 0) {
+      free(prevDataPtr);
+    }
   }
 
   get parent() {
     return this.parentPtr !== 0 ? new ExifContent(this.parentPtr) : null;
   }
 
+  // Does not free parent
   set parent(parent: ExifContent | null) {
     this.parentPtr = parent?.byteOffset ?? 0;
   }
@@ -221,16 +223,19 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
    * Updates ExifEntry.data using a TypedArray
    */
   fromTypedArray(typedArray: ValidTypedArray) {
-    const prevPtr = this.dataPtr;
-    const newPtr = setDataFromTypedArray(
+    const prevDataPtr = this.dataPtr;
+    const newDataPtr = setDataFromTypedArray(
       typedArray,
       this.format ?? "UNDEFINED",
       this.byteOrder,
     );
-    this.dataPtr = newPtr;
+    this.dataPtr = newDataPtr;
     this.components = typedArray.length;
     this.size = typedArray.byteLength;
-    free(prevPtr);
+
+    if (prevDataPtr !== 0) {
+      free(prevDataPtr);
+    }
   }
 
   toTypedArray(): ValidTypedArray {

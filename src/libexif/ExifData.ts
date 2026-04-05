@@ -1,7 +1,7 @@
 import { ExifContent } from "./ExifContent.ts";
 import { ExifEntry } from "./ExifEntry.ts";
 import type { ExifLog } from "./ExifLog.ts";
-import type { ExifMem } from "./ExifMem.ts";
+import { ExifMem } from "./ExifMem.ts";
 import { ExifMnoteData } from "./ExifMnoteData.ts";
 import { POINTER_SIZE } from "../constants.ts";
 import { ExifByteOrder, type ByteOrder } from "../enums/ExifByteOrder.ts";
@@ -66,7 +66,9 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
   }
 
   /**
-   * Will update all ifd's .parent correctly.
+   * Will update all ifd's .parent correctly. Note you will need to free the
+   * previous ifds you set yourself. This is so that someone can do something like
+   * exifData.ifd = exifData.ifd.with(0, newContent)
    */
   set ifd(ifd: ExifContent[]) {
     if (ifd.length !== ExifIfd.COUNT) {
@@ -74,7 +76,6 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
         `ExifData.ifd: Expected ${ExifIfd.COUNT} IFDs, got ${ifd.length}`,
       );
     }
-
     this.ifdPtr = ifd.map((ifd) => ifd.byteOffset) as IfdPtr;
     ifd.forEach((exifContent) => {
       exifContent.parent = this;
@@ -86,10 +87,14 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
   }
 
   set data(data: Uint8Array) {
-    const dataPtr = malloc(data.byteLength);
-    HEAPU8.set(data, dataPtr);
-    this.dataPtr = dataPtr;
+    const prevDataPtr = this.dataPtr;
+    const newDataPtr = malloc(data.byteLength);
+    HEAPU8.set(data, newDataPtr);
+    this.dataPtr = newDataPtr;
     this.size = data.byteLength;
+    if (prevDataPtr !== 0) {
+      free(prevDataPtr);
+    }
   }
 
   /**
@@ -198,7 +203,10 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
       throw new Error("ExifData.saveData: Memory allocation failed");
     }
 
-    return HEAPU8.subarray(dataPtr, dataPtr + dataSize);
+    const data = HEAPU8.subarray(dataPtr, dataPtr + dataSize);
+    const exifMem = new ExifMem(dataPtr);
+    exifMem.unref();
+    return data;
   }
 
   /**
