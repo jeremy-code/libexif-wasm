@@ -1,5 +1,15 @@
 # libexif-wasm
 
+## 0.4.0
+
+### Minor Changes
+
+- 4c93294: add BiMap and handle enums with bidirectional mapping instead of iteration
+
+### Patch Changes
+
+- 53858c7: add mapRationalFromObject and mapRtionalToObject to make handling rationals slightly easier
+
 ## 0.3.1
 
 ### Patch Changes
