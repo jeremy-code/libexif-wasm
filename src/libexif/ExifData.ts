@@ -4,9 +4,19 @@ import type { ExifLog } from "./ExifLog.ts";
 import { ExifMem } from "./ExifMem.ts";
 import { ExifMnoteData } from "./ExifMnoteData.ts";
 import { POINTER_SIZE } from "../constants.ts";
-import { ExifByteOrder, type ByteOrder } from "../enums/ExifByteOrder.ts";
+import {
+  ExifByteOrder,
+  ExifByteOrderBiMap,
+  type ByteOrder,
+  type ExifByteOrderValue,
+} from "../enums/ExifByteOrder.ts";
 import { ExifDataOption, type DataOption } from "../enums/ExifDataOption.ts";
-import { ExifDataType, type DataType } from "../enums/ExifDataType.ts";
+import {
+  ExifDataType,
+  ExifDataTypeBiMap,
+  type DataType,
+  type ExifDataTypeValue,
+} from "../enums/ExifDataType.ts";
 import { ExifIfd } from "../enums/ExifIfd.ts";
 import { ExifTagUnified, type Tag } from "../enums/ExifTagUnified.ts";
 import type { DisposableDataSegment } from "../interfaces/dataSegment.ts";
@@ -39,7 +49,6 @@ import { free, malloc } from "../internal/stdlib.ts";
 import { ExifDataStruct } from "../structs/ExifDataStruct.ts";
 import type { IfdPtr } from "../structs/ExifDataStruct.ts";
 import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
-import { getEnumKeyFromValue } from "../utils/getEnumKeyFromValue.ts";
 
 class ExifData extends ExifDataStruct implements DisposableDataSegment {
   constructor(public readonly byteOffset: number) {
@@ -95,11 +104,11 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
    * initialization
    */
   get byteOrder(): ByteOrder {
+    const byteOrderValue = exif_data_get_byte_order(this.byteOffset);
+
     return (
-      getEnumKeyFromValue(
-        ExifByteOrder,
-        exif_data_get_byte_order(this.byteOffset),
-      ) ?? "MOTOROLA"
+      ExifByteOrderBiMap.getKey(byteOrderValue as ExifByteOrderValue) ??
+      "MOTOROLA"
     );
   }
 
@@ -123,12 +132,13 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
    * This was a function in the original API
    */
   get dataType(): DataType | null {
-    const dataType = getEnumKeyFromValue(
-      ExifDataType,
-      exif_data_get_data_type(this.byteOffset),
+    const dataType = ExifDataTypeBiMap.getKey(
+      exif_data_get_data_type(this.byteOffset) as ExifDataTypeValue,
     );
 
-    if (dataType === "COUNT") {
+    if (dataType === undefined) {
+      throw new Error("exif_data_get_data_type returned an invalid DataType");
+    } else if (dataType === "COUNT") {
       return null;
     }
     return dataType;

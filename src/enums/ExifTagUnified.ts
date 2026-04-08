@@ -3,12 +3,18 @@ import {
   ExifTag as ExifTagEnum,
   ExifTagGps as ExifTagGpsEnum,
 } from "../internal/libexif/exifTag.ts";
+import { mapEmbindEnumToBiMap } from "../utils/mapEmbindEnumToBiMap.ts";
 import { mapEmbindEnumToObject } from "../utils/mapEmbindEnumToObject.ts";
 
 const ExifTagUnified = mapEmbindEnumToObject({
   ...ExifTagEnum,
   ...ExifTagGpsEnum,
 });
+const ExifTagUnifiedBiMap = mapEmbindEnumToBiMap({
+  ...ExifTagEnum,
+  ...ExifTagGpsEnum,
+});
+
 type ExifTagUnified = typeof ExifTagUnified;
 type ExifTagUnifiedKey = IterableElement<ExifTagUnified>[0];
 type ExifTagUnifiedValue = IterableElement<ExifTagUnified>[1];
@@ -16,6 +22,7 @@ type Tag = ExifTagUnifiedKey;
 
 export {
   ExifTagUnified,
+  ExifTagUnifiedBiMap,
   type ExifTagUnifiedKey,
   type ExifTagUnifiedValue,
   type Tag,

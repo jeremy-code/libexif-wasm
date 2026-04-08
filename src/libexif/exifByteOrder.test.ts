@@ -21,7 +21,7 @@ describe('exifByteOrderGetName("UNKNOWN")', () => {
   test(`should throw TypeError`, () => {
     // @ts-expect-error testing unknown byte order
     expect(() => exifByteOrderGetName("UNKNOWN")).toThrow(
-      "Enum key must be one of MOTOROLA, INTEL",
+      "UNKNOWN is not a valid ByteOrder key",
     );
   });
 });

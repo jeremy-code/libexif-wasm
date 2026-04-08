@@ -1,10 +1,16 @@
 import { IFD_NAMES } from "../../constants.ts";
 import type { Ifd } from "../../enums/ExifIfd.ts";
 import type { SupportLevel } from "../../enums/ExifSupportLevel.ts";
-import { ExifTag } from "../../enums/ExifTag.ts";
-import { ExifTagGps } from "../../enums/ExifTagGps.ts";
-import { ExifTagUnified, type Tag } from "../../enums/ExifTagUnified.ts";
-import { getEnumKeyFromValue } from "../../utils/getEnumKeyFromValue.ts";
+import { ExifTagBiMap, type ExifTagValue } from "../../enums/ExifTag.ts";
+import {
+  ExifTagGpsBiMap,
+  type ExifTagGpsValue,
+} from "../../enums/ExifTagGps.ts";
+import {
+  ExifTagUnifiedBiMap,
+  type ExifTagUnifiedValue,
+  type Tag,
+} from "../../enums/ExifTagUnified.ts";
 import {
   EXIF_SENTINEL_TAG,
   ExifTagInfo,
@@ -51,7 +57,8 @@ const getExifTagTable = (): TagEntry[] => {
   for (let index = 0; index < EXIF_SENTINEL_TAG; index++) {
     const tagVal = exifTagTableGetTag(index);
     const name = exifTagTableGetName(index);
-    const tag = getEnumKeyFromValue(ExifTagUnified, tagVal) ?? null;
+    const tag =
+      ExifTagUnifiedBiMap.getKey(tagVal as ExifTagUnifiedValue) ?? null;
 
     if (!tag) {
       throw new Error(`Tag named ${name} does not exist`);
@@ -107,10 +114,10 @@ const getExifTagTable = (): TagEntry[] => {
       return supportedIfds.map((ifd) => {
         const tag =
           ifd === "GPS" ?
-            getEnumKeyFromValue(ExifTagGps, tagVal)
-          : getEnumKeyFromValue(ExifTag, tagVal);
+            ExifTagGpsBiMap.getKey(tagVal as ExifTagGpsValue)
+          : ExifTagBiMap.getKey(tagVal as ExifTagValue);
 
-        if (tag === null) {
+        if (tag === undefined) {
           throw new Error(
             `Tag with value ${tagVal} does not exist in ifd ${ifd}`,
           );

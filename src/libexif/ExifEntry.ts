@@ -2,10 +2,15 @@ import { ExifContent } from "./ExifContent.ts";
 import type { ExifMem } from "./ExifMem.ts";
 import { EXIF_SENTINEL_TAG } from "./ExifTag.ts";
 import type { ByteOrder } from "../enums/ExifByteOrder.ts";
-import { ExifFormat, type Format } from "../enums/ExifFormat.ts";
-import { ExifIfd, type Ifd } from "../enums/ExifIfd.ts";
-import { ExifTag } from "../enums/ExifTag.ts";
-import { ExifTagGps } from "../enums/ExifTagGps.ts";
+import {
+  ExifFormat,
+  ExifFormatBiMap,
+  type ExifFormatValue,
+  type Format,
+} from "../enums/ExifFormat.ts";
+import { ExifIfdBiMap, type ExifIfdValue, type Ifd } from "../enums/ExifIfd.ts";
+import { ExifTagBiMap, type ExifTagValue } from "../enums/ExifTag.ts";
+import { ExifTagGpsBiMap, type ExifTagGpsValue } from "../enums/ExifTagGps.ts";
 import {
   ExifTagUnified,
   type ExifTagUnifiedKey,
@@ -28,7 +33,6 @@ import { exif_entry_get_ifd } from "../internal/main.ts";
 import { free, malloc } from "../internal/stdlib.ts";
 import { ExifEntryStruct } from "../structs/ExifEntryStruct.ts";
 import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
-import { getEnumKeyFromValue } from "../utils/getEnumKeyFromValue.ts";
 import { getDataAsTypedArray } from "./utils/getDataAsTypedArray.ts";
 import type { ValidTypedArray } from "../interfaces/libexif.ts";
 import { setDataFromTypedArray } from "./utils/setDataFromTypedArray.ts";
@@ -62,10 +66,12 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
 
     // GPS tags have their own tag table (e.g. 1 is LATITUDE_REF in GPS,
     // INTEROPERABILITY_INDEX, otherwise)
-    if (this.ifd === "GPS") {
-      return getEnumKeyFromValue(ExifTagGps, this.tagVal) ?? null;
-    }
-    return getEnumKeyFromValue(ExifTag, this.tagVal) ?? null;
+    const tag =
+      this.ifd === "GPS" ?
+        ExifTagGpsBiMap.getKey(this.tagVal as ExifTagGpsValue)
+      : ExifTagBiMap.getKey(this.tagVal as ExifTagValue);
+
+    return tag ?? null;
   }
 
   set tag(tag: Tag | null) {
@@ -84,7 +90,7 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
       return null;
     }
 
-    return getEnumKeyFromValue(ExifFormat, this.formatVal);
+    return ExifFormatBiMap.getKey(this.formatVal as ExifFormatValue) ?? null;
   }
 
   set format(format: Format | null) {
@@ -153,12 +159,16 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
    * This was a function in the original API
    */
   get ifd(): Ifd | null {
-    const exifIfd = exif_entry_get_ifd(this.byteOffset);
-    if (exifIfd === ExifIfd.COUNT) {
+    const exifIfdValue = exif_entry_get_ifd(this.byteOffset);
+    const exifIfd = ExifIfdBiMap.getKey(exifIfdValue as ExifIfdValue);
+
+    if (exifIfd === undefined) {
+      throw new Error("exif_entry_get_ifd returned an invalid IFD value");
+    } else if (exifIfd === "COUNT") {
       return null;
     }
 
-    return getEnumKeyFromValue(ExifIfd, exifIfd) as Ifd | null;
+    return exifIfd;
   }
 
   /**

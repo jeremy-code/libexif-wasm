@@ -36,7 +36,7 @@ describe("ExifData", () => {
       });
       expect(exifData.byteOrder).toBe("MOTOROLA");
       expect(exifData.mnoteData).toBeNull();
-      expect(exifData.dataType).toBeNull();
+      expect(exifData.dataType).toBe("UNKNOWN");
     });
   });
   describe("exifData.ifd", () => {
@@ -125,7 +125,7 @@ describe("ExifData", () => {
         expect(exifData.mnoteData === null).toBe(
           testFixture.json.mnoteData === null,
         );
-        expect(exifData.dataType).toBeNull();
+        expect(exifData.dataType).toBe("UNKNOWN");
       });
     },
   );
@@ -140,7 +140,7 @@ describe("ExifData", () => {
   describe("exifData.setDataType()", () => {
     test("should set the data type", () => {
       const exifData = withDisposable(ExifData.new());
-      expect(exifData.dataType).toBeNull();
+      expect(exifData.dataType).toBe("UNKNOWN");
       exifData.dataType = "COMPRESSED";
       expect(exifData.dataType).toBe("COMPRESSED");
     });

@@ -2,7 +2,7 @@ import { ExifData } from "./ExifData.ts";
 import { ExifEntry } from "./ExifEntry.ts";
 import type { ExifLog } from "./ExifLog.ts";
 import type { ExifMem } from "./ExifMem.ts";
-import { ExifIfd, type Ifd } from "../enums/ExifIfd.ts";
+import { ExifIfdBiMap, type ExifIfdValue, type Ifd } from "../enums/ExifIfd.ts";
 import { ExifTagUnified, type Tag } from "../enums/ExifTagUnified.ts";
 import type { DisposableDataSegment } from "../interfaces/dataSegment.ts";
 import {
@@ -21,7 +21,6 @@ import {
 } from "../internal/libexif/exifContent.ts";
 import { ExifContentStruct } from "../structs/ExifContentStruct.ts";
 import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
-import { getEnumKeyFromValue } from "../utils/getEnumKeyFromValue.ts";
 import { getPtrArray } from "../utils/getPtrArray.ts";
 
 class ExifContent extends ExifContentStruct implements DisposableDataSegment {
@@ -58,8 +57,10 @@ class ExifContent extends ExifContentStruct implements DisposableDataSegment {
    */
   get ifd(): Ifd | null {
     const ifdValue = exif_content_get_ifd(this.byteOffset);
-
-    const ifd = getEnumKeyFromValue(ExifIfd, ifdValue);
+    const ifd = ExifIfdBiMap.getKey(ifdValue as ExifIfdValue);
+    if (ifd === undefined) {
+      throw new Error("exif_content_get_ifd returned an invalid ifd");
+    }
 
     return ifd !== "COUNT" ? ifd : null;
   }

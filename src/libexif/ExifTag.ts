@@ -1,10 +1,16 @@
 import { ExifDataType, type DataType } from "../enums/ExifDataType.ts";
 import { ExifIfd, type Ifd } from "../enums/ExifIfd.ts";
 import {
-  ExifSupportLevel,
+  ExifSupportLevelBiMap,
+  type ExifSupportLevelValue,
   type SupportLevel,
 } from "../enums/ExifSupportLevel.ts";
-import { ExifTagUnified, type Tag } from "../enums/ExifTagUnified.ts";
+import type { ExifTagValue } from "../enums/ExifTag.ts";
+import {
+  ExifTagUnified,
+  ExifTagUnifiedBiMap,
+  type Tag,
+} from "../enums/ExifTagUnified.ts";
 import { stringToNewUTF8, UTF8ToString } from "../internal/emscripten.ts";
 import {
   exif_tag_from_name,
@@ -21,7 +27,6 @@ import {
 } from "../internal/libexif/exifTag.ts";
 import { free } from "../internal/stdlib.ts";
 import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
-import { getEnumKeyFromValue } from "../utils/getEnumKeyFromValue.ts";
 
 /**
  * Somewhat annoyingly, while the values of the `ExifTag` enum are unique, the
@@ -53,11 +58,13 @@ class ExifTagInfo {
   static fromName(name: string): Tag | null {
     const nameUtf8 = stringToNewUTF8(name);
 
-    const exifTag = exif_tag_from_name(nameUtf8);
+    const exifTagVal = exif_tag_from_name(nameUtf8);
     if (nameUtf8 !== 0) {
       free(nameUtf8);
     }
-    return getEnumKeyFromValue(ExifTagUnified, exifTag) ?? null;
+    const exifTag = ExifTagUnifiedBiMap.getKey(exifTagVal as ExifTagValue);
+
+    return exifTag ?? null;
   }
 
   static getName(tag: Tag) {
@@ -138,7 +145,10 @@ class ExifTagInfo {
       ExifIfd[ifd],
       ExifDataType[dataType],
     );
-    return getEnumKeyFromValue(ExifSupportLevel, supportLevel) ?? "UNKNOWN";
+    return (
+      ExifSupportLevelBiMap.getKey(supportLevel as ExifSupportLevelValue) ??
+      "UNKNOWN"
+    );
   }
 }
 

@@ -5,8 +5,7 @@ import { ExifData } from "./ExifData.ts";
 import { ExifEntry } from "./ExifEntry.ts";
 import { getTestFixture } from "../__utils__/getTestFixture.ts";
 import { withDisposable } from "../__utils__/withDisposable.ts";
-import { ExifIfd } from "../enums/ExifIfd.ts";
-import { getEnumKeyFromValue } from "../utils/getEnumKeyFromValue.ts";
+import { ExifIfdBiMap, type ExifIfdValue } from "../enums/ExifIfd.ts";
 
 describe("ExifContent", () => {
   describe("ExifContent.new()", () => {
@@ -36,7 +35,9 @@ describe("ExifContent", () => {
           expect(exifContent.byteOffset).toBeGreaterThan(0);
           expect(exifContent).toHaveProperty("parentPtr", exifData.byteOffset);
           expect(exifContent.ifd).not.toBeNull();
-          expect(exifContent.ifd).toBe(getEnumKeyFromValue(ExifIfd, index));
+          expect(exifContent.ifd).toBe(
+            ExifIfdBiMap.getKey(index as ExifIfdValue),
+          );
           expect(exifContent.entries).toHaveLength(exifContent.count);
         });
       });
