@@ -240,7 +240,10 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
       this.byteOrder,
     );
     this.dataPtr = newDataPtr;
-    this.components = typedArray.length;
+    this.components =
+      this.format !== "RATIONAL" && this.format !== "SRATIONAL" ?
+        typedArray.length
+      : typedArray.length / 2;
     this.size = typedArray.byteLength;
 
     if (prevDataPtr !== 0) {
