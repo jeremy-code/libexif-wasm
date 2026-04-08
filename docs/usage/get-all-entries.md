@@ -9,7 +9,6 @@ Since most likely you will be using `ExifData` as an entrypoint to the library, 
 ```ts
 import { readFile } from "fs/promises";
 import { ExifData, type Ifd } from "libexif-wasm";
-import { getEnumKeyFromValue } from "libexif-wasm/utils";
 
 const exifData = ExifData.newFromData(await readFile("./path/to/image.jpg"));
 ```
