@@ -1,5 +1,11 @@
 # libexif-wasm
 
+## 0.4.3
+
+### Patch Changes
+
+- e8e86a5: fix bug with exifData.saveData not saving correct bytes
+
 ## 0.4.2
 
 ### Patch Changes
