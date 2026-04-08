@@ -37,7 +37,6 @@ describe("ExifEntry", () => {
       expect(exifEntry).toHaveProperty("format", "ASCII");
       expect(exifEntry).toHaveProperty("tag", "MAKE");
       expect(exifEntry.toString()).toBe("");
-      exifEntry.free();
     });
     test("should return ASCII value", () => {
       const EXPECTED_ASCII_VALUE = "Canon";

@@ -11,13 +11,14 @@ import {
   ExifRational,
   ExifSRational,
 } from "./exifUtils.ts";
+import { withDisposable } from "../__utils__/withDisposable.ts";
 import { HEAPU8 } from "../internal/emscripten.ts";
 import { malloc } from "../internal/stdlib.ts";
 
 describe("ExifRational", () => {
   test("setters and getters work correctly", () => {
     const rationalPtr = malloc(exifFormatGetSize("RATIONAL"));
-    const exifRational = new ExifRational(rationalPtr);
+    const exifRational = withDisposable(new ExifRational(rationalPtr));
     exifRational.numerator = 355;
     exifRational.denominator = 113;
     expect(exifRational).toHaveProperty("numerator", 355);
@@ -28,14 +29,13 @@ describe("ExifRational", () => {
           .buffer,
       ),
     ).toEqual(new Uint32Array([355, 113]));
-    exifRational.free();
   });
 });
 
 describe("ExifSRational", () => {
   test("setters and getters work correctly", () => {
     const sRationalPtr = malloc(exifFormatGetSize("SRATIONAL"));
-    const exifSRational = new ExifSRational(sRationalPtr);
+    const exifSRational = withDisposable(new ExifSRational(sRationalPtr));
     exifSRational.numerator = -2147483648;
     exifSRational.denominator = 524288;
     expect(exifSRational).toHaveProperty("numerator", -2147483648);
@@ -48,7 +48,6 @@ describe("ExifSRational", () => {
         ).buffer,
       ),
     ).toEqual(new Int32Array([-2147483648, 524288]));
-    exifSRational.free();
   });
 });
 
@@ -190,10 +189,9 @@ describe("exifGetRational", () => {
   it.each(EXIF_RATIONAL_TABLE)(
     "should return the correct value for buffer $buffer and order $order",
     ({ buffer, order, expected }) => {
-      const rational = exifGetRational(buffer, order);
+      const rational = withDisposable(exifGetRational(buffer, order));
       expect(rational.numerator).toEqual(expected.numerator);
       expect(rational.denominator).toEqual(expected.denominator);
-      rational.free();
     },
   );
 });
@@ -220,10 +218,9 @@ describe("exifGetSRational", () => {
   it.each(EXIF_SRATIONAL_TABLE)(
     "should return the correct value for buffer $buffer and order $order",
     ({ buffer, order, expected }) => {
-      const sRational = exifGetSRational(buffer, order);
+      const sRational = withDisposable(exifGetSRational(buffer, order));
       expect(sRational.numerator).toEqual(expected.numerator);
       expect(sRational.denominator).toEqual(expected.denominator);
-      sRational.free();
     },
   );
 });

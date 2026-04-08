@@ -3,6 +3,7 @@ import { describe, expect, test } from "vitest";
 import { ExifData } from "./ExifData.ts";
 import { ExifMnoteData } from "./ExifMnoteData.ts";
 import { getTestFixture } from "../__utils__/getTestFixture.ts";
+import { withDisposable } from "../__utils__/withDisposable.ts";
 
 describe("ExifMnoteData", () => {
   describe.each(["Sumo_Museum.jpg"])(
@@ -10,7 +11,9 @@ describe("ExifMnoteData", () => {
     (testFixtureFile) => {
       test("should create a new ExifMnoteData instance from data", async () => {
         const testFixture = await getTestFixture(testFixtureFile);
-        const exifData = ExifData.newFromData(testFixture.buffer);
+        const exifData = withDisposable(
+          ExifData.newFromData(testFixture.buffer),
+        );
         const mnoteData = exifData.mnoteData;
         expect(mnoteData).not.toBeNull();
         expect(mnoteData).toBeInstanceOf(ExifMnoteData);
@@ -29,8 +32,6 @@ describe("ExifMnoteData", () => {
           );
           expect(mnoteData?.getValue(index)).toBe(exifMnoteEntry.value);
         });
-
-        exifData.free();
       });
     },
   );
