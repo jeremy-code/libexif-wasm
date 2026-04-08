@@ -117,7 +117,7 @@ describe("ExifData", () => {
               "data",
               Uint8Array.from(expectedExifEntry.data),
             );
-            expect(exifEntry?.value).toEqual(expectedExifEntry.value);
+            expect(exifEntry?.toString()).toEqual(expectedExifEntry.value);
           });
         });
 
@@ -175,7 +175,7 @@ describe("ExifData", () => {
               "data",
               Uint8Array.from(expectedExifEntry.data),
             );
-            expect(exifEntry?.value).toEqual(expectedExifEntry.value);
+            expect(exifEntry?.toString()).toEqual(expectedExifEntry.value);
           });
       });
     },

@@ -48,7 +48,7 @@ const exifIfdContent = exifData.ifd.reduce<Record<Ifd, ExifEntryObject[]>>(
       throw new Error("exifData is invalid!");
     }
     acc[exifContent.ifd] = exifContent.entries
-      .map((entry) => ({ tag: entry.tag, value: entry.value }))
+      .map((entry) => ({ tag: entry.tag, value: entry.toString() }))
       .filter((entry) => entry.tag !== null);
     return acc;
   },
@@ -91,7 +91,7 @@ Suppose you don't even care about the IFDs and just want a flat object with all 
 ```ts
 const exifDataTagValue = Object.fromEntries(
   exifData.ifd.flatMap((exifContent) =>
-    exifContent.entries.map((entry) => [entry.tag, entry.getValue()]),
+    exifContent.entries.map((entry) => [entry.tag, entry.toString()]),
   ),
 );
 console.log(exifDataTagValue);

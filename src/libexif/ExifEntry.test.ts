@@ -36,7 +36,7 @@ describe("ExifEntry", () => {
       exifEntry.tag = "MAKE";
       expect(exifEntry).toHaveProperty("format", "ASCII");
       expect(exifEntry).toHaveProperty("tag", "MAKE");
-      expect(exifEntry.value).toBe("");
+      expect(exifEntry.toString()).toBe("");
       exifEntry.free();
     });
     test("should return ASCII value", () => {
@@ -58,7 +58,7 @@ describe("ExifEntry", () => {
       const exifData = withDisposable(ExifData.new());
       const exifContent = exifData.ifd[ExifIfd.IFD_0];
       exifContent.addEntry(exifEntry);
-      expect(exifEntry.value).toBe(EXPECTED_ASCII_VALUE);
+      expect(exifEntry.toString()).toBe(EXPECTED_ASCII_VALUE);
       exifContent.removeEntry(exifEntry);
     });
     test("should return byte value", () => {
@@ -71,7 +71,9 @@ describe("ExifEntry", () => {
       const exifData = withDisposable(ExifData.new());
       const exifContent = exifData.ifd[ExifIfd.IFD_0];
       exifContent.addEntry(exifEntry);
-      expect(exifEntry.value).toBe(`0x${EXPECTED_BYTE_VALUE.toString(16)}`);
+      expect(exifEntry.toString()).toBe(
+        `0x${EXPECTED_BYTE_VALUE.toString(16)}`,
+      );
       exifContent.removeEntry(exifEntry);
     });
   });

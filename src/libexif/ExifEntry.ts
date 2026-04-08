@@ -132,30 +132,6 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
   }
 
   /**
-   * This was a function in the original API. Returns empty string when first
-   * initialized with no data
-   */
-  get value() {
-    const bufferSize =
-      this.format === "ASCII" ? this.size : DEFAULT_VALUE_BUFFER_SIZE;
-
-    const entryValueBuffer = malloc(bufferSize);
-
-    const entryValuePtr = exif_entry_get_value(
-      this.byteOffset,
-      entryValueBuffer,
-      bufferSize,
-    );
-
-    const entryValue = UTF8ToString(entryValuePtr);
-    if (entryValuePtr !== 0) {
-      free(entryValuePtr);
-    }
-
-    return entryValue;
-  }
-
-  /**
    * This was a function in the original API
    */
   get ifd(): Ifd | null {
@@ -219,6 +195,30 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
 
   fix() {
     exif_entry_fix(this.byteOffset);
+  }
+
+  /**
+   * This was named `exif_entry_get_value` in the original API. Returns empty
+   * string when first initialized with no data
+   */
+  override toString() {
+    const bufferSize =
+      this.format === "ASCII" ? this.size : DEFAULT_VALUE_BUFFER_SIZE;
+
+    const entryValueBuffer = malloc(bufferSize);
+
+    const entryValuePtr = exif_entry_get_value(
+      this.byteOffset,
+      entryValueBuffer,
+      bufferSize,
+    );
+
+    const entryValue = UTF8ToString(entryValuePtr);
+    if (entryValuePtr !== 0) {
+      free(entryValuePtr);
+    }
+
+    return entryValue;
   }
 
   dump(indent = 0) {

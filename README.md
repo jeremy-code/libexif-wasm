@@ -45,7 +45,7 @@ const exifData = ExifData.newFromData(new Uint8Array(data)); // Uint8Array
 
 exifData.dump(); // Dump all EXIF data to console
 const exifEntry = exifData.getEntry("MAKE"); // Get a specific ExifEntry
-console.log(`tag ${exifEntry.tag} = ${exifEntry.value}`); // Print the value of the ExifEntry
+console.log(`tag ${exifEntry.tag} = ${exifEntry.toString()}`); // Print the value of the ExifEntry
 const exifIfdGps = exifData.ifd[ExifIfd.GPS]; // Get the GPS IFD
 // + Anything else that libexif supports
 
