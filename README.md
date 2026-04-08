@@ -57,6 +57,9 @@ For more examples, see [docs/usage](docs/usage):
 1. [Get all Exif entries](docs/usage/get-all-entries.md)
 2. [Byte order](docs/usage/byte-order.md)
 3. [Compatibility](docs/usage/compatibility.md)
+4. [Data](docs/usage/data.md)
+5. [Resource Management](docs/usage/resource-management.md)
+6. [Tags](docs/usage/tags.md)
 
 ## License
 
