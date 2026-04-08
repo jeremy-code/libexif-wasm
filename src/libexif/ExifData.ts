@@ -131,7 +131,7 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
   /**
    * This was a function in the original API
    */
-  get dataType(): DataType | null {
+  get dataType(): DataType {
     const dataType = ExifDataTypeBiMap.getKey(
       exif_data_get_data_type(this.byteOffset) as ExifDataTypeValue,
     );
@@ -139,7 +139,7 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
     if (dataType === undefined) {
       throw new Error("exif_data_get_data_type returned an invalid DataType");
     } else if (dataType === "COUNT") {
-      return null;
+      return "UNKNOWN"; // COUNT and UNKNOWN have the same value
     }
     return dataType;
   }
@@ -147,10 +147,10 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
   /**
    * This was a function in the original API
    */
-  set dataType(dt: DataType | null) {
+  set dataType(dt: DataType) {
     assertEnumObjectKey(ExifDataType, dt);
 
-    exif_data_set_data_type(this.byteOffset, ExifDataType[dt ?? "COUNT"]);
+    exif_data_set_data_type(this.byteOffset, ExifDataType[dt ?? "UNKNOWN"]);
   }
 
   static new() {
