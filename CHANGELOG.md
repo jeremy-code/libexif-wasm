@@ -1,5 +1,12 @@
 # libexif-wasm
 
+## 0.4.1
+
+### Patch Changes
+
+- bc91e54: chore: update ExifData to never return null to match implementation
+- fd0df35: rename value getter to .toString
+
 ## 0.4.0
 
 ### Minor Changes
