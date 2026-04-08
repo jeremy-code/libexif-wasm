@@ -1,5 +1,7 @@
 export * from "./utils/getDataAsTypedArray.ts";
 export * from "./utils/getExifTagTable.ts";
+export * from "./utils/mapRationalFromObject.ts";
+export * from "./utils/mapRationalToObject.ts";
 export * from "./utils/setDataFromTypedArray.ts";
 export * from "./exifByteOrder.ts";
 export * from "./ExifContent.ts";

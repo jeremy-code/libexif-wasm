@@ -117,5 +117,10 @@ export {
   getExifTagTable,
   type TagEntry,
 } from "./libexif/utils/getExifTagTable.ts";
+export { mapRationalFromObject } from "./libexif/utils/mapRationalFromObject.ts";
+export {
+  mapRationalToObject,
+  type RationalObject,
+} from "./libexif/utils/mapRationalToObject.ts";
 export { assertEnumObjectKey } from "./utils/assertEnumObjectKey.ts";
 export { getEnumKeyFromValue } from "./utils/getEnumKeyFromValue.ts";
