@@ -1,183 +1,201 @@
-import { describe, it, expect } from "vitest";
+import { describe, test, expect } from "vitest";
 
 import { BiMap } from "./BiMap.ts";
 
 describe("BiMap", () => {
   describe("constructor", () => {
-    it("creates an empty BiMap when no entries are provided", () => {
+    test("creates an empty BiMap when no entries are provided", () => {
       const map = new BiMap<string, number>();
 
       expect(map.size).toBe(0);
       expect(map.inverse.size).toBe(0);
     });
 
-    it("initializes with entries", () => {
-      const map = new BiMap<string, number>([
+    test("initializes with array entries", () => {
+      const biMap = new BiMap([
         ["a", 1],
         ["b", 2],
       ]);
 
-      expect(map.size).toBe(2);
-      expect(map.get("a")).toBe(1);
-      expect(map.get("b")).toBe(2);
-      expect(map.inverse).not.toBe(undefined);
+      expect(biMap).toHaveProperty("size", 2);
+      expect(biMap.get("a")).toBe(1);
+      expect(biMap.get("b")).toBe(2);
 
-      expect(map.getKey(1)).toBe("a");
-      expect(map.getKey(2)).toBe("b");
+      expect(biMap.getKey(1)).toBe("a");
+      expect(biMap.getKey(2)).toBe("b");
     });
 
-    it("handles null or undefined entries", () => {
-      const map1 = new BiMap<string, number>(null);
-      const map2 = new BiMap<string, number>(undefined);
+    test("initializes with iterable", () => {
+      const biMap = new BiMap(
+        (function* () {
+          yield ["a", 1];
+          yield ["b", 2];
+        })(),
+      );
+      expect(biMap).toHaveProperty("size", 2);
+      expect(biMap.get("a")).toBe(1);
+      expect(biMap.get("b")).toBe(2);
 
-      expect(map1.size).toBe(0);
-      expect(map2.size).toBe(0);
+      expect(biMap.getKey(1)).toBe("a");
+      expect(biMap.getKey(2)).toBe("b");
+    });
+
+    test("handles null or undefined entries", () => {
+      const biMap1 = new BiMap<string, number>(null);
+      const biMap2 = new BiMap<string, number>(undefined);
+
+      expect(biMap1).toHaveProperty("size", 0);
+      expect(biMap2).toHaveProperty("size", 0);
+    });
+
+    test("throws on non-iterable entries", () => {
+      // @ts-expect-error -- testing non-iterable entries
+      expect(() => new BiMap({})).toThrow(TypeError);
     });
   });
 
   describe("set", () => {
-    it("sets key → value and value → key", () => {
-      const map = new BiMap<string, number>();
+    test("sets key → value and value → key", () => {
+      const biMap = new BiMap<string, number>();
 
-      map.set("a", 1);
+      biMap.set("a", 1);
 
-      expect(map.get("a")).toBe(1);
-      expect(map.getKey(1)).toBe("a");
+      expect(biMap.get("a")).toBe(1);
+      expect(biMap.getKey(1)).toBe("a");
     });
 
-    it("overwrites existing key", () => {
-      const map = new BiMap<string, number>();
+    test("overwrites existing key", () => {
+      const biMap = new BiMap<string, number>();
 
-      map.set("a", 1);
-      map.set("a", 2);
+      biMap.set("a", 1);
+      biMap.set("a", 2);
 
-      expect(map.get("a")).toBe(2);
-      expect(map.getKey(1)).toBeUndefined();
-      expect(map.getKey(2)).toBe("a");
+      expect(biMap.get("a")).toBe(2);
+      expect(biMap.getKey(1)).toBeUndefined();
+      expect(biMap.getKey(2)).toBe("a");
     });
 
-    it("removes previous key when value is reused", () => {
-      const map = new BiMap<string, number>();
+    test("removes previous key when value is reused", () => {
+      const biMap = new BiMap<string, number>();
 
-      map.set("a", 1);
-      map.set("b", 1);
+      biMap.set("a", 1);
+      biMap.set("b", 1);
 
-      expect(map.get("a")).toBeUndefined();
-      expect(map.get("b")).toBe(1);
-      expect(map.getKey(1)).toBe("b");
-    });
-  });
-
-  describe("get / getKey", () => {
-    it("retrieves values by key", () => {
-      const map = new BiMap<string, number>([["a", 1]]);
-      expect(map.inverse).not.toBe(undefined);
-
-      expect(map.getValue("a")).toBe(1);
-    });
-
-    it("retrieves keys by value", () => {
-      const map = new BiMap<string, number>([["a", 1]]);
-
-      expect(map.getKey(1)).toBe("a");
-    });
-
-    it("returns undefined for missing entries", () => {
-      const map = new BiMap<string, number>();
-
-      expect(map.get("missing")).toBeUndefined();
-      expect(map.getKey(999)).toBeUndefined();
+      expect(biMap.get("a")).toBeUndefined();
+      expect(biMap.get("b")).toBe(1);
+      expect(biMap.getKey(1)).toBe("b");
     });
   });
 
-  describe("hasKey / hasValue", () => {
-    it("checks existence of keys", () => {
-      const map = new BiMap<string, number>([["a", 1]]);
+  describe("get, getKey, getValue", () => {
+    test("retrieves values by key", () => {
+      const biMap = new BiMap<string, number>([["a", 1]]);
 
-      expect(map.hasKey("a")).toBe(true);
-      expect(map.hasKey("b")).toBe(false);
+      expect(biMap.get("a")).toBe(1);
+      expect(biMap.getValue("a")).toBe(1);
     });
 
-    it("checks existence of values", () => {
-      const map = new BiMap<string, number>([["a", 1]]);
+    test("retrieves keys by value", () => {
+      const biMap = new BiMap<string, number>([["a", 1]]);
 
-      expect(map.hasValue(1)).toBe(true);
-      expect(map.hasValue(2)).toBe(false);
+      expect(biMap.getKey(1)).toBe("a");
+    });
+
+    test("returns undefined for missing entries", () => {
+      const biMap = new BiMap<string, number>();
+
+      expect(biMap.get("missing")).toBeUndefined();
+      expect(biMap.getValue("missing")).toBeUndefined();
+      expect(biMap.getKey(999)).toBeUndefined();
+    });
+  });
+
+  describe("has, hasKey, hasValue", () => {
+    test("checks existence of keys", () => {
+      const biMap = new BiMap<string, number>([["a", 1]]);
+
+      expect(biMap.has("a")).toBe(true);
+      expect(biMap.has("b")).toBe(false);
+      expect(biMap.hasKey("a")).toBe(true);
+      expect(biMap.hasKey("b")).toBe(false);
+    });
+
+    test("checks existence of values", () => {
+      const biMap = new BiMap<string, number>([["a", 1]]);
+
+      expect(biMap.hasValue(1)).toBe(true);
+      expect(biMap.hasValue(2)).toBe(false);
     });
   });
 
   describe("delete (by key)", () => {
-    it("deletes key and corresponding value", () => {
-      const map = new BiMap<string, number>([["a", 1]]);
+    test("deletes key and corresponding value", () => {
+      const biMap = new BiMap<string, number>([["a", 1]]);
 
-      const result = map.delete("a");
-
-      expect(result).toBe(true);
-      expect(map.get("a")).toBeUndefined();
-      expect(map.getKey(1)).toBeUndefined();
-      expect(map.size).toBe(0);
+      expect(biMap.delete("a")).toBe(true);
+      expect(biMap.get("a")).toBeUndefined();
+      expect(biMap.getKey(1)).toBeUndefined();
+      expect(biMap).toHaveProperty("size", 0);
     });
 
-    it("returns false if key does not exist", () => {
-      const map = new BiMap<string, number>();
+    test("returns false if key does not exist", () => {
+      const biMap = new BiMap<string, number>();
 
-      expect(map.delete("missing")).toBe(false);
+      expect(biMap.delete("missing")).toBe(false);
     });
   });
 
   describe("deleteValue", () => {
-    it("deletes value and corresponding key", () => {
-      const map = new BiMap<string, number>([["a", 1]]);
+    test("deletes value and corresponding key", () => {
+      const biMap = new BiMap<string, number>([["a", 1]]);
 
-      const result = map.deleteValue(1);
-
-      expect(result).toBe(true);
-      expect(map.get("a")).toBeUndefined();
-      expect(map.getKey(1)).toBeUndefined();
-      expect(map.size).toBe(0);
+      expect(biMap.deleteValue(1)).toBe(true);
+      expect(biMap.get("a")).toBeUndefined();
+      expect(biMap.getKey(1)).toBeUndefined();
+      expect(biMap).toHaveProperty("size", 0);
     });
 
-    it("returns false if value does not exist", () => {
-      const map = new BiMap<string, number>();
+    test("returns false if value does not exist", () => {
+      const biMap = new BiMap<string, number>();
 
-      expect(map.deleteValue(123)).toBe(false);
+      expect(biMap.deleteValue(123)).toBe(false);
     });
   });
 
   describe("clear", () => {
-    it("removes all entries", () => {
-      const map = new BiMap<string, number>([
+    test("removes all entries", () => {
+      const biMap = new BiMap<string, number>([
         ["a", 1],
         ["b", 2],
       ]);
 
-      map.clear();
+      biMap.clear();
 
-      expect(map.size).toBe(0);
-      expect(map.get("a")).toBeUndefined();
-      expect(map.getKey(1)).toBeUndefined();
+      expect(biMap.size).toBe(0);
+      expect(biMap.get("a")).toBeUndefined();
+      expect(biMap.getKey(1)).toBeUndefined();
     });
   });
 
   describe("consistency", () => {
-    it("maintains bidirectional integrity across multiple operations", () => {
-      const map = new BiMap<string, number>();
+    test("maintains bidirectional integrity across multiple operations", () => {
+      const biMap = new BiMap<string, number>();
 
-      map.set("a", 1);
-      map.set("b", 2);
-      map.set("c", 3);
+      biMap.set("a", 1);
+      biMap.set("b", 2);
+      biMap.set("c", 3);
 
-      map.delete("b");
-      map.set("d", 1); // should evict "a"
+      biMap.delete("b");
+      biMap.set("d", 1); // should evict "a"
 
-      expect(map.get("a")).toBeUndefined();
-      expect(map.getKey(1)).toBe("d");
+      expect(biMap.get("a")).toBeUndefined();
+      expect(biMap.getKey(1)).toBe("d");
 
-      expect(map.get("c")).toBe(3);
-      expect(map.getKey(3)).toBe("c");
+      expect(biMap.get("c")).toBe(3);
+      expect(biMap.getKey(3)).toBe("c");
 
-      expect(map.hasKey("b")).toBe(false);
-      expect(map.hasValue(2)).toBe(false);
+      expect(biMap.hasKey("b")).toBe(false);
+      expect(biMap.hasValue(2)).toBe(false);
     });
   });
 });

@@ -1,9 +1,12 @@
 /**
- * @borrows BiMap#get as BiMap#getValue
- * @borrows BiMap#has as BiMap#hasKey
+ * @borrows BiMap#deleteKey as BiMap#delete
+ * @borrows BiMap#getValue as BiMap#get
+ * @borrows BiMap#hasKey as BiMap#has
+ *
+ * @see {@link https://en.wikipedia.org/wiki/Bidirectional_map}
  */
 class BiMap<K, V> extends Map<K, V> {
-  inverse: Map<V, K>;
+  readonly inverse: Map<V, K>;
 
   constructor(entries?: Iterable<readonly [K, V]> | null) {
     /**
