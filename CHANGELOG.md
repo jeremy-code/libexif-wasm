@@ -1,5 +1,11 @@
 # libexif-wasm
 
+## 0.4.2
+
+### Patch Changes
+
+- 2554349: fix: fix component calculation for RATIONAL and SRATIONAL formats
+
 ## 0.4.1
 
 ### Patch Changes
