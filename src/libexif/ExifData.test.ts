@@ -180,6 +180,23 @@ describe("ExifData", () => {
       });
     },
   );
+  describe.each(["T-45A_Goshawk_03.jpg", "Sumo_Museum.jpg"])(
+    "ExifData.newFromData(%s)",
+    (testFixtureFile) => {
+      test("should save data with correct Exif header", async () => {
+        const testFixture = await getTestFixture(testFixtureFile);
+        const exifData = withDisposable(
+          ExifData.newFromData(testFixture.buffer),
+        );
+        const data = exifData.saveData();
+        expect(
+          new Uint8Array([0x45, 0x78, 0x69, 0x66, 0x00, 0x00]).every(
+            (value, index) => data[index] === value,
+          ),
+        ).toBe(true);
+      });
+    },
+  );
 });
 
 const EXIF_DATA_OPTION_TABLE = [

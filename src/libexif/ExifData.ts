@@ -207,8 +207,6 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
     }
 
     const data = HEAPU8.subarray(dataPtr, dataPtr + dataSize);
-    const exifMem = new ExifMem(dataPtr);
-    exifMem.unref();
     return data;
   }
 
