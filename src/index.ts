@@ -112,7 +112,7 @@ export type {
 
 // Utility functions
 export { getDataAsTypedArray } from "./libexif/utils/getDataAsTypedArray.ts";
-export { setDataFromTypedArray } from "./libexif/utils/setDataFromTypedArray.ts";
+export { getExifDataFromReadableStream } from "./libexif/utils/getExifDataFromReadableStream.ts";
 export {
   getExifTagTable,
   type TagEntry,
@@ -122,5 +122,6 @@ export {
   mapRationalToObject,
   type RationalObject,
 } from "./libexif/utils/mapRationalToObject.ts";
+export { setDataFromTypedArray } from "./libexif/utils/setDataFromTypedArray.ts";
 export { assertEnumObjectKey } from "./utils/assertEnumObjectKey.ts";
 export { getEnumKeyFromValue } from "./utils/getEnumKeyFromValue.ts";

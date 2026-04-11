@@ -49,6 +49,7 @@ import { free, malloc } from "../internal/stdlib.ts";
 import { ExifDataStruct } from "../structs/ExifDataStruct.ts";
 import type { IfdPtr } from "../structs/ExifDataStruct.ts";
 import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
+import { getExifDataFromReadableStream } from "./utils/getExifDataFromReadableStream.ts";
 
 class ExifData extends ExifDataStruct implements DisposableDataSegment {
   constructor(public readonly byteOffset: number) {
@@ -183,6 +184,15 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
     ...params: ConstructorParameters<typeof Uint8Array<TArrayBuffer>>
   ): ExifData {
     return ExifData.newFromData(new Uint8Array(...params));
+  }
+
+  /**
+   * Using a ReadableStream, loads the data into {@link ExifLoader} and only
+   * copies as much memory as needed in regards to Exif data. Since images
+   * comprise mostly of image data and not metadata, this should be preferred.
+   */
+  static fromReadableStream(readableStream: ReadableStream) {
+    return getExifDataFromReadableStream(readableStream);
   }
 
   loadData(data: Uint8Array) {

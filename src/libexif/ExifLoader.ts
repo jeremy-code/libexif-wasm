@@ -15,7 +15,7 @@ import {
   exif_loader_get_buf,
   exif_loader_log,
 } from "../internal/libexif/exifLoader.ts";
-import { malloc } from "../internal/stdlib.ts";
+import { free, malloc } from "../internal/stdlib.ts";
 
 class ExifLoader implements DataSegment {
   constructor(public readonly byteOffset: number) {}
@@ -62,7 +62,13 @@ class ExifLoader implements DataSegment {
     const bufferPtr = malloc(buf.byteLength);
     HEAPU8.set(buf, bufferPtr);
 
-    return exif_loader_write(this.byteOffset, bufferPtr, buf.byteLength);
+    const result = exif_loader_write(
+      this.byteOffset,
+      bufferPtr,
+      buf.byteLength,
+    );
+    free(bufferPtr);
+    return result;
   }
 
   /**

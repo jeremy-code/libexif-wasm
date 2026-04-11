@@ -1,4 +1,5 @@
 export * from "./utils/getDataAsTypedArray.ts";
+export * from "./utils/getExifDataFromReadableStream.ts";
 export * from "./utils/getExifTagTable.ts";
 export * from "./utils/mapRationalFromObject.ts";
 export * from "./utils/mapRationalToObject.ts";
