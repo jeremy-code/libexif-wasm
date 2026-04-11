@@ -62,7 +62,7 @@ class ExifLoader implements DataSegment {
     const bufferPtr = malloc(buf.byteLength);
     HEAPU8.set(buf, bufferPtr);
 
-    exif_loader_write(this.byteOffset, bufferPtr, buf.byteLength);
+    return exif_loader_write(this.byteOffset, bufferPtr, buf.byteLength);
   }
 
   /**
