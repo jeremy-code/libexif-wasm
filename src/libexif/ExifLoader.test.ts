@@ -3,6 +3,7 @@ import { describe, expect, test } from "vitest";
 import { ExifData } from "./ExifData.ts";
 import { ExifLoader } from "./ExifLoader.ts";
 import { getTestFixture } from "../__utils__/getTestFixture.ts";
+import { serializeExifData } from "../__utils__/serializeExifData.ts";
 import { withDisposable } from "../__utils__/withDisposable.ts";
 
 describe("ExifLoader", () => {
@@ -42,6 +43,7 @@ describe("ExifLoader", () => {
         });
         expect(exifData).toBeInstanceOf(ExifData);
         expect(exifData?.byteOffset).toBeGreaterThan(0);
+        expect(serializeExifData(exifData)).toEqual(testFixture.json);
 
         exifLoader.reset();
         expect(exifLoader.getBuf()).toBeNull();

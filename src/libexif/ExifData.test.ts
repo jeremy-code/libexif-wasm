@@ -7,14 +7,14 @@ import {
   exifDataOptionGetName,
 } from "./ExifData.ts";
 import { ExifEntry } from "./ExifEntry.ts";
+import { getTestFixture } from "../__utils__/getTestFixture.ts";
 import {
-  type TestFixture,
-  getTestFixture,
-} from "../__utils__/getTestFixture.ts";
+  serializeExifData,
+  serializeExifEntry,
+} from "../__utils__/serializeExifData.ts";
 import { withDisposable } from "../__utils__/withDisposable.ts";
 import { ExifIfd } from "../enums/ExifIfd.ts";
 import type { Tag } from "../enums/ExifTagUnified.ts";
-import type { Entry } from "../interfaces/utils.ts";
 
 describe("ExifData", () => {
   describe("ExifData.new()", () => {
@@ -68,12 +68,6 @@ describe("ExifData", () => {
         expect(exifData).not.toBeNull();
         expect(exifData).toBeInstanceOf(ExifData);
         expect(exifData.byteOffset).toBeGreaterThan(0);
-        expect(exifData.data.byteLength !== 0).toBe(testFixture.json.thumbnail);
-        expect(exifData.data).toHaveLength(testFixture.thumbnail?.length ?? 0);
-        expect(exifData).toHaveProperty(
-          "data",
-          Uint8Array.from(testFixture.thumbnail ?? []),
-        );
         expect(exifData.ifd).toHaveLength(ExifIfd.COUNT);
 
         exifData.ifd.forEach((exifContent) => {
@@ -87,45 +81,7 @@ describe("ExifData", () => {
           expect(exifContent).toHaveProperty("entries");
         });
 
-        (
-          Object.entries(testFixture.json.data) as Entry<
-            TestFixture["json"]["data"]
-          >[]
-        ).forEach(([dataIfdName, dataEntries]) => {
-          const ifd = exifData.ifd[ExifIfd[dataIfdName]];
-          const entries = Object.entries(dataEntries);
-          expect(ifd).toHaveProperty("count", entries.length);
-          expect(ifd?.entries).toHaveLength(entries.length);
-
-          entries.forEach(([tag, expectedExifEntry]) => {
-            const exifEntry = ifd?.getEntry(tag as Tag);
-
-            expect(exifEntry).not.toBeNull();
-            expect(exifEntry).toBeInstanceOf(ExifEntry);
-
-            expect(exifEntry).toHaveProperty("tag", tag);
-            expect(exifEntry).toHaveProperty(
-              "components",
-              expectedExifEntry.components,
-            );
-            expect(exifEntry).toHaveProperty("size", expectedExifEntry.size);
-            expect(exifEntry).toHaveProperty(
-              "format",
-              expectedExifEntry.format,
-            );
-            expect(exifEntry).toHaveProperty(
-              "data",
-              Uint8Array.from(expectedExifEntry.data),
-            );
-            expect(exifEntry?.toString()).toEqual(expectedExifEntry.value);
-          });
-        });
-
-        expect(exifData.byteOrder).toBe("MOTOROLA");
-        expect(exifData.mnoteData === null).toBe(
-          testFixture.json.mnoteData === null,
-        );
-        expect(exifData.dataType).toBe("UNKNOWN");
+        expect(serializeExifData(exifData)).toEqual(testFixture.json);
       });
     },
   );
@@ -155,27 +111,13 @@ describe("ExifData", () => {
         );
 
         Object.values(testFixture.json.data)
-          .flatMap((datum) => Object.entries(datum))
+          .flatMap((entries) => Object.entries(entries))
           .forEach(([tag, expectedExifEntry]) => {
             const exifEntry = exifData.getEntry(tag as Tag);
 
             expect(exifEntry).not.toBeNull();
             expect(exifEntry).toBeInstanceOf(ExifEntry);
-            expect(exifEntry).toHaveProperty("tag", tag);
-            expect(exifEntry).toHaveProperty(
-              "components",
-              expectedExifEntry.components,
-            );
-            expect(exifEntry).toHaveProperty("size", expectedExifEntry.size);
-            expect(exifEntry).toHaveProperty(
-              "format",
-              expectedExifEntry.format,
-            );
-            expect(exifEntry).toHaveProperty(
-              "data",
-              Uint8Array.from(expectedExifEntry.data),
-            );
-            expect(exifEntry?.toString()).toEqual(expectedExifEntry.value);
+            expect(serializeExifEntry(exifEntry!)).toEqual(expectedExifEntry);
           });
       });
     },

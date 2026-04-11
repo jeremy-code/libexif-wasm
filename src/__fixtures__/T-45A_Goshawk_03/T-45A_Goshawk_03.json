@@ -1,8 +1,11 @@
 {
   "thumbnail": true,
+  "byteOrder": "MOTOROLA",
+  "dataType": "UNKNOWN",
   "data": {
     "IFD_0": {
       "MAKE": {
+        "tag": "MAKE",
         "format": "ASCII",
         "value": "Canon",
         "size": 6,
@@ -10,6 +13,7 @@
         "data": [67, 97, 110, 111, 110, 0]
       },
       "MODEL": {
+        "tag": "MODEL",
         "components": 22,
         "size": 22,
         "format": "ASCII",
@@ -20,6 +24,7 @@
         ]
       },
       "ORIENTATION": {
+        "tag": "ORIENTATION",
         "components": 1,
         "size": 2,
         "format": "SHORT",
@@ -27,6 +32,7 @@
         "data": [0, 1]
       },
       "X_RESOLUTION": {
+        "tag": "X_RESOLUTION",
         "components": 1,
         "size": 8,
         "format": "RATIONAL",
@@ -34,6 +40,7 @@
         "data": [0, 72, 0, 0, 0, 1, 0, 0]
       },
       "Y_RESOLUTION": {
+        "tag": "Y_RESOLUTION",
         "components": 1,
         "size": 8,
         "format": "RATIONAL",
@@ -41,6 +48,7 @@
         "data": [0, 72, 0, 0, 0, 1, 0, 0]
       },
       "RESOLUTION_UNIT": {
+        "tag": "RESOLUTION_UNIT",
         "components": 1,
         "size": 2,
         "format": "SHORT",
@@ -48,6 +56,7 @@
         "data": [0, 2]
       },
       "SOFTWARE": {
+        "tag": "SOFTWARE",
         "components": 16,
         "size": 16,
         "format": "ASCII",
@@ -57,6 +66,7 @@
         ]
       },
       "DATE_TIME": {
+        "tag": "DATE_TIME",
         "components": 20,
         "size": 20,
         "format": "ASCII",
@@ -67,6 +77,7 @@
         ]
       },
       "YCBCR_POSITIONING": {
+        "tag": "YCBCR_POSITIONING",
         "components": 1,
         "size": 2,
         "format": "SHORT",
@@ -76,6 +87,7 @@
     },
     "IFD_1": {
       "COMPRESSION": {
+        "tag": "COMPRESSION",
         "components": 1,
         "size": 2,
         "format": "SHORT",
@@ -83,6 +95,7 @@
         "data": [0, 6]
       },
       "X_RESOLUTION": {
+        "tag": "X_RESOLUTION",
         "components": 1,
         "size": 8,
         "format": "RATIONAL",
@@ -90,6 +103,7 @@
         "data": [0, 72, 0, 0, 0, 1, 0, 0]
       },
       "Y_RESOLUTION": {
+        "tag": "Y_RESOLUTION",
         "components": 1,
         "size": 8,
         "format": "RATIONAL",
@@ -97,6 +111,7 @@
         "data": [0, 72, 0, 0, 0, 1, 0, 0]
       },
       "RESOLUTION_UNIT": {
+        "tag": "RESOLUTION_UNIT",
         "components": 1,
         "size": 2,
         "format": "SHORT",
@@ -104,6 +119,7 @@
         "data": [0, 2]
       },
       "YCBCR_POSITIONING": {
+        "tag": "YCBCR_POSITIONING",
         "components": 1,
         "size": 2,
         "format": "SHORT",
@@ -113,6 +129,7 @@
     },
     "EXIF": {
       "EXPOSURE_TIME": {
+        "tag": "EXPOSURE_TIME",
         "components": 1,
         "size": 8,
         "format": "RATIONAL",
@@ -120,6 +137,7 @@
         "data": [0, 0, 0, 1, 0, 0, 6, 64]
       },
       "FNUMBER": {
+        "tag": "FNUMBER",
         "components": 1,
         "size": 8,
         "format": "RATIONAL",
@@ -127,6 +145,7 @@
         "data": [0, 0, 0, 35, 0, 0, 0, 10]
       },
       "ISO_SPEED_RATINGS": {
+        "tag": "ISO_SPEED_RATINGS",
         "components": 1,
         "size": 2,
         "format": "SHORT",
@@ -134,6 +153,7 @@
         "data": [0, 100]
       },
       "EXIF_VERSION": {
+        "tag": "EXIF_VERSION",
         "components": 4,
         "size": 4,
         "format": "UNDEFINED",
@@ -141,6 +161,7 @@
         "data": [48, 50, 50, 48]
       },
       "DATE_TIME_ORIGINAL": {
+        "tag": "DATE_TIME_ORIGINAL",
         "components": 20,
         "size": 20,
         "format": "ASCII",
@@ -151,6 +172,7 @@
         ]
       },
       "DATE_TIME_DIGITIZED": {
+        "tag": "DATE_TIME_DIGITIZED",
         "components": 20,
         "size": 20,
         "format": "ASCII",
@@ -161,6 +183,7 @@
         ]
       },
       "SHUTTER_SPEED_VALUE": {
+        "tag": "SHUTTER_SPEED_VALUE",
         "components": 1,
         "size": 8,
         "format": "SRATIONAL",
@@ -168,6 +191,7 @@
         "data": [0, 0, 1, 85, 0, 0, 0, 32]
       },
       "APERTURE_VALUE": {
+        "tag": "APERTURE_VALUE",
         "components": 1,
         "size": 8,
         "format": "RATIONAL",
@@ -175,6 +199,7 @@
         "data": [0, 0, 0, 116, 0, 0, 0, 32]
       },
       "EXPOSURE_BIAS_VALUE": {
+        "tag": "EXPOSURE_BIAS_VALUE",
         "components": 1,
         "size": 8,
         "format": "SRATIONAL",
@@ -182,6 +207,7 @@
         "data": [0, 0, 0, 0, 0, 0, 0, 3]
       },
       "MAX_APERTURE_VALUE": {
+        "tag": "MAX_APERTURE_VALUE",
         "components": 1,
         "size": 8,
         "format": "RATIONAL",
@@ -189,6 +215,7 @@
         "data": [0, 0, 0, 116, 0, 0, 0, 32]
       },
       "METERING_MODE": {
+        "tag": "METERING_MODE",
         "components": 1,
         "size": 2,
         "format": "SHORT",
@@ -196,6 +223,7 @@
         "data": [0, 5]
       },
       "FLASH": {
+        "tag": "FLASH",
         "components": 1,
         "size": 2,
         "format": "SHORT",
@@ -203,6 +231,7 @@
         "data": [0, 16]
       },
       "FOCAL_LENGTH": {
+        "tag": "FOCAL_LENGTH",
         "components": 1,
         "size": 8,
         "format": "RATIONAL",
@@ -210,6 +239,7 @@
         "data": [0, 0, 101, 144, 0, 0, 3, 232]
       },
       "COLOR_SPACE": {
+        "tag": "COLOR_SPACE",
         "components": 1,
         "size": 2,
         "format": "SHORT",
@@ -217,6 +247,7 @@
         "data": [0, 1]
       },
       "SENSING_METHOD": {
+        "tag": "SENSING_METHOD",
         "components": 1,
         "size": 2,
         "format": "SHORT",
@@ -224,13 +255,16 @@
         "data": [0, 2]
       },
       "FLASH_PIX_VERSION": {
+        "tag": "FLASH_PIX_VERSION",
         "components": 4,
         "size": 4,
         "format": "UNDEFINED",
         "value": "FlashPix Version 1.0",
         "data": [48, 49, 48, 48]
       }
-    }
+    },
+    "GPS": {},
+    "INTEROPERABILITY": {}
   },
   "mnoteData": null
 }

@@ -53,12 +53,14 @@ const getTestFixture = async (file: string): Promise<TestFixture> => {
 
   const thumbnail =
     jsonData?.default?.thumbnail ?
-      await readFile(
-        new URL(`./${testFixtureId}_thumbnail${fileExtension}`, filePath),
+      Array.from(
+        await readFile(
+          new URL(`./${testFixtureId}_thumbnail${fileExtension}`, filePath),
+        ),
       )
-    : undefined;
+    : [];
 
-  return { buffer, json: jsonData?.default, thumbnail };
+  return { buffer, json: { ...jsonData?.default, thumbnail } };
 };
 
 export { type TestFixture, getTestFixture };
