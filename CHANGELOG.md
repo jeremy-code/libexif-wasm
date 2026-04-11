@@ -1,5 +1,15 @@
 # libexif-wasm
 
+## 0.5.0
+
+### Minor Changes
+
+- 1931fe4: feat: add fromReadableStream method to ExifData for loading data from ReadableStream
+
+### Patch Changes
+
+- e0ab258: fix: return result of exif_loader_write in write method
+
 ## 0.4.3
 
 ### Patch Changes

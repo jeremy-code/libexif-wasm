@@ -1,6 +1,6 @@
 {
   "name": "libexif-wasm",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "type": "module",
   "description": "JavaScript bindings for libexif compiled to WebAssembly",
   "scripts": {
