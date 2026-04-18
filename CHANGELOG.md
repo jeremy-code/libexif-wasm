@@ -1,5 +1,11 @@
 # libexif-wasm
 
+## 0.5.1
+
+### Patch Changes
+
+- b630b6f: add exifSupportLevelGetName function and export from libexif
+
 ## 0.5.0
 
 ### Minor Changes
