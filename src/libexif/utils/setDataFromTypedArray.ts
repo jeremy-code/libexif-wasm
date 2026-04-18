@@ -11,6 +11,9 @@ import {
   exifSetSShort,
 } from "../exifUtils.ts";
 
+/**
+ * @internal
+ */
 const setDataFromTypedArray = (
   typedArray: ValidTypedArray,
   format: Format,

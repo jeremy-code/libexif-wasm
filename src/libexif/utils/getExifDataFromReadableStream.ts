@@ -1,6 +1,9 @@
 import type { ExifData } from "../ExifData.ts";
 import { ExifLoader } from "../ExifLoader.ts";
 
+/**
+ * @internal
+ */
 const getExifDataFromReadableStream = async (
   readableStream: ReadableStream,
 ): Promise<ExifData> => {

@@ -10,6 +10,9 @@ import {
 } from "../../internal/index.ts";
 import { exifFormatGetSize } from "../exifFormat.ts";
 
+/**
+ * @internal
+ */
 const getDataAsTypedArray = (
   byteOffset: number,
   components: number, // number of elements in the array (.components)
