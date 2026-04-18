@@ -16,6 +16,7 @@ export {
 } from "./libexif/ExifLog.ts";
 export { ExifMem } from "./libexif/ExifMem.ts";
 export { ExifMnoteData } from "./libexif/ExifMnoteData.ts";
+export { exifSupportLevelGetName } from "./libexif/exifSupportLevel.ts";
 export {
   EXIF_SENTINEL_TAG,
   ExifTagInfo,
@@ -125,3 +126,6 @@ export {
 export { setDataFromTypedArray } from "./libexif/utils/setDataFromTypedArray.ts";
 export { assertEnumObjectKey } from "./utils/assertEnumObjectKey.ts";
 export { getEnumKeyFromValue } from "./utils/getEnumKeyFromValue.ts";
+
+// Constants
+export { IFD_NAMES } from "./constants.ts";
