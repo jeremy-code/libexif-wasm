@@ -74,7 +74,8 @@
       "types": "./dist/*.d.ts",
       "default": "./dist/*.js"
     },
-    "./output/libexif.wasm": "./dist/output/libexif.wasm"
+    "./output/libexif.wasm": "./dist/output/libexif.wasm",
+    "./package.json": "./package.json"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
