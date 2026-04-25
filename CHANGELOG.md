@@ -1,5 +1,11 @@
 # libexif-wasm
 
+## 0.5.2
+
+### Patch Changes
+
+- 51cafe5: fix: add missing package.json export for libexif.wasm
+
 ## 0.5.1
 
 ### Patch Changes
