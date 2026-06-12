@@ -60,7 +60,7 @@ jobs:
       - name: Create pull request for version bump and publish to npm
         uses: changesets/action@v1
         with:
-          publish: pnpm exec changeset publish
+          publish: pnpm stage publish
           version: pnpm exec changeset version
           commit: "chore(release): version packages"
           title: "chore(release): version packages"
