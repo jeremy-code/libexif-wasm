@@ -9,11 +9,13 @@ const getExifDataFromReadableStream = async (
 ): Promise<ExifData> => {
   const exifLoader = ExifLoader.new();
   const reader = readableStream.getReader();
+  let finished = false;
 
   try {
-    while (true) {
+    while (!finished) {
       const { done, value } = await reader.read();
       if (done === true) {
+        finished = true;
         break;
       }
       const normalizedValue =
@@ -24,6 +26,10 @@ const getExifDataFromReadableStream = async (
       } // Otherwise, result is 1, and continue
     }
   } finally {
+    if (!finished) {
+      await reader.cancel();
+    }
+
     reader.releaseLock();
   }
 
