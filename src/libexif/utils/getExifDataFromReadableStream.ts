@@ -1,3 +1,4 @@
+import { isTypedArray } from "../../utils/isTypedArray.ts";
 import type { ExifData } from "../ExifData.ts";
 import { ExifLoader } from "../ExifLoader.ts";
 
@@ -19,7 +20,9 @@ const getExifDataFromReadableStream = async (
         break;
       }
       const normalizedValue =
-        value instanceof Uint8Array ? value : new Uint8Array(value);
+        isTypedArray(value) ?
+          new Uint8Array(value.buffer, value.byteOffset, value.byteLength)
+        : new Uint8Array(value);
       const result = exifLoader.write(normalizedValue);
       if (result === 0) {
         break;
