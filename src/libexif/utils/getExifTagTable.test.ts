@@ -22,14 +22,10 @@ describe("EXIF_TAG_TABLE", () => {
   });
   test("should contain every Exif tag", () => {
     const exifTagTable = getExifTagTable();
-    // It is minus one because exifTagTable appears to lack IMAGE_DEPTH
-    // libexif/libexif#253
-    expect(exifTagTable.length).toBe(Array.from(ExifTagUnified).length - 1);
+    expect(exifTagTable.length).toBe(Array.from(ExifTagUnified).length);
     assert.includeMembers(
       exifTagTable.map((t) => t.tag),
-      Array.from(ExifTagUnified)
-        .map(([k]) => k)
-        .filter((key) => key !== "IMAGE_DEPTH"),
+      Array.from(ExifTagUnified, ([k]) => k),
       "include members",
     );
   });

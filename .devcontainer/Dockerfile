@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
-FROM emscripten/emsdk:5.0.4
+FROM emscripten/emsdk:6.0.0
 
-ENV LIBEXIF_VERSION=0.6.25
+ENV LIBEXIF_VERSION=0.6.26
 ENV LIBEXIF_INSTALL_PATH_PREFIX=/opt/libexif
 # https://emscripten.org/docs/compiling/Building-Projects.html#pkg-config
 ENV EM_PKG_CONFIG_PATH=$EM_PKG_CONFIG_PATH:$LIBEXIF_INSTALL_PATH_PREFIX/lib/pkgconfig
