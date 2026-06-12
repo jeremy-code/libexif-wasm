@@ -1,5 +1,16 @@
 # libexif-wasm
 
+## 0.5.3
+
+### Patch Changes
+
+- 2a84b7a: chore: update Uint8Array normalization logic in getExifDataFromReadableStream
+- 60def0f: fix: ensure proper cancellation of reader in getExifDataFromReadableStream
+- 305fc2f: chore: update pnpm to v11 and configure hardened deps
+- a2006da: fix: update publish command in release workflow to use staged publishing
+- 507569c: chore: update deps
+- 76b05b6: chore: update to emscripten 6.0.0 and libexif 0.6.26
+
 ## 0.5.2
 
 ### Patch Changes
