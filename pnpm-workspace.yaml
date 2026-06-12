@@ -1,7 +1,14 @@
+# Dependency Resolution (https://pnpm.io/settings#dependency-resolution)
+minimumReleaseAge: 1440 # 1440 minutes = 24 hours
+minimumReleaseAgeStrict: true
+trustPolicy: no-downgrade
+blockExoticSubdeps: true
+
 # Build Settings (https://pnpm.io/settings#build-settings)
-verifyDepsBeforeRun: "prompt"
-onlyBuiltDependencies:
-  - unrs-resolver
+verifyDepsBeforeRun: prompt
+strictDepBuilds: true
+allowBuilds:
+  unrs-resolver: true
 
 # Other Settings (https://pnpm.io/settings#other-settings)
 shellEmulator: true
