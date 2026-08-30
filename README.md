@@ -18,6 +18,8 @@ Hence, it follows that the API is low-level and may not be user-friendly. Consid
 - [exif-reader](https://www.npmjs.com/package/exif-reader) by Devon Govett ([@devongovett](https://github.com/devongovett)) - A small EXIF image metadata reader
 - [exiftool-vendored](https://www.npmjs.com/package/exiftool-vendored) by [PhotoStructure](https://photostructure.com/) - Fast, cross-platform Node.js access to ExifTool
 
+For a Web GUI for this library, see [exifi.io](https://exifi.io) ([GitHub](https://github.com/jeremy-code/exifi)).
+
 ## Installation
 
 ```shell
