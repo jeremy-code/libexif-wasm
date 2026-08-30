@@ -13,9 +13,8 @@ fi
 
 # https://emscripten.org/docs/tools_reference/settings_reference.html
 COMPILE_FLAGS=(
-  -O3 # https://clang.llvm.org/docs/CommandGuide/clang.html#cmdoption-O0
+  -Oz # https://clang.llvm.org/docs/CommandGuide/clang.html#cmdoption-O0
   -g0 # Do not generate debug information
-  -pthread
   -lembind
   --emit-tsd "${OUTPUT_DIR}/libexif.d.ts"
   -sSTACK_SIZE=$((2 ** 16))
