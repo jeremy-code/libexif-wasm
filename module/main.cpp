@@ -5,6 +5,7 @@
 #include <libexif/exif-log.h>
 #include <libexif/exif-utils.h>
 
+extern "C" {
 /* Macros */
 // <libexif/exif-data.h>
 EMSCRIPTEN_KEEPALIVE
@@ -144,4 +145,5 @@ ExifLong _exif_srational_get_denominator(ExifSRational *s) {
 EMSCRIPTEN_KEEPALIVE
 void _exif_srational_set_denominator(ExifSRational *s, ExifLong d) {
   s->denominator = d;
+}
 }

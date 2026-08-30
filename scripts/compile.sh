@@ -28,7 +28,7 @@ COMPILE_FLAGS=(
   -o "${OUTPUT_DIR}/libexif.js"
 )
 
-emcc \
+em++ \
   $(pkg-config --cflags --libs libexif) \
   "${COMPILE_FLAGS[@]}" \
   "${SOURCE_DIR}/module/"*

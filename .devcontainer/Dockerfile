@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM emscripten/emsdk:6.0.0
+FROM emscripten/emsdk:6.0.8
 
 ENV LIBEXIF_VERSION=0.6.26
 ENV LIBEXIF_INSTALL_PATH_PREFIX=/opt/libexif
@@ -43,7 +43,7 @@ RUN set -o errexit -o nounset -o xtrace; \
 # `compile.sh` script with the ubuntu user, `emscripten.py` will throw a
 # PermissionError attempting to read /emsdk/upstream/emscripten/cache/
 RUN set -o errexit -o nounset -o xtrace; \
-  chmod -R 777 /emsdk/upstream/emscripten/cache/symbol_lists
+  chmod -R 777 /emsdk/upstream/emscripten/cache
 
 USER ubuntu
 
