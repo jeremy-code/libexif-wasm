@@ -3,7 +3,6 @@ import { describe, expect, test } from "vitest";
 import { getPtrArray } from "./getPtrArray.ts";
 import { POINTER_SIZE } from "../constants.ts";
 import {
-  getNativeTypeSize,
   getValue,
   setValue,
   stringToNewUTF8,
@@ -47,7 +46,7 @@ describe("getPtrArray", () => {
     const arrayPtr = calloc(numberArr.length, POINTER_SIZE);
 
     const numberPtrArr = numberArr.map((num, index) => {
-      const numberPtr = malloc(getNativeTypeSize("i32"));
+      const numberPtr = malloc(4 /* i32 */);
       setValue(numberPtr, num, "i32");
       setValue(arrayPtr + index * POINTER_SIZE, numberPtr, "*");
       return numberPtr;

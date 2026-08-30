@@ -6,7 +6,7 @@ export const {
   HEAPU8,
 
   // libcore.js
-  getNativeTypeSize,
+  POINTER_SIZE,
 
   // libstrings.js
   UTF8ToString,

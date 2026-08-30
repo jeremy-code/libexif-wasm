@@ -1,7 +1,5 @@
 import type { Ifd } from "./enums/ExifIfd.ts";
-import { getNativeTypeSize } from "./internal/emscripten.ts";
-
-const POINTER_SIZE: number = getNativeTypeSize("*");
+import { POINTER_SIZE } from "./internal/emscripten.ts";
 
 const IFD_NAMES = [
   "IFD_0",
