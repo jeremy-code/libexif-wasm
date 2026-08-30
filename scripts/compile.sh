@@ -25,10 +25,11 @@ COMPILE_FLAGS=(
   -sMODULARIZE=1
   -sEXPORT_ES6=1
   -sEXPORT_NAME="LibexifModule"
+  -sDEFAULT_TO_CXX=1
   -o "${OUTPUT_DIR}/libexif.js"
 )
 
-em++ \
+emcc \
   $(pkg-config --cflags --libs libexif) \
   "${COMPILE_FLAGS[@]}" \
   "${SOURCE_DIR}/module/"*
