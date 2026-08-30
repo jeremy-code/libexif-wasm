@@ -1,5 +1,20 @@
 # libexif-wasm
 
+## 0.5.4
+
+### Patch Changes
+
+- 5ed95f6: chore: replace deprecated getNativeTypeSize with POINTER_SIZE
+- 13442e9: chore: update deps
+- 5c261b7: chore: update compile.sh script
+
+  - Optimize for code size (`-Oz`) instead of speed (`-O3`)
+  - Remove `-pthread` for somewhat smaller glue code
+
+- 939941f: chore: update to emscripten v6.0.8
+- 31d76a7: chore: list sideEffects in package.json
+- 87ec29d: chore: remove unnecessary runtime_methods
+
 ## 0.5.3
 
 ### Patch Changes
