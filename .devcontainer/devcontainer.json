@@ -12,7 +12,7 @@
       "type": "volume"
     }
   ],
-  "features": { "ghcr.io/devcontainers/features/node:1": {} },
+  "features": { "ghcr.io/devcontainers/features/node:2": {} },
   "customizations": {
     "vscode": {
       "extensions": [
@@ -28,6 +28,6 @@
   // Image or Dockerfile specific properties
   "build": { "dockerfile": "Dockerfile" },
 
-  //  Lifecycle scripts
+  // Lifecycle scripts
   "postCreateCommand": ".devcontainer/post-create.sh"
 }
