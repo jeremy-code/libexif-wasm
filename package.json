@@ -33,6 +33,10 @@
   "files": [
     "dist"
   ],
+  "sideEffects": [
+    "./dist/internal/module.js",
+    "./dist/output/libexif.wasm"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
