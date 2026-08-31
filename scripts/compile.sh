@@ -15,6 +15,7 @@ fi
 COMPILE_FLAGS=(
   -Oz # https://clang.llvm.org/docs/CommandGuide/clang.html#cmdoption-O0
   -g0 # Do not generate debug information
+  --minify 0 # Do not minify JavaScript glue code
   -lembind
   --emit-tsd "${OUTPUT_DIR}/libexif.d.ts"
   -sSTACK_SIZE=$((2 ** 16))
