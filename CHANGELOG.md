@@ -1,5 +1,15 @@
 # libexif-wasm
 
+## 0.5.5
+
+### Patch Changes
+
+- cf669d1: chore: update .devcontainer Dockerfile
+
+  - Validate PGP signature for libexif
+
+- b4fe145: chore: disable JS minification in compile.sh
+
 ## 0.5.4
 
 ### Patch Changes
