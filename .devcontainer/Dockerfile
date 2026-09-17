@@ -47,9 +47,11 @@ RUN set -o errexit -o nounset -o xtrace; \
     --host=wasm32-unknown-emscripten \
     --enable-static \
     --disable-shared \
+    --disable-nls \
     --disable-docs \
+    --without-libiconv-prefix \
+    --without-libintl-prefix \
   ; \
-  emmake make -j "$(getconf _NPROCESSORS_ONLN)"; \
   emmake make install; \
   \
   cd ..; \
