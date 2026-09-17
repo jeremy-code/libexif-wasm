@@ -78,6 +78,13 @@
       "types": "./dist/*.d.ts",
       "default": "./dist/*.js"
     },
+    "./output/libexif.js": {
+      "node": "./dist/output/libexif.node.js",
+      "worker": "./dist/output/libexif.worker.js",
+      "web": "./dist/output/libexif.web.js",
+      "types": "./dist/output/libexif.d.ts",
+      "default": "./dist/output/libexif.web.js"
+    },
     "./output/libexif.wasm": "./dist/output/libexif.wasm",
     "./package.json": "./package.json"
   },
