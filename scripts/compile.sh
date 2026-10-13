@@ -8,7 +8,7 @@ OUTPUT_DIR="${SOURCE_DIR}/dist/output"
 EXPORTS_DIR="${SCRIPT_DIR}/exports"
 
 if [ ! -d "${OUTPUT_DIR}" ]; then
-  mkdir --parents "${OUTPUT_DIR}"
+  mkdir -p "${OUTPUT_DIR}"
 fi
 
 ENVIRONMENTS=(
@@ -20,8 +20,7 @@ ENVIRONMENTS=(
 # https://emscripten.org/docs/tools_reference/settings_reference.html
 COMPILE_FLAGS=(
   -Oz # https://clang.llvm.org/docs/CommandGuide/clang.html#cmdoption-O0
-  -g0 # Do not generate debug information
-  --minify 0 # Do not minify JavaScript glue code
+  -g1 # Do not generate debug information
   -lembind
   --emit-tsd "${OUTPUT_DIR}/libexif.d.ts"
   -sSTACK_SIZE=$((2 ** 16))
@@ -33,13 +32,13 @@ COMPILE_FLAGS=(
   -sEXPORT_ES6=1
   -sEXPORT_NAME="LibexifModule"
   -sDEFAULT_TO_CXX=1
+  --use-port="ports/libexif.py"
   -o "${OUTPUT_DIR}/libexif.js"
 )
 
 wasm_files=()
 for environment in "${ENVIRONMENTS[@]}"; do
   emcc \
-    $(pkg-config --cflags --libs libexif) \
     "${COMPILE_FLAGS[@]}" \
     -sENVIRONMENT="$environment" \
     "${SOURCE_DIR}/module/"*
