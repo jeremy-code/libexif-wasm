@@ -39,7 +39,6 @@ COMPILE_FLAGS=(
 wasm_files=()
 for environment in "${ENVIRONMENTS[@]}"; do
   emcc \
-    $(pkg-config --cflags --libs libexif) \
     "${COMPILE_FLAGS[@]}" \
     -sENVIRONMENT="$environment" \
     "${SOURCE_DIR}/module/"*
