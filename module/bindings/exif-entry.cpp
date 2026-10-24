@@ -38,9 +38,13 @@ void JsExifEntry::setComponents(unsigned long components) {
 
 unsigned int JsExifEntry::getSize() const { return exif_entry->size; }
 
-std::optional<Uint8Array> JsExifEntry::getData() const {
+Uint8Array JsExifEntry::getData() const {
   if (!exif_entry->data) {
-    return std::nullopt;
+    if (exif_entry->size != 0) {
+      throw std::runtime_error(
+          "ExifEntry has nullptr data despite having non-zero size");
+    }
+    return Uint8Array(emscripten::val::global("Uint8Array").new_());
   }
   return Uint8Array(emscripten::val(
       emscripten::typed_memory_view(exif_entry->size, exif_entry->data)));

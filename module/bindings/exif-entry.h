@@ -22,7 +22,7 @@ public:
   unsigned long getComponents() const;
   void setComponents(unsigned long components);
   unsigned int getSize() const;
-  std::optional<Uint8Array> getData() const;
+  Uint8Array getData() const;
 
   void initialize(int tag);
   void fix();
