@@ -17,14 +17,11 @@ jobs:
         with:
           submodules: true
 
-      - name: Enable Corepack
-        run: corepack enable
-
-      - name: Set up Node.js environment
-        uses: actions/setup-node@v6
+      - name: Install pnpm and Node.js
+        uses: pnpm/setup@a0881977cd8ea73b1ed212236c99ca10dcc80cf4 # v3.1.1
         with:
-          node-version-file: .nvmrc
-          cache: pnpm
+          cache: true
+          install: true
 
       # Otherwise, error: ERROR: failed to build: Cache export is not supported
       # for the docker driver. Switch to a different driver, or turn on the
