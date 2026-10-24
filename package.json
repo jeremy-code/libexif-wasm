@@ -35,7 +35,6 @@
     "dist"
   ],
   "sideEffects": [
-    "./dist/internal/module.js",
     "./dist/output/libexif.wasm"
   ],
   "exports": {
