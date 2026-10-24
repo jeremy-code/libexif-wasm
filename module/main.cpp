@@ -203,7 +203,8 @@ EMSCRIPTEN_BINDINGS(libexif) {
       .property("ifd", &JsExifContent::getIfd,
                 emscripten::return_value_policy::reference())
       .property("entries", &JsExifContent::getEntries,
-                emscripten::return_value_policy::reference());
+                emscripten::return_value_policy::reference())
+      .function("dump", &JsExifContent::dump);
 
   emscripten::value_array<std::array<JsExifContent, 5>>("IfdArray")
       .element(emscripten::index<0>())
@@ -219,7 +220,7 @@ EMSCRIPTEN_BINDINGS(libexif) {
       .class_function("newFromData", &JsExifData::newFromData,
                       emscripten::return_value_policy::reference())
       .property("ifd", &JsExifData::getIfd,
-                emscripten::return_value_policy::take_ownership())
+                emscripten::return_value_policy::reference())
       .property("size", &JsExifData::getSize, &JsExifData::setSize,
                 emscripten::return_value_policy::reference())
       .property("data", &JsExifData::getData,
@@ -234,6 +235,5 @@ EMSCRIPTEN_BINDINGS(libexif) {
                 emscripten::return_value_policy::reference())
       .function("saveData", &JsExifData::saveData,
                 emscripten::return_value_policy::reference())
-      .function("dump", &JsExifData::dump,
-                emscripten::return_value_policy::reference());
+      .function("dump", &JsExifData::dump);
 }
