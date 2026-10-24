@@ -42,7 +42,8 @@ for environment in "${ENVIRONMENTS[@]}"; do
   emcc \
     "${COMPILE_FLAGS[@]}" \
     -sENVIRONMENT="$environment" \
-    "${SOURCE_DIR}/module/"*
+    "${SOURCE_DIR}/module/main.cpp" \
+    "${SOURCE_DIR}/module/bindings/"*.cpp
 
   # Instead of determining environment at runtime, use conditional exports to
   # resolve glue code
