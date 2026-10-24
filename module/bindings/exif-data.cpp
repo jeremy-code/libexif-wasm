@@ -21,7 +21,7 @@ JsExifData::JsExifData(ExifData *data) : exif_data(data) {
 
 JsExifData::~JsExifData() {
   if (exif_data) {
-    exif_data_free(exif_data);
+    exif_data_unref(exif_data);
   }
 }
 
@@ -42,9 +42,6 @@ JsExifData JsExifData::newFromData(std::string data) {
     throw std::runtime_error("exif_data_new_from_data failed");
   }
   JsExifData result(raw);
-  // exif_data_new_from_data returns an object we own (refcount 1). The
-  // wrapper takes its own reference, so drop ours afterwards.
-  exif_data_unref(raw);
   return result;
 }
 
