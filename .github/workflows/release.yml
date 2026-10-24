@@ -34,22 +34,17 @@ jobs:
           cache: true
           install: true
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v4
-
-      - name: Build and run Dev Container task
-        uses: devcontainers/ci@v0.3
+      - name: Setup emsdk
+        uses: emscripten-core/setup-emsdk@4528d102f7230f0e7b276855c01ea1159be0e984 # v16
         with:
-          # Otherwise, "No runCmd set - skipping starting/running container".
-          # Hence, using `true` no-op
-          # (https://www.gnu.org/software/coreutils/manual/html_node/true-invocation.html)
-          runCmd: true
-          push: never
-          cacheFrom: type=gha
-          cacheTo: type=gha,mode=max
+          version: 6.0.10
+          actions-cache-folder: ".emsdk-cache"
 
       - name: Install dependencies
         run: pnpm install
+
+      - name: Compile code
+        run: pnpm run compile
 
       - name: Build
         run: pnpm run build
@@ -57,9 +52,9 @@ jobs:
       - name: Create pull request for version bump and publish to npm
         uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
         with:
-          publish: pnpm stage publish
-          version: pnpm exec changeset version
-          commit: "chore(release): version packages"
-          title: "chore(release): version packages"
+          publish-script: pnpm stage publish
+          version-script: pnpm exec changeset version
+          commit-message: "chore(release): version packages"
+          pr-title: "chore(release): version packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

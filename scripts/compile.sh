@@ -33,12 +33,12 @@ COMPILE_FLAGS=(
   -sEXPORT_NAME="LibexifModule"
   -sDEFAULT_TO_CXX=1
   -o "${OUTPUT_DIR}/libexif.js"
+  --use-port="${PWD}/ports/libexif.py"
 )
 
 wasm_files=()
 for environment in "${ENVIRONMENTS[@]}"; do
   emcc \
-    $(pkg-config --cflags --libs libexif) \
     "${COMPILE_FLAGS[@]}" \
     -sENVIRONMENT="$environment" \
     "${SOURCE_DIR}/module/"*

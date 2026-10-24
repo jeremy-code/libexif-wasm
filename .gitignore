@@ -85,3 +85,12 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Only used in GitHub actions
+.emsdk-cache/
