@@ -34,6 +34,12 @@ jobs:
           cache: true
           install: true
 
+      - name: Setup emsdk
+        uses: emscripten-core/setup-emsdk@4528d102f7230f0e7b276855c01ea1159be0e984 # v16
+        with:
+          version: 6.0.10
+          actions-cache-folder: ".emsdk-cache"
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
 
