@@ -1,5 +1,16 @@
 # libexif-wasm
 
+## 0.5.6
+
+### Patch Changes
+
+- 4658939: chore: build libexif with emscripten port instead in docker container
+- 0c2452c: chore: enable LTO
+
+  - Cuts wasm binary size from 261491 to 216338 bytes (17.27% decrease)
+
+- 847dcd6: chore: remove unnecessary file listed in package.json sideEffects
+
 ## 0.5.5
 
 ### Patch Changes
