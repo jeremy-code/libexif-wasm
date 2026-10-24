@@ -33,6 +33,7 @@ COMPILE_FLAGS=(
   -sEXPORT_NAME="LibexifModule"
   -sDEFAULT_TO_CXX=1
   -o "${OUTPUT_DIR}/libexif.js"
+  --use-port="${PWD}/ports/libexif.py"
 )
 
 wasm_files=()
