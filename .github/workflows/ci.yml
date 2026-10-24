@@ -32,11 +32,17 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Compile code
+        run: pnpm run compile
+
       - name: Check code formatting with Prettier
         run: pnpm run format:check
 
       - name: Lint code with ESLint
         run: pnpm run lint
+
+      - name: Build
+        run: pnpm run build
 
       - name: Run tests
         run: pnpm run test
