@@ -1,6 +1,5 @@
 {
   "env": {
-    // `emcc --cflags`
     "EMSCRIPTEN_CFLAGS": [
       "-target",
       "wasm32-unknown-emscripten",
@@ -11,7 +10,7 @@
       "-enable-emscripten-sjlj",
       "-mllvm",
       "-disable-lsr",
-      "--sysroot=/emsdk/upstream/emscripten/cache/sysroot",
+      "--sysroot=/opt/homebrew/opt/emscripten/libexec/cache/sysroot",
       "-DEMSCRIPTEN",
       "-Xclang",
       "-iwithsysroot/include/fakesdl",
@@ -22,10 +21,12 @@
   "configurations": [
     {
       "name": "Emscripten",
-      "compilerPath": "/emsdk/upstream/bin/clang++",
+      "compilerPath": "/opt/homebrew/opt/emscripten/libexec/llvm/bin/clang++",
       "compilerArgs": ["${EMSCRIPTEN_CFLAGS}"],
-      "intelliSenseMode": "linux-clang-x64",
-      "includePath": ["/opt/libexif/include"]
+      "intelliSenseMode": "linux-clang-arm64",
+      "cStandard": "c17",
+      "cppStandard": "c++17",
+      "includePath": ["/opt/homebrew/opt/emscripten/libexec/system/include"]
     }
   ],
   "version": 4,
