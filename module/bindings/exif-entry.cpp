@@ -18,11 +18,9 @@ JsExifEntry::~JsExifEntry() {
   }
 }
 
-int JsExifEntry::getTag() const { return static_cast<int>(exif_entry->tag); }
+ExifTag JsExifEntry::getTag() const { return exif_entry->tag; }
 
-void JsExifEntry::setTag(int tag) {
-  exif_entry->tag = static_cast<ExifTag>(tag);
-}
+void JsExifEntry::setTag(ExifTag tag) { exif_entry->tag = tag; }
 
 ExifFormat JsExifEntry::getFormat() const { return exif_entry->format; }
 
@@ -62,8 +60,8 @@ ExifIfd JsExifEntry::getIfd() const {
   return ifd;
 }
 
-void JsExifEntry::initialize(int tag) {
-  exif_entry_initialize(exif_entry, static_cast<ExifTag>(tag));
+void JsExifEntry::initialize(ExifTag tag) {
+  exif_entry_initialize(exif_entry, tag);
 }
 
 void JsExifEntry::fix() { exif_entry_fix(exif_entry); }

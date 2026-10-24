@@ -15,8 +15,8 @@ public:
   ~JsExifEntry();
 
   // ExifEntry* members
-  int getTag() const;
-  void setTag(int tag);
+  ExifTag getTag() const;
+  void setTag(ExifTag tag);
   ExifFormat getFormat() const;
   void setFormat(ExifFormat format);
   unsigned long getComponents() const;
@@ -24,7 +24,7 @@ public:
   unsigned int getSize() const;
   Uint8Array getData() const;
 
-  void initialize(int tag);
+  void initialize(ExifTag tag);
   void fix();
   std::string getValue(unsigned int maxlen = 1024) const;
   void dump(unsigned int indent);
