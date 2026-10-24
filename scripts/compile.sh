@@ -21,6 +21,7 @@ ENVIRONMENTS=(
 COMPILE_FLAGS=(
   -Oz # https://clang.llvm.org/docs/CommandGuide/clang.html#cmdoption-O0
   -g1 # Do not generate debug information
+  -flto
   -lembind
   --emit-tsd "${OUTPUT_DIR}/libexif.d.ts"
   -sSTACK_SIZE=$((2 ** 16))
