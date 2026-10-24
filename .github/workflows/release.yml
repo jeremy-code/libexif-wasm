@@ -21,7 +21,7 @@ jobs:
       pull-requests: write # Required to create PR
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # Fetch all history for all branches and tags so that changesets can
           # compare against the correct base branch
@@ -55,7 +55,7 @@ jobs:
         run: pnpm run build
 
       - name: Create pull request for version bump and publish to npm
-        uses: changesets/action@v1
+        uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
         with:
           publish: pnpm stage publish
           version: pnpm exec changeset version
