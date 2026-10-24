@@ -4,7 +4,7 @@ set -o errexit -o nounset -o pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SOURCE_DIR="$(dirname "$SCRIPT_DIR")"
-OUTPUT_DIR="${SOURCE_DIR}/dist/output"
+OUTPUT_DIR="${PWD}/.output"
 EXPORTS_DIR="${SCRIPT_DIR}/exports"
 
 if [ ! -d "${OUTPUT_DIR}" ]; then
