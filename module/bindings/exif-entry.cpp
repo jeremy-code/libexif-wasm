@@ -4,7 +4,11 @@
 #include <stdexcept>
 #include <vector>
 
-JsExifEntry::JsExifEntry() : exif_entry(nullptr) {}
+JsExifEntry::JsExifEntry() : exif_entry(exif_entry_new()) {
+  if (!exif_entry) {
+    throw std::runtime_error("exif_entry_new failed");
+  }
+}
 
 JsExifEntry::JsExifEntry(ExifEntry *entry) : exif_entry(entry) {
   if (exif_entry) {
