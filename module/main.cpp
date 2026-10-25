@@ -3,6 +3,7 @@
 #include "bindings/exif-content.h"
 #include "bindings/exif-data.h"
 #include "bindings/exif-entry.h"
+#include "bindings/exif-mnote-data.h"
 #include "bindings/exif-tag.h"
 #include "common.h"
 
@@ -250,4 +251,7 @@ EMSCRIPTEN_BINDINGS(libexif) {
       .class_function("getNameInIfd", &JsExifTag::getNameInIfd)
       .class_function("getDescriptionInIfd", &JsExifTag::getDescriptionInIfd)
       .class_function("getSupportLevelInIfd", &JsExifTag::getSupportLevelInIfd);
+
+  emscripten::class_<JsExifMnoteData>("ExifMnoteData")
+      .property("count", &JsExifMnoteData::getCount);
 }
