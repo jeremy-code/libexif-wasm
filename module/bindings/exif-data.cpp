@@ -4,6 +4,7 @@
 #include "emscripten/val.h"
 #include <array>
 #include <cstdlib>
+#include <iostream>
 #include <libexif/exif-data.h>
 #include <stdexcept>
 
@@ -11,17 +12,24 @@ JsExifData::JsExifData() : exif_data(exif_data_new()) {
   if (exif_data == nullptr) {
     throw std::runtime_error("exif_data_new failed");
   }
+  std::cout << "ExifData new!" << std::endl;
 }
 
 JsExifData::JsExifData(ExifData *data) : exif_data(data) {
   if (exif_data != nullptr) {
     exif_data_ref(exif_data);
+    std::cout << "ExifData ref!" << std::endl;
+  } else {
+    std::cout << "ExifData ref!" << std::endl;
   }
 }
 
 JsExifData::~JsExifData() {
   if (exif_data != nullptr) {
     exif_data_unref(exif_data);
+    std::cout << "ExifData unref!" << std::endl;
+  } else {
+    std::cout << "ExifData nullptr unref!" << std::endl;
   }
 }
 

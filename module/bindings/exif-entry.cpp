@@ -1,6 +1,7 @@
 #include "exif-entry.h"
 #include "../common.h"
 
+#include <iostream>
 #include <stdexcept>
 #include <vector>
 
@@ -8,17 +9,24 @@ JsExifEntry::JsExifEntry() : exif_entry(exif_entry_new()) {
   if (exif_entry == nullptr) {
     throw std::runtime_error("exif_entry_new failed");
   }
+  std::cout << "ExifEntry new!" << std::endl;
 }
 
 JsExifEntry::JsExifEntry(ExifEntry *entry) : exif_entry(entry) {
   if (exif_entry != nullptr) {
     exif_entry_ref(exif_entry);
+    std::cout << "ExifEntry ref!" << std::endl;
+  } else {
+    std::cout << "ExifEntry nullptr ref!" << std::endl;
   }
 }
 
 JsExifEntry::~JsExifEntry() {
   if (exif_entry != nullptr) {
     exif_entry_unref(exif_entry);
+    std::cout << "ExifEntry unref!" << std::endl;
+  } else {
+    std::cout << "ExifEntry nullptr ref!" << std::endl;
   }
 }
 
