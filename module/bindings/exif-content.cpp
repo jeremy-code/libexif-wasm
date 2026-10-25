@@ -1,9 +1,9 @@
 #include "exif-content.h"
 
 #include "exif-entry.h"
-#include <emscripten/val.h>
+#include "libexif/exif-content.h"
 #include <stdexcept>
-#include <utility>
+#include <vector>
 
 JsExifContent::JsExifContent() : exif_content(exif_content_new()) {
   if (!exif_content) {

@@ -1,11 +1,11 @@
 #include "exif-data.h"
 
 #include "../common.h"
-#include <emscripten/bind.h>
-
+#include "emscripten/val.h"
+#include <array>
 #include <cstdlib>
+#include <libexif/exif-data.h>
 #include <stdexcept>
-#include <utility>
 
 JsExifData::JsExifData() : exif_data(exif_data_new()) {
   if (!exif_data) {

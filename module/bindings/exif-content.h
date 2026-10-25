@@ -1,8 +1,8 @@
 #pragma once
 
 #include "exif-entry.h"
-#include <emscripten/val.h>
-#include <libexif/exif-content.h>
+#include "libexif/exif-content.h"
+#include <vector>
 
 // class JsExifData;
 

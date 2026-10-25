@@ -5,7 +5,6 @@
 #include <string>
 
 #include "../common.h"
-#include "exif-content.h"
 #include "exif-mnote-data.h"
 
 class JsExifData {
