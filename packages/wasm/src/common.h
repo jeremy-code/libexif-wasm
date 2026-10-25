@@ -3,3 +3,4 @@
 #include <emscripten/val.h>
 
 EMSCRIPTEN_DECLARE_VAL_TYPE(Uint8Array);
+EMSCRIPTEN_DECLARE_VAL_TYPE(ExifTypedArray);

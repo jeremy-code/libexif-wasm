@@ -23,7 +23,7 @@ public:
   void setComponents(unsigned long components);
   unsigned int getSize() const;
   Uint8Array getData() const;
-  emscripten::val getTypedData() const;
+  ExifTypedArray getTypedData() const;
 
   void initialize(ExifTag tag);
   void fix();

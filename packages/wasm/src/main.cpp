@@ -9,6 +9,10 @@
 
 EMSCRIPTEN_BINDINGS(libexif) {
   emscripten::register_type<Uint8Array>("Uint8Array");
+  emscripten::register_type<ExifTypedArray>(
+      "ExifTypedArray", "Uint8Array<ArrayBuffer> | Int8Array<ArrayBuffer> | "
+                        "Uint16Array<ArrayBuffer> | Uint32Array<ArrayBuffer> | "
+                        "Int16Array<ArrayBuffer> | Int32Array<ArrayBuffer>");
 
   emscripten::enum_<ExifTag>("ExifTag")
       .value("INTEROPERABILITY_INDEX", EXIF_TAG_INTEROPERABILITY_INDEX)

@@ -117,7 +117,7 @@ inline emscripten::val getTypedArrayValue(ExifFormat format,
   }
 }
 
-emscripten::val JsExifEntry::getTypedData() const {
+ExifTypedArray JsExifEntry::getTypedData() const {
   if (!exif_entry->data && exif_entry->size != 0) {
     throw std::runtime_error(
         "ExifEntry has nullptr data despite having non-zero size");
@@ -144,7 +144,7 @@ emscripten::val JsExifEntry::getTypedData() const {
                                              exif_entry->parent->parent)));
   }
 
-  return typedArray;
+  return ExifTypedArray(typedArray);
 }
 
 void JsExifEntry::dump(unsigned int indent) {
