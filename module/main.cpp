@@ -200,10 +200,8 @@ EMSCRIPTEN_BINDINGS(libexif) {
       ;
   emscripten::class_<JsExifContent>("ExifContent")
       .constructor<>()
-      .property("count", &JsExifContent::getCount, &JsExifContent::setCount,
-                emscripten::return_value_policy::reference())
-      .property("ifd", &JsExifContent::getIfd,
-                emscripten::return_value_policy::reference())
+      .property("count", &JsExifContent::getCount, &JsExifContent::setCount)
+      .property("ifd", &JsExifContent::getIfd)
       .property("entries", &JsExifContent::getEntries,
                 emscripten::return_value_policy::reference())
       .function("dump", &JsExifContent::dump);
@@ -223,15 +221,12 @@ EMSCRIPTEN_BINDINGS(libexif) {
                       emscripten::return_value_policy::reference())
       .property("ifd", &JsExifData::getIfd,
                 emscripten::return_value_policy::reference())
-      .property("size", &JsExifData::getSize, &JsExifData::setSize,
-                emscripten::return_value_policy::reference())
+      .property("size", &JsExifData::getSize, &JsExifData::setSize)
       .property("data", &JsExifData::getData,
                 emscripten::return_value_policy::reference())
-      .property("dataType", &JsExifData::getDataType, &JsExifData::setDataType,
-                emscripten::return_value_policy::reference())
+      .property("dataType", &JsExifData::getDataType, &JsExifData::setDataType)
       .property("byteOrder", &JsExifData::getByteOrder,
-                &JsExifData::setByteOrder,
-                emscripten::return_value_policy::reference())
+                &JsExifData::setByteOrder)
       .property("mnoteData", &JsExifData::getMnoteData,
                 emscripten::return_value_policy::reference())
       .function("fix", &JsExifData::fix)
