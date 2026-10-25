@@ -20,7 +20,7 @@ JsExifData::JsExifData(ExifData *data) : exif_data(data) {
     exif_data_ref(exif_data);
     std::cout << "ExifData ref!" << std::endl;
   } else {
-    std::cout << "ExifData ref!" << std::endl;
+    std::cout << "ExifData nullptr ref!" << std::endl;
   }
 }
 

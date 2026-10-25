@@ -26,7 +26,7 @@ JsExifEntry::~JsExifEntry() {
     exif_entry_unref(exif_entry);
     std::cout << "ExifEntry unref!" << std::endl;
   } else {
-    std::cout << "ExifEntry nullptr ref!" << std::endl;
+    std::cout << "ExifEntry nullptr unref!" << std::endl;
   }
 }
 
