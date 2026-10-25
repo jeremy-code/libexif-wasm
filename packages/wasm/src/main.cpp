@@ -6,6 +6,7 @@
 #include "bindings/exif-mnote-data.h"
 #include "bindings/exif-tag.h"
 #include "common.h"
+#include "enum.h"
 
 EMSCRIPTEN_BINDINGS(libexif) {
   emscripten::register_type<Uint8Array>("Uint8Array");
@@ -171,6 +172,41 @@ EMSCRIPTEN_BINDINGS(libexif) {
       .value("SRATIONAL", EXIF_FORMAT_SRATIONAL)
       .value("FLOAT", EXIF_FORMAT_FLOAT)
       .value("DOUBLE", EXIF_FORMAT_DOUBLE);
+
+  emscripten::enum_<ExifTagGps>("ExifTagGps")
+      .value("VERSION_ID", ExifTagGps::VERSION_ID)
+      .value("LATITUDE_REF", ExifTagGps::LATITUDE_REF)
+      .value("LATITUDE", ExifTagGps::LATITUDE)
+      .value("LONGITUDE_REF", ExifTagGps::LONGITUDE_REF)
+      .value("LONGITUDE", ExifTagGps::LONGITUDE)
+      .value("ALTITUDE_REF", ExifTagGps::ALTITUDE_REF)
+      .value("ALTITUDE", ExifTagGps::ALTITUDE)
+      .value("TIME_STAMP", ExifTagGps::TIME_STAMP)
+      .value("SATELLITES", ExifTagGps::SATELLITES)
+      .value("STATUS", ExifTagGps::STATUS)
+      .value("MEASURE_MODE", ExifTagGps::MEASURE_MODE)
+      .value("DOP", ExifTagGps::DOP)
+      .value("SPEED_REF", ExifTagGps::SPEED_REF)
+      .value("SPEED", ExifTagGps::SPEED)
+      .value("TRACK_REF", ExifTagGps::TRACK_REF)
+      .value("TRACK", ExifTagGps::TRACK)
+      .value("IMG_DIRECTION_REF", ExifTagGps::IMG_DIRECTION_REF)
+      .value("IMG_DIRECTION", ExifTagGps::IMG_DIRECTION)
+      .value("MAP_DATUM", ExifTagGps::MAP_DATUM)
+      .value("DEST_LATITUDE_REF", ExifTagGps::DEST_LATITUDE_REF)
+      .value("DEST_LATITUDE", ExifTagGps::DEST_LATITUDE)
+      .value("DEST_LONGITUDE_REF", ExifTagGps::DEST_LONGITUDE_REF)
+      .value("DEST_LONGITUDE", ExifTagGps::DEST_LONGITUDE)
+      .value("DEST_BEARING_REF", ExifTagGps::DEST_BEARING_REF)
+      .value("DEST_BEARING", ExifTagGps::DEST_BEARING)
+      .value("DEST_DISTANCE_REF", ExifTagGps::DEST_DISTANCE_REF)
+      .value("DEST_DISTANCE", ExifTagGps::DEST_DISTANCE)
+      .value("PROCESSING_METHOD", ExifTagGps::PROCESSING_METHOD)
+      .value("AREA_INFORMATION", ExifTagGps::AREA_INFORMATION)
+      .value("DATE_STAMP", ExifTagGps::DATE_STAMP)
+      .value("DIFFERENTIAL", ExifTagGps::DIFFERENTIAL)
+      .value("H_POSITIONING_ERROR", ExifTagGps::H_POSITIONING_ERROR);
+
   emscripten::class_<JsExifEntry>("ExifEntry")
       .constructor<>()
       .property("tag", &JsExifEntry::getTag, &JsExifEntry::setTag)
