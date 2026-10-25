@@ -3,6 +3,7 @@
 #include "bindings/exif-content.h"
 #include "bindings/exif-data.h"
 #include "bindings/exif-entry.h"
+#include "bindings/exif-tag.h"
 #include "common.h"
 
 EMSCRIPTEN_BINDINGS(libexif) {
@@ -236,4 +237,17 @@ EMSCRIPTEN_BINDINGS(libexif) {
       .function("saveData", &JsExifData::saveData,
                 emscripten::return_value_policy::reference())
       .function("dump", &JsExifData::dump);
+
+  emscripten::enum_<ExifSupportLevel>("ExifSupportLevel")
+      .value("UNKNOWN", EXIF_SUPPORT_LEVEL_UNKNOWN)
+      .value("NOT_RECORDED", EXIF_SUPPORT_LEVEL_NOT_RECORDED)
+      .value("MANDATORY", EXIF_SUPPORT_LEVEL_MANDATORY)
+      .value("OPTIONAL", EXIF_SUPPORT_LEVEL_OPTIONAL);
+
+  // BindingError: Cannot register public name 'ExifTag' twice
+  emscripten::class_<JsExifTag>("ExifTagInfo")
+      .class_function("fromName", &JsExifTag::fromName)
+      .class_function("getNameInIfd", &JsExifTag::getNameInIfd)
+      .class_function("getDescriptionInIfd", &JsExifTag::getDescriptionInIfd)
+      .class_function("getSupportLevelInIfd", &JsExifTag::getSupportLevelInIfd);
 }
