@@ -1,0 +1,22 @@
+{
+  "name": "@libexif-wasm/wasm",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "./scripts/build.sh",
+    "format": "find -E src -regex '.*\\.(cpp|h)' | xargs clang-format -i"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "./libexif.js": {
+      "types": "./dist/libexif.d.ts",
+      "node": "./dist/libexif.node.js",
+      "browser": "./dist/libexif.web.js",
+      "default": "./dist/libexif.web.js"
+    },
+    "./libexif.wasm": "./dist/libexif.wasm",
+    "./package.json": "./package.json"
+  }
+}

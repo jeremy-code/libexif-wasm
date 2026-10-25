@@ -2,10 +2,7 @@
 
 set -o errexit -o nounset -o pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SOURCE_DIR="$(dirname "$SCRIPT_DIR")"
-OUTPUT_DIR="${PWD}/.output"
-EXPORTS_DIR="${SCRIPT_DIR}/exports"
+OUTPUT_DIR="${PWD}/dist"
 
 if [ ! -d "${OUTPUT_DIR}" ]; then
   mkdir -p "${OUTPUT_DIR}"
@@ -41,8 +38,8 @@ for environment in "${ENVIRONMENTS[@]}"; do
   emcc \
     "${COMPILE_FLAGS[@]}" \
     -sENVIRONMENT="$environment" \
-    "${SOURCE_DIR}/module/main.cpp" \
-    "${SOURCE_DIR}/module/bindings/"*.cpp
+    "${PWD}/src/main.cpp" \
+    "${PWD}/src/bindings/"*.cpp
 
   # Instead of determining environment at runtime, use conditional exports to
   # resolve glue code
