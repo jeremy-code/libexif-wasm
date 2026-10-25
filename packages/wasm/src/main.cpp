@@ -175,6 +175,7 @@ EMSCRIPTEN_BINDINGS(libexif) {
                 &JsExifEntry::setComponents)
       .property("size", &JsExifEntry::getSize)
       .property("data", &JsExifEntry::getData)
+      .property("typedData", &JsExifEntry::getTypedData)
       .property("ifd", &JsExifEntry::getIfd)
       .function("initialize", &JsExifEntry::initialize)
       .function("fix", &JsExifEntry::fix)

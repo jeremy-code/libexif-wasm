@@ -54,6 +54,99 @@ Uint8Array JsExifEntry::getData() const {
       emscripten::typed_memory_view(exif_entry->size, exif_entry->data)));
 }
 
+inline emscripten::val getTypedArray(ExifFormat format, unsigned long size) {
+  switch (format) {
+  case ExifFormat::EXIF_FORMAT_BYTE:
+  case ExifFormat::EXIF_FORMAT_UNDEFINED:
+  case ExifFormat::EXIF_FORMAT_ASCII:
+    return emscripten::val::global("Uint8Array").new_(size);
+  case ExifFormat::EXIF_FORMAT_SHORT:
+    return emscripten::val::global("Uint16Array").new_(size);
+  case ExifFormat::EXIF_FORMAT_LONG:
+  case ExifFormat::EXIF_FORMAT_RATIONAL:
+    return emscripten::val::global("Uint32Array").new_(size);
+  case ExifFormat::EXIF_FORMAT_SBYTE:
+    return emscripten::val::global("Int8Array").new_(size);
+  case ExifFormat::EXIF_FORMAT_SSHORT:
+    return emscripten::val::global("Int16Array").new_(size);
+  case ExifFormat::EXIF_FORMAT_SLONG:
+  case ExifFormat::EXIF_FORMAT_SRATIONAL:
+    return emscripten::val::global("Int32Array").new_(size);
+  default:
+    throw std::runtime_error(
+        "EXIF_FORMAT_FLOAT, EXIF_FORMAT_DOUBLE is not supported");
+  }
+}
+
+inline emscripten::val getTypedArrayValue(ExifFormat format,
+                                          emscripten::val dataView,
+                                          unsigned int index,
+                                          ExifByteOrder order) {
+  bool is_little_endian = order == ExifByteOrder::EXIF_BYTE_ORDER_INTEL;
+  unsigned int value_size = format == ExifFormat::EXIF_FORMAT_RATIONAL ||
+                                    format == ExifFormat::EXIF_FORMAT_SRATIONAL
+                                ? exif_format_get_size(format) / 2
+                                : exif_format_get_size(format);
+
+  switch (format) {
+  case ExifFormat::EXIF_FORMAT_BYTE:
+  case ExifFormat::EXIF_FORMAT_UNDEFINED:
+  case ExifFormat::EXIF_FORMAT_ASCII:
+    return dataView.call<emscripten::val>("getUint8", index * value_size,
+                                          is_little_endian);
+  case ExifFormat::EXIF_FORMAT_SHORT:
+    return dataView.call<emscripten::val>("getUint16", index * value_size,
+                                          is_little_endian);
+  case ExifFormat::EXIF_FORMAT_LONG:
+  case ExifFormat::EXIF_FORMAT_RATIONAL:
+    return dataView.call<emscripten::val>("getUint32", index * value_size,
+                                          is_little_endian);
+  case ExifFormat::EXIF_FORMAT_SBYTE:
+    return dataView.call<emscripten::val>("getInt8", index * value_size,
+                                          is_little_endian);
+  case ExifFormat::EXIF_FORMAT_SSHORT:
+    return dataView.call<emscripten::val>("getInt16", index * value_size,
+                                          is_little_endian);
+  case ExifFormat::EXIF_FORMAT_SLONG:
+  case ExifFormat::EXIF_FORMAT_SRATIONAL:
+    return dataView.call<emscripten::val>("getInt32", index * value_size,
+                                          is_little_endian);
+  default:
+    throw std::runtime_error(
+        "EXIF_FORMAT_FLOAT, EXIF_FORMAT_DOUBLE is not supported");
+  }
+}
+
+emscripten::val JsExifEntry::getTypedData() const {
+  if (!exif_entry->data && exif_entry->size != 0) {
+    throw std::runtime_error(
+        "ExifEntry has nullptr data despite having non-zero size");
+  }
+
+  unsigned long typedArraySize =
+      (exif_entry->format == ExifFormat::EXIF_FORMAT_RATIONAL ||
+       exif_entry->format == ExifFormat::EXIF_FORMAT_SRATIONAL)
+          ? exif_entry->components * 2
+          : exif_entry->components;
+  emscripten::val typedArray =
+      getTypedArray(exif_entry->format, typedArraySize);
+
+  emscripten::val data = emscripten::val(
+      emscripten::typed_memory_view(exif_entry->size, exif_entry->data));
+
+  emscripten::val dataView =
+      emscripten::val::global("DataView")
+          .new_(data["buffer"], data["byteOffset"], data["byteLength"]);
+
+  for (unsigned int i = 0; i < typedArraySize; ++i) {
+    typedArray.set(i, getTypedArrayValue(exif_entry->format, dataView, i,
+                                         exif_data_get_byte_order(
+                                             exif_entry->parent->parent)));
+  }
+
+  return typedArray;
+}
+
 void JsExifEntry::dump(unsigned int indent) {
   exif_entry_dump(exif_entry, indent);
 }
