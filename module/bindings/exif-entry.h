@@ -11,7 +11,7 @@
 class JsExifEntry {
 public:
   JsExifEntry();
-  explicit JsExifEntry(ExifEntry *entry);
+  explicit JsExifEntry(ExifEntry *entry, bool owns = true);
   ~JsExifEntry();
 
   // ExifEntry* members
@@ -31,4 +31,7 @@ public:
   ExifIfd getIfd() const;
 
   ExifEntry *exif_entry;
+
+private:
+  bool owns_memory;
 };

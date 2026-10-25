@@ -6,37 +6,52 @@
 #include <cstdlib>
 #include <iostream>
 #include <libexif/exif-data.h>
+#include <memory>
 #include <stdexcept>
 
 JsExifData::JsExifData() : exif_data(exif_data_new()) {
   if (exif_data == nullptr) {
     throw std::runtime_error("exif_data_new failed");
   }
-  std::cout << "ExifData new!" << std::endl;
 }
 
 JsExifData::JsExifData(ExifData *data) : exif_data(data) {
   if (exif_data != nullptr) {
     exif_data_ref(exif_data);
-    std::cout << "ExifData ref!" << std::endl;
-  } else {
-    std::cout << "ExifData nullptr ref!" << std::endl;
   }
 }
 
 JsExifData::~JsExifData() {
   if (exif_data != nullptr) {
     exif_data_unref(exif_data);
-    std::cout << "ExifData unref!" << std::endl;
-  } else {
-    std::cout << "ExifData nullptr unref!" << std::endl;
   }
 }
 
+JsExifData::JsExifData(const JsExifData &other) : exif_data(other.exif_data) {
+  if (exif_data) {
+    exif_data_ref(exif_data);
+  }
+}
+
+JsExifData &JsExifData::operator=(const JsExifData &other) {
+  if (this != &other) {
+    if (other.exif_data) {
+      exif_data_ref(other.exif_data);
+    }
+    if (exif_data) {
+      exif_data_unref(exif_data);
+    }
+    exif_data = other.exif_data;
+  }
+  return *this;
+}
+
 std::array<JsExifContent, 5> JsExifData::getIfd() const {
-  return {{JsExifContent(exif_data->ifd[0]), JsExifContent(exif_data->ifd[1]),
-           JsExifContent(exif_data->ifd[2]), JsExifContent(exif_data->ifd[3]),
-           JsExifContent(exif_data->ifd[4])}};
+  return {{JsExifContent(exif_data->ifd[0], false),
+           JsExifContent(exif_data->ifd[1], false),
+           JsExifContent(exif_data->ifd[2], false),
+           JsExifContent(exif_data->ifd[3], false),
+           JsExifContent(exif_data->ifd[4], false)}};
 }
 
 unsigned int JsExifData::getSize() const { return exif_data->size; }
@@ -46,11 +61,10 @@ void JsExifData::setSize(unsigned int s) { exif_data->size = s; }
 JsExifData JsExifData::newFromData(std::string data) {
   ExifData *raw = exif_data_new_from_data(
       reinterpret_cast<const unsigned char *>(data.data()), data.size());
-  if (!raw) {
+  if (raw == nullptr) {
     throw std::runtime_error("exif_data_new_from_data failed");
   }
-  JsExifData result(raw);
-  return result;
+  return JsExifData(raw);
 }
 
 Uint8Array JsExifData::getData() const {

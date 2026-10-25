@@ -1,15 +1,15 @@
 #pragma once
 
+#include "emscripten/val.h"
 #include "exif-entry.h"
 #include "libexif/exif-content.h"
-#include <vector>
 
 // class JsExifData;
 
 class JsExifContent {
 public:
   JsExifContent();
-  explicit JsExifContent(ExifContent *data);
+  explicit JsExifContent(ExifContent *data, bool owns = true);
   ~JsExifContent();
 
   std::vector<JsExifEntry> getEntries() const;
@@ -25,4 +25,5 @@ public:
 
 private:
   ExifContent *exif_content;
+  bool owns_memory;
 };

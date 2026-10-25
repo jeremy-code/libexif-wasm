@@ -10,24 +10,18 @@ JsExifContent::JsExifContent() : exif_content(exif_content_new()) {
   if (exif_content == nullptr) {
     throw std::runtime_error("exif_content_new failed");
   }
-  std::cout << "ExifContent new!" << std::endl;
 }
 
-JsExifContent::JsExifContent(ExifContent *data) : exif_content(data) {
-  if (exif_content != nullptr) {
+JsExifContent::JsExifContent(ExifContent *data, bool owns)
+    : exif_content(data), owns_memory(owns) {
+  if (exif_content != nullptr && owns_memory) {
     exif_content_ref(exif_content);
-    std::cout << "ExifContent ref!" << std::endl;
-  } else {
-    std::cout << "ExifContent nullptr ref!" << std::endl;
   }
 }
 
 JsExifContent::~JsExifContent() {
-  if (exif_content != nullptr) {
+  if (exif_content != nullptr && owns_memory) {
     exif_content_unref(exif_content);
-    std::cout << "ExifContent unref!" << std::endl;
-  } else {
-    std::cout << "ExifContent nullptr unref!" << std::endl;
   }
 }
 
@@ -45,7 +39,7 @@ ExifIfd JsExifContent::getIfd() const {
 std::vector<JsExifEntry> JsExifContent::getEntries() const {
   std::vector<JsExifEntry> result;
   for (unsigned int i = 0; i < exif_content->count; ++i) {
-    result.push_back(JsExifEntry(exif_content->entries[i]));
+    result.push_back(JsExifEntry(exif_content->entries[i], false));
   }
   return result;
 }

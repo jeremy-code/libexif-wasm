@@ -178,7 +178,8 @@ EMSCRIPTEN_BINDINGS(libexif) {
       .property("ifd", &JsExifEntry::getIfd)
       .function("initialize", &JsExifEntry::initialize)
       .function("fix", &JsExifEntry::fix)
-      .function("getValue", &JsExifEntry::getValue);
+      .function("getValue", &JsExifEntry::getValue)
+      .function("dump", &JsExifEntry::dump);
   emscripten::enum_<ExifByteOrder>("ExifByteOrder")
       .value("MOTOROLA", EXIF_BYTE_ORDER_MOTOROLA)
       .value("INTEL", EXIF_BYTE_ORDER_INTEL);
@@ -202,7 +203,7 @@ EMSCRIPTEN_BINDINGS(libexif) {
       .property("count", &JsExifContent::getCount, &JsExifContent::setCount)
       .property("ifd", &JsExifContent::getIfd)
       .property("entries", &JsExifContent::getEntries,
-                emscripten::return_value_policy::reference())
+                emscripten::return_value_policy::take_ownership())
       .function("dump", &JsExifContent::dump);
 
   emscripten::value_array<std::array<JsExifContent, 5>>("IfdArray")
@@ -216,10 +217,9 @@ EMSCRIPTEN_BINDINGS(libexif) {
 
   emscripten::class_<JsExifData>("ExifData")
       .constructor<>()
-      .class_function("newFromData", &JsExifData::newFromData,
-                      emscripten::return_value_policy::reference())
+      .class_function("newFromData", &JsExifData::newFromData)
       .property("ifd", &JsExifData::getIfd,
-                emscripten::return_value_policy::reference())
+                emscripten::return_value_policy::take_ownership())
       .property("size", &JsExifData::getSize, &JsExifData::setSize)
       .property("data", &JsExifData::getData,
                 emscripten::return_value_policy::reference())

@@ -11,6 +11,8 @@ class JsExifData {
 public:
   JsExifData();
   explicit JsExifData(ExifData *data);
+  JsExifData(const JsExifData &other);
+  JsExifData &operator=(const JsExifData &other);
   ~JsExifData();
 
   // ExifData* members
