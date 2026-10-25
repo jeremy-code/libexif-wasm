@@ -18,7 +18,7 @@ public:
   void setCount(unsigned int c);
 
   ExifIfd getIfd() const;
-  void dump(unsigned int indent);
+  void dump(unsigned int indent = 2);
 
   // JsExifData getParent() const;
   // void setParent(const JsExifData &d) const;

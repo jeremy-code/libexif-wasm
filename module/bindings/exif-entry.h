@@ -27,7 +27,7 @@ public:
   void initialize(ExifTag tag);
   void fix();
   std::string getValue(unsigned int maxlen = 1024) const;
-  void dump(unsigned int indent);
+  void dump(unsigned int indent = 2);
   ExifIfd getIfd() const;
 
   ExifEntry *exif_entry;
