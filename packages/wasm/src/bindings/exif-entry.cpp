@@ -24,9 +24,13 @@ JsExifEntry::~JsExifEntry() {
   }
 }
 
-ExifTag JsExifEntry::getTag() const { return exif_entry->tag; }
+ExifTagUnified JsExifEntry::getTag() const {
+  return static_cast<ExifTagUnified>(exif_entry->tag);
+}
 
-void JsExifEntry::setTag(ExifTag tag) { exif_entry->tag = tag; }
+void JsExifEntry::setTag(ExifTagUnified tag) {
+  exif_entry->tag = static_cast<ExifTag>(tag);
+}
 
 ExifFormat JsExifEntry::getFormat() const { return exif_entry->format; }
 

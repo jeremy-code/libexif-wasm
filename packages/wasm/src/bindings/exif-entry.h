@@ -3,6 +3,7 @@
 #include <string>
 
 #include "../common.h"
+#include "../enum.h"
 #include <emscripten/val.h>
 #include <libexif/exif-entry.h>
 #include <libexif/exif-format.h>
@@ -15,8 +16,8 @@ public:
   ~JsExifEntry();
 
   // ExifEntry* members
-  ExifTag getTag() const;
-  void setTag(ExifTag tag);
+  ExifTagUnified getTag() const;
+  void setTag(ExifTagUnified tag);
   ExifFormat getFormat() const;
   void setFormat(ExifFormat format);
   unsigned long getComponents() const;
