@@ -79,6 +79,10 @@ void JsExifData::setByteOrder(ExifByteOrder order) {
   exif_data_set_byte_order(exif_data, order);
 }
 
+JsExifMnoteData JsExifData::getMnoteData() const {
+  return JsExifMnoteData(exif_data_get_mnote_data(exif_data));
+}
+
 ExifDataType JsExifData::getDataType() const {
   return exif_data_get_data_type(exif_data);
 }

@@ -232,6 +232,8 @@ EMSCRIPTEN_BINDINGS(libexif) {
       .property("byteOrder", &JsExifData::getByteOrder,
                 &JsExifData::setByteOrder,
                 emscripten::return_value_policy::reference())
+      .property("mnoteData", &JsExifData::getMnoteData,
+                emscripten::return_value_policy::reference())
       .function("fix", &JsExifData::fix)
       .function("loadData", &JsExifData::loadData,
                 emscripten::return_value_policy::reference())

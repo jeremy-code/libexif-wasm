@@ -6,6 +6,7 @@
 
 #include "../common.h"
 #include "exif-content.h"
+#include "exif-mnote-data.h"
 
 class JsExifData {
 public:
@@ -24,6 +25,7 @@ public:
   Uint8Array saveData() const;
   ExifByteOrder getByteOrder() const;
   void setByteOrder(ExifByteOrder order);
+  JsExifMnoteData getMnoteData() const;
   void fix();
   ExifDataType getDataType() const;
   void setDataType(ExifDataType dt);
