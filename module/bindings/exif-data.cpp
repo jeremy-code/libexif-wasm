@@ -8,13 +8,13 @@
 #include <stdexcept>
 
 JsExifData::JsExifData() : exif_data(exif_data_new()) {
-  if (!exif_data) {
+  if (exif_data == nullptr) {
     throw std::runtime_error("exif_data_new failed");
   }
 }
 
 JsExifData::JsExifData(ExifData *data) : exif_data(data) {
-  if (exif_data) {
+  if (exif_data != nullptr) {
     exif_data_ref(exif_data);
   }
 }

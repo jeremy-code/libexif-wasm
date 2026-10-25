@@ -8,13 +8,13 @@
 #include <utility>
 
 JsExifMnoteData::JsExifMnoteData(ExifMnoteData *data) : exif_mnote_data(data) {
-  if (exif_mnote_data) {
+  if (exif_mnote_data != nullptr) {
     exif_mnote_data_ref(exif_mnote_data);
   }
 }
 
 JsExifMnoteData::~JsExifMnoteData() {
-  if (exif_mnote_data) {
+  if (exif_mnote_data != nullptr) {
     exif_mnote_data_unref(exif_mnote_data);
   }
 }

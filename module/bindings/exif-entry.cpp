@@ -5,19 +5,19 @@
 #include <vector>
 
 JsExifEntry::JsExifEntry() : exif_entry(exif_entry_new()) {
-  if (!exif_entry) {
+  if (exif_entry == nullptr) {
     throw std::runtime_error("exif_entry_new failed");
   }
 }
 
 JsExifEntry::JsExifEntry(ExifEntry *entry) : exif_entry(entry) {
-  if (exif_entry) {
+  if (exif_entry != nullptr) {
     exif_entry_ref(exif_entry);
   }
 }
 
 JsExifEntry::~JsExifEntry() {
-  if (exif_entry) {
+  if (exif_entry != nullptr) {
     exif_entry_unref(exif_entry);
   }
 }
