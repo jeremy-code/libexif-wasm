@@ -33,19 +33,6 @@ JsExifData::JsExifData(const JsExifData &other) : exif_data(other.exif_data) {
   }
 }
 
-JsExifData &JsExifData::operator=(const JsExifData &other) {
-  if (this != &other) {
-    if (other.exif_data) {
-      exif_data_ref(other.exif_data);
-    }
-    if (exif_data) {
-      exif_data_unref(exif_data);
-    }
-    exif_data = other.exif_data;
-  }
-  return *this;
-}
-
 std::array<JsExifContent, 5> JsExifData::getIfd() const {
   return {{JsExifContent(exif_data->ifd[0], false),
            JsExifContent(exif_data->ifd[1], false),
