@@ -20,7 +20,7 @@ JsExifData::JsExifData(ExifData *data) : exif_data(data) {
 }
 
 JsExifData::~JsExifData() {
-  if (exif_data) {
+  if (exif_data != nullptr) {
     exif_data_unref(exif_data);
   }
 }
