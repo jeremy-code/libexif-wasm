@@ -8,7 +8,7 @@
 [npm-package]: https://www.npmjs.com/package/libexif-wasm
 [npm-version-badge]: https://img.shields.io/npm/v/libexif-wasm
 
-[![GitHub Actions][github-actions-badge]][github-actions] [![License][license-badge]](LICENSE) [![NPM version][npm-version-badge]][npm-package]
+[![GitHub Actions][github-actions-badge]][github-actions] [![License][license-badge]](../../LICENSE) [![NPM version][npm-version-badge]][npm-package]
 
 This library is a WebAssembly port of the [libexif](https://libexif.github.io/) C library, which is used for parsing, editing, and saving EXIF metadata in images. It intends to be a faithful port of the original library and provide all of its functions and features.
 
@@ -54,17 +54,17 @@ const exifIfdGps = exifData.ifd[ExifIfd.GPS]; // Get the GPS IFD
 exifData.free(); // Free the memory used by the ExifData instance
 ```
 
-For more examples, see [docs/usage](docs/usage):
+For more examples, see [docs/usage](./docs/usage):
 
-1. [Get all Exif entries](docs/usage/get-all-entries.md)
-2. [Byte order](docs/usage/byte-order.md)
-3. [Compatibility](docs/usage/compatibility.md)
-4. [Data](docs/usage/data.md)
-5. [Resource Management](docs/usage/resource-management.md)
-6. [Tags](docs/usage/tags.md)
+1. [Get all Exif entries](./docs/usage/get-all-entries.md)
+2. [Byte order](./docs/usage/byte-order.md)
+3. [Compatibility](./docs/usage/compatibility.md)
+4. [Data](./docs/usage/data.md)
+5. [Resource Management](./docs/usage/resource-management.md)
+6. [Tags](./docs/usage/tags.md)
 
 ## License
 
-This project is licensed under the [GNU Lesser General Public License v2.1](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html) - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the [GNU Lesser General Public License v2.1](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html) - see the [LICENSE](../../LICENSE) file for details.
 
 This project makes heavy use of the C library [libexif](https://libexif.github.io/), which is licensed under the GNU Lesser General Public License v2.1. For more information, see [libexif/libexif/COPYING](https://github.com/libexif/libexif/blob/master/COPYING) in their GitHub repository.

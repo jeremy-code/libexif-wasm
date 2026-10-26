@@ -15,7 +15,7 @@ fi
 # https://github.com/changesets/action/blob/615034bb14e5d240e559f941ce9769beb5e14fb0/src/run.ts#L99
 jq \
   --compact-output \
-  '.publishedPackages[] | {type: "git-tag", tag: "v\(.version)", packageName: .name}' \
+  '.publishedPackages[] | {type: "git-tag", tag: .id, packageName: .name}' \
   pnpm-publish-summary.json \
   > $CHANGESETS_OUTPUT
 

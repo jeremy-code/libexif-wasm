@@ -1,85 +1,11 @@
 {
   "name": "libexif-wasm",
-  "version": "0.5.6",
-  "description": "JavaScript bindings for libexif compiled to WebAssembly",
-  "keywords": [
-    "C",
-    "emscripten",
-    "exif",
-    "libexif",
-    "libexif-wasm",
-    "metadata",
-    "wasm",
-    "webassembly"
-  ],
-  "homepage": "https://github.com/jeremy-code/libexif-wasm#readme",
-  "bugs": "https://github.com/jeremy-code/libexif-wasm/issues",
-  "license": "LGPL-2.1-or-later",
-  "author": "Jeremy Nguyen <nguyen.jeremyt@gmail.com> (https://jeremy.ng)",
-  "repository": "github:jeremy-code/libexif-wasm",
-  "files": [
-    "dist"
-  ],
+  "private": true,
   "type": "module",
-  "sideEffects": [
-    "./dist/output/libexif.wasm"
-  ],
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
-    "./enums": {
-      "types": "./dist/enums/index.d.ts",
-      "default": "./dist/enums/index.js"
-    },
-    "./interfaces": {
-      "types": "./dist/interfaces/index.d.ts",
-      "default": "./dist/interfaces/index.js"
-    },
-    "./internal": {
-      "types": "./dist/internal/index.d.ts",
-      "default": "./dist/internal/index.js"
-    },
-    "./internal/libexif": {
-      "types": "./dist/internal/libexif/index.d.ts",
-      "default": "./dist/internal/libexif/index.js"
-    },
-    "./libexif": {
-      "types": "./dist/libexif/index.d.ts",
-      "default": "./dist/libexif/index.js"
-    },
-    "./structs": {
-      "types": "./dist/structs/index.d.ts",
-      "default": "./dist/structs/index.js"
-    },
-    "./utils": {
-      "types": "./dist/utils/index.d.ts",
-      "default": "./dist/utils/index.js"
-    },
-    "./*": {
-      "types": "./dist/*.d.ts",
-      "default": "./dist/*.js"
-    },
-    "./*.js": {
-      "types": "./dist/*.d.ts",
-      "default": "./dist/*.js"
-    },
-    "./output/libexif.js": {
-      "node": "./dist/output/libexif.node.js",
-      "worker": "./dist/output/libexif.worker.js",
-      "web": "./dist/output/libexif.web.js",
-      "types": "./dist/output/libexif.d.ts",
-      "default": "./dist/output/libexif.web.js"
-    },
-    "./output/libexif.wasm": "./dist/output/libexif.wasm",
-    "./package.json": "./package.json"
-  },
   "scripts": {
     "prepare": "husky",
-    "build": "tsc --build",
-    "compile": "./scripts/compile.sh",
-    "typecheck": "tsc --noEmit",
+    "build": "pnpm -r run build",
+    "typecheck": "pnpm -r run typecheck",
     "test": "vitest --run",
     "test:watch": "vitest",
     "lint": "oxlint",
@@ -89,12 +15,13 @@
     "ci:publish": "./scripts/publish.sh"
   },
   "devDependencies": {
+    "@arethetypeswrong/core": "^0.18.5",
     "@changesets/cli": "^3.0.3",
-    "@types/node": "^24.13.3",
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
     "oxfmt": "^0.74.0",
     "oxlint": "^1.89.0",
+    "publint": "^0.3.25",
     "typescript": "^5.9.3",
     "vitest": "^5.0.5"
   },
@@ -109,8 +36,5 @@
       "version": "v26.12.1",
       "onFail": "download"
     }
-  },
-  "engines": {
-    "node": ">=16.0.0"
   }
 }

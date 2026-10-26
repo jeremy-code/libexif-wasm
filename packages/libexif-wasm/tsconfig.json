@@ -9,7 +9,6 @@
 
     /* Modules */
     "module": "NodeNext",
-    "rootDir": "src/",
     "types": ["node"],
     "allowImportingTsExtensions": true,
     "rewriteRelativeImportExtensions": true,
@@ -33,11 +32,5 @@
 
     /* Completeness */
     "skipLibCheck": true
-  },
-  "include": ["src/**/*.ts"],
-  "exclude": [
-    "src/**/__fixtures__/**/*.ts",
-    "src/**/__utils__/**/*.ts",
-    "src/**/*.test.ts"
-  ]
+  }
 }

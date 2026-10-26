@@ -1,0 +1,26 @@
+{
+  "name": "@libexif-wasm/wasm",
+  "version": "0.0.0",
+  "license": "LGPL-2.1-or-later",
+  "author": "Jeremy Nguyen <nguyen.jeremyt@gmail.com> (https://jeremy.ng)",
+  "repository": "git+https://github.com/jeremy-code/libexif-wasm.git",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    "./libexif.js": {
+      "types": "./dist/libexif.d.ts",
+      "node": "./dist/libexif.node.js",
+      "browser": "./dist/libexif.web.js",
+      "default": "./dist/libexif.web.js"
+    },
+    "./libexif.wasm": "./dist/libexif.wasm",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "./scripts/build.sh",
+    "format": "find -E src -regex '.*\\.(cpp|h)' | xargs clang-format -i"
+  }
+}

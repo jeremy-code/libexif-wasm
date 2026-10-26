@@ -1,4 +1,6 @@
-gitChecks: false
+# Packages (https://pnpm.io/settings#packages)
+packages:
+  - "packages/*"
 
 # Dependency Resolution (https://pnpm.io/settings#dependency-resolution)
 update:
