@@ -26,7 +26,7 @@ public:
   Uint8Array getData() const;
   ExifTypedArray getTypedData() const;
 
-  void initialize(ExifTag tag);
+  void initialize(ExifTagUnified tag);
   void fix();
   std::string getValue(unsigned int maxlen = 1024) const;
   void dump(unsigned int indent = 2);

@@ -162,8 +162,8 @@ ExifIfd JsExifEntry::getIfd() const {
   return ifd;
 }
 
-void JsExifEntry::initialize(ExifTag tag) {
-  exif_entry_initialize(exif_entry, tag);
+void JsExifEntry::initialize(ExifTagUnified tag) {
+  exif_entry_initialize(exif_entry, static_cast<ExifTag>(tag));
 }
 
 void JsExifEntry::fix() { exif_entry_fix(exif_entry); }
