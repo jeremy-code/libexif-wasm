@@ -61,9 +61,8 @@ describe.each(EXIF_TAG_TABLE)("EXIF_TAG_TABLE", ({ tag, name }) => {
     expect(name!.length).toBeGreaterThan(0);
   });
   test(`should exist ifd where getNameInIfd("${tag}", ifd) returns "${name}"`, () => {
-    const ifd =
-      isExifIfdPointer(name) ?
-        EXIF_IFD_POINTER[name]
+    const ifd = isExifIfdPointer(name)
+      ? EXIF_IFD_POINTER[name]
       : Array.from(ExifIfd).find(
           ([, value]) =>
             UTF8ToString(exif_tag_get_name_in_ifd(tag!, value)) === name,

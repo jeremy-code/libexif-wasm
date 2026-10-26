@@ -19,9 +19,9 @@ const assertEnumObjectKey = <T extends UnknownRecord>(
   ) {
     const enumKeys = Object.keys(enumObj);
     throw new TypeError(
-      enumKeys.length <= MAX_NUMBER_OF_KEYS ?
-        `Enum key must be one of ${enumKeys.join(", ")}`
-      : `Enum key "${String(enumKey)}" is not defined`,
+      enumKeys.length <= MAX_NUMBER_OF_KEYS
+        ? `Enum key must be one of ${enumKeys.join(", ")}`
+        : `Enum key "${String(enumKey)}" is not defined`,
     );
   }
 

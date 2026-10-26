@@ -67,9 +67,9 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
     // GPS tags have their own tag table (e.g. 1 is LATITUDE_REF in GPS,
     // INTEROPERABILITY_INDEX, otherwise)
     const tag =
-      this.ifd === "GPS" ?
-        ExifTagGpsBiMap.getKey(this.tagVal as ExifTagGpsValue)
-      : ExifTagBiMap.getKey(this.tagVal as ExifTagValue);
+      this.ifd === "GPS"
+        ? ExifTagGpsBiMap.getKey(this.tagVal as ExifTagGpsValue)
+        : ExifTagBiMap.getKey(this.tagVal as ExifTagValue);
 
     return tag ?? null;
   }
@@ -241,9 +241,9 @@ class ExifEntry extends ExifEntryStruct implements DisposableDataSegment {
     );
     this.dataPtr = newDataPtr;
     this.components =
-      this.format !== "RATIONAL" && this.format !== "SRATIONAL" ?
-        typedArray.length
-      : typedArray.length / 2;
+      this.format !== "RATIONAL" && this.format !== "SRATIONAL"
+        ? typedArray.length
+        : typedArray.length / 2;
     this.size = typedArray.byteLength;
 
     if (prevDataPtr !== 0) {

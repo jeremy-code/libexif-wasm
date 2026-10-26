@@ -1,7 +1,9 @@
 type IterableElement<T> =
-  T extends Iterable<infer Element> ? Element
-  : T extends AsyncIterable<infer Element> ? Element
-  : never;
+  T extends Iterable<infer Element>
+    ? Element
+    : T extends AsyncIterable<infer Element>
+      ? Element
+      : never;
 
 /**
  * Convert first character of string literal type to uppercase and the rest to

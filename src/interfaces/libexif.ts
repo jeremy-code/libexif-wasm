@@ -1,7 +1,12 @@
 import type { ExifContent } from "../libexif/ExifContent.ts";
 
 type ValidTypedArray =
-  Uint8Array | Int8Array | Uint16Array | Int16Array | Uint32Array | Int32Array;
+  | Uint8Array
+  | Int8Array
+  | Uint16Array
+  | Int16Array
+  | Uint32Array
+  | Int32Array;
 
 type IfdPtr = [
   IFD_0: number,

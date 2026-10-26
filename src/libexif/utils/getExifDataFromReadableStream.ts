@@ -19,9 +19,8 @@ const getExifDataFromReadableStream = async (
         finished = true;
         break;
       }
-      const normalizedValue =
-        isTypedArray(value) ?
-          new Uint8Array(value.buffer, value.byteOffset, value.byteLength)
+      const normalizedValue = isTypedArray(value)
+        ? new Uint8Array(value.buffer, value.byteOffset, value.byteLength)
         : new Uint8Array(value);
       const result = exifLoader.write(normalizedValue);
       if (result === 0) {

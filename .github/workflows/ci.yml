@@ -33,7 +33,7 @@ jobs:
       - name: Compile code
         run: pnpm run compile
 
-      - name: Check code formatting with Prettier
+      - name: Check code formatting with Oxfmt
         run: pnpm run format:check
 
       - name: Lint code with ESLint

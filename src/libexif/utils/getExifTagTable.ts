@@ -113,9 +113,9 @@ const getExifTagTable = (): TagEntry[] => {
 
       return supportedIfds.map((ifd) => {
         const tag =
-          ifd === "GPS" ?
-            ExifTagGpsBiMap.getKey(tagVal as ExifTagGpsValue)
-          : ExifTagBiMap.getKey(tagVal as ExifTagValue);
+          ifd === "GPS"
+            ? ExifTagGpsBiMap.getKey(tagVal as ExifTagGpsValue)
+            : ExifTagBiMap.getKey(tagVal as ExifTagValue);
 
         if (tag === undefined) {
           throw new Error(

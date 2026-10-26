@@ -19,12 +19,13 @@ const mapRationalFromObject = (
     rationalObject.denominator,
   ]);
 
-  return (
-    format === "RATIONAL" ? new Uint32Array(rationalValues)
-    : format === "SRATIONAL" ? new Int32Array(rationalValues)
-    : hasSignedValues ? new Int32Array(rationalValues)
-    : new Uint32Array(rationalValues)
-  );
+  return format === "RATIONAL"
+    ? new Uint32Array(rationalValues)
+    : format === "SRATIONAL"
+      ? new Int32Array(rationalValues)
+      : hasSignedValues
+        ? new Int32Array(rationalValues)
+        : new Uint32Array(rationalValues);
 };
 
 export { mapRationalFromObject };
