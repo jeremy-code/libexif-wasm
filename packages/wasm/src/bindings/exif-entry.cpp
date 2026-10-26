@@ -142,12 +142,13 @@ ExifTypedArray JsExifEntry::getTypedData() const {
       emscripten::val::global("DataView")
           .new_(data["buffer"], data["byteOffset"], data["byteLength"]);
 
+  std::vector<emscripten::val> result;
   for (unsigned int i = 0; i < typedArraySize; ++i) {
-    typedArray.set(i, getTypedArrayValue(exif_entry->format, dataView, i,
-                                         exif_data_get_byte_order(
-                                             exif_entry->parent->parent)));
+    result.push_back(getTypedArrayValue(
+        exif_entry->format, dataView, i,
+        exif_data_get_byte_order(exif_entry->parent->parent)));
   }
-
+  typedArray.call<void>("set", emscripten::val::array(result));
   return ExifTypedArray(typedArray);
 }
 
