@@ -94,4 +94,3 @@ __pycache__/
 
 # Only used in GitHub actions
 .emsdk-cache/
-.output/
