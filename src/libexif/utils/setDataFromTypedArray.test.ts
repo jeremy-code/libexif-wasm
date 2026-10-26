@@ -217,7 +217,7 @@ describe("getDataAsTypedArray()", () => {
     test("throws on unsupported format", () => {
       expect(() =>
         setDataFromTypedArray(new Uint8Array([]), "FLOAT", "INTEL"),
-      ).toThrow();
+      ).toThrow("Invalid format");
     });
 
     test("handles zero-length input", () => {

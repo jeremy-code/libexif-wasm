@@ -35,11 +35,11 @@ describe("ExifLoader", () => {
         expect(buf).not.toHaveLength(0);
 
         const exifData = withDisposable(() => {
-          const exifData = exifLoader.getData();
-          if (exifData === null) {
+          const exifDataOrNull = exifLoader.getData();
+          if (exifDataOrNull === null) {
             throw new Error("exifData is null");
           }
-          return exifData;
+          return exifDataOrNull;
         });
         expect(exifData).toBeInstanceOf(ExifData);
         expect(exifData?.byteOffset).toBeGreaterThan(0);

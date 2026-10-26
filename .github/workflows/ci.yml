@@ -36,7 +36,7 @@ jobs:
       - name: Check code formatting with Oxfmt
         run: pnpm run format:check
 
-      - name: Lint code with ESLint
+      - name: Lint code with Oxlint
         run: pnpm run lint
 
       - name: Build

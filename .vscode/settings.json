@@ -2,10 +2,9 @@
   /* Visit https://code.visualstudio.com/docs/getstarted/settings to read more about this file */
 
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
+    "source.fixAll.oxc": "explicit"
     // Avoid using "source.organizeImports" since it conflicts with Oxfmt
   },
-  "eslint.useFlatConfig": true,
   "js/ts.tsdk.promptToUseWorkspaceVersion": true, // Enables prompting of users to use the TypeScript version configured in the workspace for Intellisense
   "js/ts.preferences.autoImportSpecifierExcludeRegexes": [
     "^node:test$" // Otherwise, TypeScript imports from "node:test" instead of "vitest"

@@ -79,7 +79,7 @@ class ExifData extends ExifDataStruct implements DisposableDataSegment {
         `ExifData.ifd: Expected ${ExifIfd.COUNT} IFDs, got ${ifd.length}`,
       );
     }
-    this.ifdPtr = ifd.map((ifd) => ifd.byteOffset) as IfdPtr;
+    this.ifdPtr = ifd.map((exifContent) => exifContent.byteOffset) as IfdPtr;
     ifd.forEach((exifContent) => {
       exifContent.parent = this;
     });

@@ -217,7 +217,9 @@ describe("getDataAsTypedArray()", () => {
 
   describe("edge cases", () => {
     test("throws on unsupported format", () => {
-      expect(() => getDataAsTypedArray(0, 1, "FLOAT", "INTEL")).toThrow();
+      expect(() => getDataAsTypedArray(0, 1, "FLOAT", "INTEL")).toThrow(
+        "Unsupported data type",
+      );
     });
 
     test("handles zero-length input", () => {

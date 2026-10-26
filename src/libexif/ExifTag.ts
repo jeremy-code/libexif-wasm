@@ -48,6 +48,7 @@ const EXIF_SENTINEL_TAG = exif_tag_table_count() - 1;
  * `ExifTag` is an enum and not a struct, so it doesn't have any instance
  * members or a location in memory
  */
+// oxlint-disable-next-line typescript/no-extraneous-class -- Match libexif conventions
 class ExifTagInfo {
   /**
    * Note: this method does not return `null` if tag is `0` since that is a valid
