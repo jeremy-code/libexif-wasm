@@ -36,12 +36,12 @@ ExifIfd JsExifContent::getIfd() const {
   return ifd;
 }
 
-std::vector<JsExifEntry> JsExifContent::getEntries() const {
+ExifEntryArray JsExifContent::getEntries() const {
   std::vector<JsExifEntry> result;
   for (unsigned int i = 0; i < exif_content->count; ++i) {
     result.push_back(JsExifEntry(exif_content->entries[i], false));
   }
-  return result;
+  return ExifEntryArray(emscripten::val::array(result));
 }
 
 // void JsExifContent::setEntries(const emscripten::val &entries) {

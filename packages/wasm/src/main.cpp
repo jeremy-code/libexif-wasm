@@ -10,6 +10,7 @@
 
 EMSCRIPTEN_BINDINGS(libexif) {
   emscripten::register_type<Uint8Array>("Uint8Array");
+  emscripten::register_type<ExifEntryArray>("ExifEntry[]");
   emscripten::register_type<ExifTypedArray>(
       "ExifTypedArray", "Uint8Array<ArrayBuffer> | Int8Array<ArrayBuffer> | "
                         "Uint16Array<ArrayBuffer> | Uint32Array<ArrayBuffer> | "
@@ -438,8 +439,6 @@ EMSCRIPTEN_BINDINGS(libexif) {
       .element(emscripten::index<2>())
       .element(emscripten::index<3>())
       .element(emscripten::index<4>());
-
-  emscripten::register_vector<JsExifEntry>("VectorJsExifEntry");
 
   emscripten::class_<JsExifData>("ExifData")
       .constructor<>()

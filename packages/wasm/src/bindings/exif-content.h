@@ -12,7 +12,7 @@ public:
   explicit JsExifContent(ExifContent *data, bool owns = true);
   ~JsExifContent();
 
-  std::vector<JsExifEntry> getEntries() const;
+  ExifEntryArray getEntries() const;
   // void setEntries(const emscripten::val &entries);
   unsigned int getCount() const;
   void setCount(unsigned int c);

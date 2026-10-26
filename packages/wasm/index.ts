@@ -27,7 +27,7 @@ const exifIfdObject = parseEnum(libexifModule.ExifIfd);
 using exifData = libexifModule.ExifData.newFromData(image);
 
 const exifEntries = exifData.ifd.map((exifContent) =>
-  Array.from(exifContent.entries).map(
+  exifContent.entries.map(
     ({ tag, format, data, components, size, typedData, ifd }) => ({
       tag: exifTagObject[tag.value],
       format: exifFormatObject[format.value],
