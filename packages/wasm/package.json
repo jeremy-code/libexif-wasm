@@ -1,6 +1,6 @@
 {
   "name": "@libexif-wasm/wasm",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "license": "LGPL-2.1-or-later",
   "author": "Jeremy Nguyen <nguyen.jeremyt@gmail.com> (https://jeremy.ng)",
   "repository": "git+https://github.com/jeremy-code/libexif-wasm.git",

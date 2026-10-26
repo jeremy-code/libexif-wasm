@@ -1,5 +1,13 @@
 # libexif-wasm
 
+## 0.5.7
+
+### Patch Changes
+
+- Updated dependencies [0a14029]
+- Updated dependencies [0a14029]
+  - @libexif-wasm/wasm@0.1.0
+
 ## 0.5.6
 
 ### Patch Changes
