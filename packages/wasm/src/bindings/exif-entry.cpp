@@ -96,8 +96,7 @@ inline emscripten::val getTypedArrayValue(ExifFormat format,
   case ExifFormat::EXIF_FORMAT_BYTE:
   case ExifFormat::EXIF_FORMAT_UNDEFINED:
   case ExifFormat::EXIF_FORMAT_ASCII:
-    return dataView.call<emscripten::val>("getUint8", index * value_size,
-                                          is_little_endian);
+    return dataView.call<emscripten::val>("getUint8", index * value_size);
   case ExifFormat::EXIF_FORMAT_SHORT:
     return dataView.call<emscripten::val>("getUint16", index * value_size,
                                           is_little_endian);
@@ -106,8 +105,7 @@ inline emscripten::val getTypedArrayValue(ExifFormat format,
     return dataView.call<emscripten::val>("getUint32", index * value_size,
                                           is_little_endian);
   case ExifFormat::EXIF_FORMAT_SBYTE:
-    return dataView.call<emscripten::val>("getInt8", index * value_size,
-                                          is_little_endian);
+    return dataView.call<emscripten::val>("getInt8", index * value_size);
   case ExifFormat::EXIF_FORMAT_SSHORT:
     return dataView.call<emscripten::val>("getInt16", index * value_size,
                                           is_little_endian);
