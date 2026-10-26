@@ -20,7 +20,7 @@ const image = await readFile(
   "./Metadata_test_file_-_includes_data_in_IIM,_XMP,_and_Exif.jpg",
 );
 
-const exifTagObject = parseEnum(libexifModule.ExifTagUnified);
+const exifTagObject = parseEnum(libexifModule.ExifTag);
 const exifFormatObject = parseEnum(libexifModule.ExifFormat);
 const exifIfdObject = parseEnum(libexifModule.ExifIfd);
 
@@ -38,6 +38,6 @@ const exifEntries = exifData.ifd.map((exifContent) =>
       typedData,
     }),
   ),
-);
+)[0];
 
 console.log(exifEntries);
