@@ -30,17 +30,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Compile code
-        run: pnpm run compile
+      - name: Build
+        run: pnpm run build
 
       - name: Check code formatting with Oxfmt
         run: pnpm run format:check
 
       - name: Lint code with Oxlint
         run: pnpm run lint
-
-      - name: Build
-        run: pnpm run build
 
       - name: Run tests
         run: pnpm run test

@@ -1,4 +1,4 @@
-import libexifFactory from "libexif-wasm/output/libexif.js";
+import libexifFactory from "@libexif-wasm/wasm/libexif.js";
 
 const libexif = await libexifFactory();
 
