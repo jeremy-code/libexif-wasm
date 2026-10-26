@@ -1,4 +1,3 @@
-import type { ExifLog } from "./ExifLog.ts";
 import type { DataSegment } from "../interfaces/dataSegment.ts";
 import { HEAPU8 } from "../internal/emscripten.ts";
 import {
@@ -15,6 +14,7 @@ import {
 } from "../internal/libexif/exifMnoteData.ts";
 import { free, malloc } from "../internal/stdlib.ts";
 import { UTF8ToStringOrNull } from "../utils/UTF8ToStringOrNull.ts";
+import type { ExifLog } from "./ExifLog.ts";
 
 /**
  * The maximum length of the buffer used to store the value of the MNote data

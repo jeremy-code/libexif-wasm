@@ -1,12 +1,5 @@
 import { describe, expect, test } from "vitest";
 
-import { ExifContent } from "./ExifContent.ts";
-import {
-  ExifData,
-  exifDataOptionGetDescription,
-  exifDataOptionGetName,
-} from "./ExifData.ts";
-import { ExifEntry } from "./ExifEntry.ts";
 import { getTestFixture } from "../__utils__/getTestFixture.ts";
 import {
   serializeExifData,
@@ -15,6 +8,13 @@ import {
 import { withDisposable } from "../__utils__/withDisposable.ts";
 import { ExifIfd } from "../enums/ExifIfd.ts";
 import type { Tag } from "../enums/ExifTagUnified.ts";
+import { ExifContent } from "./ExifContent.ts";
+import {
+  ExifData,
+  exifDataOptionGetDescription,
+  exifDataOptionGetName,
+} from "./ExifData.ts";
+import { ExifEntry } from "./ExifEntry.ts";
 
 describe("ExifData", () => {
   describe("ExifData.new()", () => {

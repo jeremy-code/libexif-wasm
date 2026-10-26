@@ -1,6 +1,5 @@
 import { describe, expect, test } from "vitest";
 
-import { getPtrArray } from "./getPtrArray.ts";
 import { POINTER_SIZE } from "../constants.ts";
 import {
   getValue,
@@ -9,6 +8,7 @@ import {
   UTF8ToString,
 } from "../internal/emscripten.ts";
 import { calloc, free, malloc } from "../internal/stdlib.ts";
+import { getPtrArray } from "./getPtrArray.ts";
 
 describe("getPtrArray", () => {
   test("should throw an error if byteOffset is null pointer (0)", () => {

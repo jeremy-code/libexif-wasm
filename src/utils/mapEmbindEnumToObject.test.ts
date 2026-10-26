@@ -1,8 +1,8 @@
 import { describe, test, expect, assert } from "vitest";
 
-import { mapEmbindEnumToObject } from "./mapEmbindEnumToObject.ts";
 import { IFD_NAMES } from "../constants.ts";
 import { libexif } from "../internal/module.ts";
+import { mapEmbindEnumToObject } from "./mapEmbindEnumToObject.ts";
 
 enum ExpectedEnum {
   IFD_0,

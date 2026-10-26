@@ -1,5 +1,8 @@
 import { describe, it, expect, test } from "vitest";
 
+import { withDisposable } from "../__utils__/withDisposable.ts";
+import { HEAPU8 } from "../internal/emscripten.ts";
+import { malloc } from "../internal/stdlib.ts";
 import { exifFormatGetSize } from "./exifFormat.ts";
 import {
   exifGetShort,
@@ -11,9 +14,6 @@ import {
   ExifRational,
   ExifSRational,
 } from "./exifUtils.ts";
-import { withDisposable } from "../__utils__/withDisposable.ts";
-import { HEAPU8 } from "../internal/emscripten.ts";
-import { malloc } from "../internal/stdlib.ts";
 
 describe("ExifRational", () => {
   test("setters and getters work correctly", () => {

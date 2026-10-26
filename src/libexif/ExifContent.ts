@@ -1,7 +1,3 @@
-import { ExifData } from "./ExifData.ts";
-import { ExifEntry } from "./ExifEntry.ts";
-import type { ExifLog } from "./ExifLog.ts";
-import type { ExifMem } from "./ExifMem.ts";
 import { ExifIfdBiMap, type ExifIfdValue, type Ifd } from "../enums/ExifIfd.ts";
 import { ExifTagUnified, type Tag } from "../enums/ExifTagUnified.ts";
 import type { DisposableDataSegment } from "../interfaces/dataSegment.ts";
@@ -22,6 +18,10 @@ import {
 import { ExifContentStruct } from "../structs/ExifContentStruct.ts";
 import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
 import { getPtrArray } from "../utils/getPtrArray.ts";
+import { ExifData } from "./ExifData.ts";
+import { ExifEntry } from "./ExifEntry.ts";
+import type { ExifLog } from "./ExifLog.ts";
+import type { ExifMem } from "./ExifMem.ts";
 
 class ExifContent extends ExifContentStruct implements DisposableDataSegment {
   constructor(public readonly byteOffset: number) {

@@ -1,9 +1,9 @@
 import { describe, expect, test } from "vitest";
 
-import { ExifData } from "./ExifData.ts";
-import { ExifMnoteData } from "./ExifMnoteData.ts";
 import { getTestFixture } from "../__utils__/getTestFixture.ts";
 import { withDisposable } from "../__utils__/withDisposable.ts";
+import { ExifData } from "./ExifData.ts";
+import { ExifMnoteData } from "./ExifMnoteData.ts";
 
 describe("ExifMnoteData", () => {
   describe.each(["Sumo_Museum.jpg"])(

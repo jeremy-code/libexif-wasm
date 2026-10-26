@@ -1,8 +1,8 @@
 import { assert, describe, expect, test } from "vitest";
 
-import { getExifTagTable } from "./getExifTagTable.ts";
 import { ExifTagUnified } from "../../enums/ExifTagUnified.ts";
 import { exifTagTableCount } from "../ExifTag.ts";
+import { getExifTagTable } from "./getExifTagTable.ts";
 
 describe("EXIF_TAG_TABLE", () => {
   test("should be an array", () => {

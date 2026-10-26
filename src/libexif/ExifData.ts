@@ -1,8 +1,3 @@
-import { ExifContent } from "./ExifContent.ts";
-import { ExifEntry } from "./ExifEntry.ts";
-import type { ExifLog } from "./ExifLog.ts";
-import { ExifMem } from "./ExifMem.ts";
-import { ExifMnoteData } from "./ExifMnoteData.ts";
 import { POINTER_SIZE } from "../constants.ts";
 import {
   ExifByteOrder,
@@ -49,6 +44,11 @@ import { free, malloc } from "../internal/stdlib.ts";
 import { ExifDataStruct } from "../structs/ExifDataStruct.ts";
 import type { IfdPtr } from "../structs/ExifDataStruct.ts";
 import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
+import { ExifContent } from "./ExifContent.ts";
+import { ExifEntry } from "./ExifEntry.ts";
+import type { ExifLog } from "./ExifLog.ts";
+import { ExifMem } from "./ExifMem.ts";
+import { ExifMnoteData } from "./ExifMnoteData.ts";
 import { getExifDataFromReadableStream } from "./utils/getExifDataFromReadableStream.ts";
 
 class ExifData extends ExifDataStruct implements DisposableDataSegment {

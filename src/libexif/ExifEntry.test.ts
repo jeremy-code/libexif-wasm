@@ -1,12 +1,12 @@
 import { describe, expect, test } from "vitest";
 
-import { ExifData } from "./ExifData.ts";
-import { ExifEntry } from "./ExifEntry.ts";
-import { EXIF_SENTINEL_TAG } from "./ExifTag.ts";
 import { mapTypedArrayToDataView } from "../__utils__/mapTypedArrayToDataView.ts";
 import { withDisposable } from "../__utils__/withDisposable.ts";
 import { ExifIfd } from "../enums/ExifIfd.ts";
 import { intArrayFromString } from "../internal/emscripten.ts";
+import { ExifData } from "./ExifData.ts";
+import { ExifEntry } from "./ExifEntry.ts";
+import { EXIF_SENTINEL_TAG } from "./ExifTag.ts";
 
 describe("ExifEntry", () => {
   describe("ExifEntry.new()", () => {

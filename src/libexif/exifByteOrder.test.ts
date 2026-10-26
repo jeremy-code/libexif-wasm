@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 
-import { exifByteOrderGetName } from "./exifByteOrder.ts";
 import type { ByteOrder } from "../enums/ExifByteOrder.ts";
+import { exifByteOrderGetName } from "./exifByteOrder.ts";
 
 const EXIF_BYTE_ORDER_TABLE = [
   { byteOrder: "MOTOROLA", expectedName: "Motorola" },

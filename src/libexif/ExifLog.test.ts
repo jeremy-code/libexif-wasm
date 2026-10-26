@@ -1,13 +1,13 @@
 import { describe, expect, test } from "vitest";
 
+import { withDisposable } from "../__utils__/withDisposable.ts";
+import type { ExifLogCodeKey } from "../enums/ExifLogCode.ts";
 import {
   ExifLog,
   exifLogCodeGetMessage,
   exifLogCodeGetTitle,
 } from "./ExifLog.ts";
 import { ExifMem } from "./ExifMem.ts";
-import { withDisposable } from "../__utils__/withDisposable.ts";
-import type { ExifLogCodeKey } from "../enums/ExifLogCode.ts";
 
 type ExifLogCodeTableItem = {
   code: ExifLogCodeKey;

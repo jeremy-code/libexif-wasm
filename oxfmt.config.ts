@@ -8,6 +8,11 @@ const oxfmtConfig = defineConfig({
   trailingComma: "all",
   objectWrap: "collapse",
   proseWrap: "never",
+  sortImports: {
+    groups: ["builtin", "external", ["parent", "sibling", "index"]],
+    "newlines-between": "always",
+    alphabetize: { order: "asc" },
+  },
 });
 
 export default oxfmtConfig;

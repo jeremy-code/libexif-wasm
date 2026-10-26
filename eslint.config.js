@@ -1,8 +1,8 @@
 import eslint from "@eslint/js";
 import vitest from "@vitest/eslint-plugin";
-import { defineConfig, globalIgnores } from "eslint/config";
 import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
 import pluginImportX, { createNodeResolver } from "eslint-plugin-import-x";
+import { defineConfig, globalIgnores } from "eslint/config";
 import tseslint from "typescript-eslint";
 import { configDefaults } from "vitest/config";
 
@@ -41,17 +41,6 @@ export default defineConfig(
        * @see {@link https://github.com/un-ts/eslint-plugin-import-x/blob/master/docs/rules/newline-after-import.md}
        */
       "import-x/newline-after-import": ["error", { considerComments: true }],
-      /**
-       * @see {@link https://github.com/un-ts/eslint-plugin-import-x/blob/master/docs/rules/order.md}
-       */
-      "import-x/order": [
-        "error",
-        {
-          groups: ["builtin", "external", ["parent", "sibling", "index"]],
-          "newlines-between": "always",
-          alphabetize: { order: "asc" },
-        },
-      ],
     },
     settings: {
       /**

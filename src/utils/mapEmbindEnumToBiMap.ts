@@ -1,6 +1,6 @@
-import { BiMap } from "./BiMap.ts";
 import type { EmbindEnum } from "../interfaces/emscripten.ts";
 import type { Entry } from "../interfaces/utils.ts";
+import { BiMap } from "./BiMap.ts";
 
 const mapEmbindEnumToBiMap = <K extends PropertyKey, V>(
   embindEnum: EmbindEnum<Record<K, V>>,

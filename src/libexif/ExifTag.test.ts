@@ -1,14 +1,14 @@
 import { describe, expect, test } from "vitest";
 
+import { ExifIfd, type ExifIfdKey } from "../enums/ExifIfd.ts";
+import { UTF8ToString } from "../internal/emscripten.ts";
+import { exif_tag_get_name_in_ifd } from "../internal/libexif/exifTag.ts";
 import {
   exifTagTableGetName,
   exifTagTableCount,
   exifTagTableGetTag,
   EXIF_SENTINEL_TAG,
 } from "./ExifTag.ts";
-import { ExifIfd, type ExifIfdKey } from "../enums/ExifIfd.ts";
-import { UTF8ToString } from "../internal/emscripten.ts";
-import { exif_tag_get_name_in_ifd } from "../internal/libexif/exifTag.ts";
 
 /**
  * Internally, `ExifTagTable[]` is an array of `TagEntry` structs that serve as

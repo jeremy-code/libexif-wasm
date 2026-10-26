@@ -2,10 +2,10 @@ import { Readable } from "stream";
 
 import { describe, test, expect } from "vitest";
 
-import { getExifDataFromReadableStream } from "./getExifDataFromReadableStream.ts";
 import { getTestFixture } from "../../__utils__/getTestFixture.ts";
 import { serializeExifData } from "../../__utils__/serializeExifData.ts";
 import { ExifData } from "../ExifData.ts";
+import { getExifDataFromReadableStream } from "./getExifDataFromReadableStream.ts";
 
 describe("getExifDataFromReadableStream()", () => {
   describe.each(["T-45A_Goshawk_03.jpg", "Sumo_Museum.jpg"])(

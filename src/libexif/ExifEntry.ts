@@ -1,6 +1,3 @@
-import { ExifContent } from "./ExifContent.ts";
-import type { ExifMem } from "./ExifMem.ts";
-import { EXIF_SENTINEL_TAG } from "./ExifTag.ts";
 import type { ByteOrder } from "../enums/ExifByteOrder.ts";
 import {
   ExifFormat,
@@ -17,6 +14,7 @@ import {
   type Tag,
 } from "../enums/ExifTagUnified.ts";
 import type { DisposableDataSegment } from "../interfaces/dataSegment.ts";
+import type { ValidTypedArray } from "../interfaces/libexif.ts";
 import { HEAPU8, UTF8ToString } from "../internal/emscripten.ts";
 import {
   exif_entry_new,
@@ -33,8 +31,10 @@ import { exif_entry_get_ifd } from "../internal/main.ts";
 import { free, malloc } from "../internal/stdlib.ts";
 import { ExifEntryStruct } from "../structs/ExifEntryStruct.ts";
 import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
+import { ExifContent } from "./ExifContent.ts";
+import type { ExifMem } from "./ExifMem.ts";
+import { EXIF_SENTINEL_TAG } from "./ExifTag.ts";
 import { getDataAsTypedArray } from "./utils/getDataAsTypedArray.ts";
-import type { ValidTypedArray } from "../interfaces/libexif.ts";
 import { setDataFromTypedArray } from "./utils/setDataFromTypedArray.ts";
 
 /**

@@ -1,13 +1,13 @@
 import { describe, expect, test } from "vitest";
 
-import { getDataAsTypedArray } from "./getDataAsTypedArray.ts";
-import { setDataFromTypedArray } from "./setDataFromTypedArray.ts";
 import { DisposablePtr } from "../../__utils__/DisposablePtr.ts";
 import { type TypedArray } from "../../__utils__/mapTypedArrayToDataView.ts";
 import { withDisposable } from "../../__utils__/withDisposable.ts";
 import type { ByteOrder } from "../../enums/ExifByteOrder.ts";
 import type { Format } from "../../enums/ExifFormat.ts";
 import { HEAPU8, intArrayFromString } from "../../internal/emscripten.ts";
+import { getDataAsTypedArray } from "./getDataAsTypedArray.ts";
+import { setDataFromTypedArray } from "./setDataFromTypedArray.ts";
 
 type IdentityTestCase = {
   data: TypedArray;

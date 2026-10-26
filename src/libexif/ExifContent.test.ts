@@ -1,11 +1,11 @@
 import { describe, expect, test } from "vitest";
 
-import { ExifContent } from "./ExifContent.ts";
-import { ExifData } from "./ExifData.ts";
-import { ExifEntry } from "./ExifEntry.ts";
 import { getTestFixture } from "../__utils__/getTestFixture.ts";
 import { withDisposable } from "../__utils__/withDisposable.ts";
 import { ExifIfdBiMap, type ExifIfdValue } from "../enums/ExifIfd.ts";
+import { ExifContent } from "./ExifContent.ts";
+import { ExifData } from "./ExifData.ts";
+import { ExifEntry } from "./ExifEntry.ts";
 
 describe("ExifContent", () => {
   describe("ExifContent.new()", () => {

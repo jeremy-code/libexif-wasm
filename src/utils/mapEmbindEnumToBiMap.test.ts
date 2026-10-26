@@ -1,7 +1,7 @@
 import { describe, test, expect } from "vitest";
 
-import { mapEmbindEnumToBiMap } from "./mapEmbindEnumToBiMap.ts";
 import { libexif } from "../internal/module.ts";
+import { mapEmbindEnumToBiMap } from "./mapEmbindEnumToBiMap.ts";
 
 const TestEnum = libexif.ExifIfd;
 

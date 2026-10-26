@@ -1,6 +1,3 @@
-import { ExifData } from "./ExifData.ts";
-import type { ExifLog } from "./ExifLog.ts";
-import type { ExifMem } from "./ExifMem.ts";
 import { POINTER_SIZE } from "../constants.ts";
 import type { DataSegment } from "../interfaces/dataSegment.ts";
 import { getValue, HEAPU8 } from "../internal/emscripten.ts";
@@ -16,6 +13,9 @@ import {
   exif_loader_log,
 } from "../internal/libexif/exifLoader.ts";
 import { free, malloc } from "../internal/stdlib.ts";
+import { ExifData } from "./ExifData.ts";
+import type { ExifLog } from "./ExifLog.ts";
+import type { ExifMem } from "./ExifMem.ts";
 
 class ExifLoader implements DataSegment {
   constructor(public readonly byteOffset: number) {}

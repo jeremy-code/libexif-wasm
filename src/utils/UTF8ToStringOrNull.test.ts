@@ -1,8 +1,8 @@
 import { describe, expect, test } from "vitest";
 
-import { UTF8ToStringOrNull } from "./UTF8ToStringOrNull.ts";
 import { stringToNewUTF8, UTF8ToString } from "../internal/emscripten.ts";
 import { free } from "../internal/stdlib.ts";
+import { UTF8ToStringOrNull } from "./UTF8ToStringOrNull.ts";
 
 describe("UTF8ToStringOrNull", () => {
   test("should return null for null pointer", () => {

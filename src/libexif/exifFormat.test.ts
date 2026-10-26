@@ -1,7 +1,7 @@
 import { describe, test, expect } from "vitest";
 
-import { exifFormatGetName, exifFormatGetSize } from "./exifFormat.ts";
 import type { ExifFormatKey } from "../enums/ExifFormat.ts";
+import { exifFormatGetName, exifFormatGetSize } from "./exifFormat.ts";
 
 type ExifFormatTableItem = {
   format: ExifFormatKey;

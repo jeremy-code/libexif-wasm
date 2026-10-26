@@ -1,6 +1,6 @@
+import type { UnknownRecord } from "../interfaces/utils.ts";
 import { isPropertyKey } from "./isPropertyKey.ts";
 import type { EmbindEnumObject } from "./mapEmbindEnumToObject.ts";
-import type { UnknownRecord } from "../interfaces/utils.ts";
 
 const MAX_NUMBER_OF_KEYS = 10;
 

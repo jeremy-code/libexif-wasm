@@ -1,5 +1,5 @@
-import type { EmbindEnumObject } from "./mapEmbindEnumToObject.ts";
 import type { UnknownRecord } from "../interfaces/utils.ts";
+import type { EmbindEnumObject } from "./mapEmbindEnumToObject.ts";
 
 /**
  * Given an enum object and a value, returns the (first) key of the enum that

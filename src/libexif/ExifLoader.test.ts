@@ -1,10 +1,10 @@
 import { describe, expect, test } from "vitest";
 
-import { ExifData } from "./ExifData.ts";
-import { ExifLoader } from "./ExifLoader.ts";
 import { getTestFixture } from "../__utils__/getTestFixture.ts";
 import { serializeExifData } from "../__utils__/serializeExifData.ts";
 import { withDisposable } from "../__utils__/withDisposable.ts";
+import { ExifData } from "./ExifData.ts";
+import { ExifLoader } from "./ExifLoader.ts";
 
 describe("ExifLoader", () => {
   describe("ExifLoader.new()", () => {

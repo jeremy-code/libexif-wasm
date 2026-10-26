@@ -1,6 +1,5 @@
 import { describe, expect, test } from "vitest";
 
-import { getDataAsTypedArray } from "./getDataAsTypedArray.ts";
 import { DisposablePtr } from "../../__utils__/DisposablePtr.ts";
 import { mapTypedArrayToDataView } from "../../__utils__/mapTypedArrayToDataView.ts";
 import { withDisposable } from "../../__utils__/withDisposable.ts";
@@ -9,6 +8,7 @@ import type { Format } from "../../enums/ExifFormat.ts";
 import type { ValidTypedArray } from "../../interfaces/libexif.ts";
 import { HEAPU8, intArrayFromString } from "../../internal/emscripten.ts";
 import { malloc } from "../../internal/stdlib.ts";
+import { getDataAsTypedArray } from "./getDataAsTypedArray.ts";
 
 const allocate = (data: ValidTypedArray, byteOrder: ByteOrder) => {
   const isLittleEndian = byteOrder === "INTEL";

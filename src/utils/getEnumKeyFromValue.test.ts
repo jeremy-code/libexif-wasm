@@ -1,9 +1,9 @@
 import { describe, expect, test } from "vitest";
 
-import { getEnumKeyFromValue } from "./getEnumKeyFromValue.ts";
-import { mapEmbindEnumToObject } from "./mapEmbindEnumToObject.ts";
 import { IFD_NAMES } from "../constants.ts";
 import { libexif } from "../internal/module.ts";
+import { getEnumKeyFromValue } from "./getEnumKeyFromValue.ts";
+import { mapEmbindEnumToObject } from "./mapEmbindEnumToObject.ts";
 
 const TestEnumObject = mapEmbindEnumToObject(libexif.ExifIfd);
 

@@ -1,4 +1,3 @@
-import type { ExifMem } from "./ExifMem.ts";
 import { ExifLogCode, type LogCode } from "../enums/ExifLogCode.ts";
 import type { DisposableDataSegment } from "../interfaces/dataSegment.ts";
 import {
@@ -10,8 +9,9 @@ import {
   exif_log_code_get_title,
   exif_log_code_get_message,
 } from "../internal/libexif/exifLog.ts";
-import { UTF8ToStringOrNull } from "../utils/UTF8ToStringOrNull.ts";
 import { assertEnumObjectKey } from "../utils/assertEnumObjectKey.ts";
+import { UTF8ToStringOrNull } from "../utils/UTF8ToStringOrNull.ts";
+import type { ExifMem } from "./ExifMem.ts";
 
 /**
  * Return a textual description of the given class of error log

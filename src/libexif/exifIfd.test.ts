@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 
-import { exifIfdGetName } from "./exifIfd.ts";
 import type { ExifIfdKey } from "../enums/ExifIfd.ts";
+import { exifIfdGetName } from "./exifIfd.ts";
 
 const EXIF_IFD_TABLE = [
   { ifd: "IFD_0", expectedName: "0" },

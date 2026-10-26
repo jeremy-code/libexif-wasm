@@ -3,7 +3,7 @@
 
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
-    // Avoid using "source.organizeImports" since it conflicts with `eslint-plugin-import-x`
+    // Avoid using "source.organizeImports" since it conflicts with Oxfmt
   },
   "eslint.useFlatConfig": true,
   "js/ts.tsdk.promptToUseWorkspaceVersion": true, // Enables prompting of users to use the TypeScript version configured in the workspace for Intellisense

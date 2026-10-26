@@ -1,8 +1,8 @@
 import { describe, expect, test } from "vitest";
 
+import { libexif } from "../internal/module.ts";
 import { assertEnumObjectKey } from "./assertEnumObjectKey.ts";
 import { mapEmbindEnumToObject } from "./mapEmbindEnumToObject.ts";
-import { libexif } from "../internal/module.ts";
 
 describe("assertEnumObjectKey(MockEnumObject)", () => {
   const entries = [
