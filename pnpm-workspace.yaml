@@ -10,8 +10,6 @@ blockExoticSubdeps: true
 
 # Build Settings (https://pnpm.io/settings#build-settings)
 strictDepBuilds: true
-allowBuilds:
-  unrs-resolver: true
 
 # Other Settings (https://pnpm.io/settings#other-settings)
 shellEmulator: true
