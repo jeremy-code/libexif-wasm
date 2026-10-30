@@ -3,7 +3,6 @@
 set -o errexit -o nounset -o pipefail
 
 OUTPUT_DIR="${PWD}/dist"
-EXPORTS_DIR="${PWD}/scripts/exports"
 
 if [ ! -d "${OUTPUT_DIR}" ]; then
   mkdir -p "${OUTPUT_DIR}"
@@ -20,27 +19,26 @@ COMPILE_FLAGS=(
   -Oz # https://clang.llvm.org/docs/CommandGuide/clang.html#cmdoption-O0
   -g1 # Do not generate debug information
   -flto
+  -fexceptions
   -lembind
   --emit-tsd "${OUTPUT_DIR}/libexif.d.ts"
   -sSTACK_SIZE=$((2 ** 16))
-  -sEXPORTED_RUNTIME_METHODS=@${EXPORTS_DIR}/runtime_methods.txt
   -sINCOMING_MODULE_JS_API="[]"
   -sFILESYSTEM=0
-  -sEXPORTED_FUNCTIONS=@${EXPORTS_DIR}/functions.txt
   -sMODULARIZE=1
   -sEXPORT_ES6=1
   -sEXPORT_NAME="LibexifModule"
-  -sDEFAULT_TO_CXX=1
   -o "${OUTPUT_DIR}/libexif.js"
   --use-port="${PWD}/ports/libexif.py"
 )
 
 wasm_files=()
 for environment in "${ENVIRONMENTS[@]}"; do
-  emcc \
+  em++ \
     "${COMPILE_FLAGS[@]}" \
     -sENVIRONMENT="$environment" \
-    "${PWD}/src/"*
+    "${PWD}/src/main.cpp" \
+    "${PWD}/src/bindings/"*.cpp
 
   # Instead of determining environment at runtime, use conditional exports to
   # resolve glue code
