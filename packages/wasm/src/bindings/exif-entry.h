@@ -32,6 +32,8 @@ public:
   void dump(unsigned int indent = 2);
   ExifIfd getIfd() const;
 
+  ExifEntry * _getRaw() const;
+
 private:
   ExifEntry *exif_entry;
   bool owns_memory;

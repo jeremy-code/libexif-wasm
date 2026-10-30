@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../enum.h"
 #include "emscripten/val.h"
 #include "exif-entry.h"
 #include "libexif/exif-content.h"
@@ -22,6 +23,10 @@ public:
 
   // JsExifData getParent() const;
   // void setParent(const JsExifData &d) const;
+
+  void addEntry(JsExifEntry entry);
+  void removeEntry(JsExifEntry entry);
+  JsExifEntry getEntry(ExifTagUnified tag);
 
 private:
   ExifContent *exif_content;

@@ -16,6 +16,11 @@ EMSCRIPTEN_BINDINGS(libexif) {
                         "Uint16Array<ArrayBuffer> | Uint32Array<ArrayBuffer> | "
                         "Int16Array<ArrayBuffer> | Int32Array<ArrayBuffer>");
 
+  emscripten::enum_<ExifDataOption>("ExifDataOption")
+      .value("IGNORE_UNKNOWN_TAGS", EXIF_DATA_OPTION_IGNORE_UNKNOWN_TAGS)
+      .value("FOLLOW_SPECIFICATION", EXIF_DATA_OPTION_FOLLOW_SPECIFICATION)
+      .value("DONT_CHANGE_MAKER_NOTE", EXIF_DATA_OPTION_DONT_CHANGE_MAKER_NOTE);
+
   emscripten::enum_<ExifTagUnified>("ExifTag")
       .value("VERSION_ID", ExifTagUnified::VERSION_ID)
       .value("INTEROPERABILITY_INDEX", ExifTagUnified::INTEROPERABILITY_INDEX)
@@ -247,13 +252,17 @@ EMSCRIPTEN_BINDINGS(libexif) {
       .value("INTEROPERABILITY", EXIF_IFD_INTEROPERABILITY)
       // .value("COUNT", EXIF_IFD_COUNT)
       ;
+
   emscripten::class_<JsExifContent>("ExifContent")
       .constructor<>()
       .property("count", &JsExifContent::getCount, &JsExifContent::setCount)
       .property("ifd", &JsExifContent::getIfd)
       .property("entries", &JsExifContent::getEntries,
                 emscripten::return_value_policy::take_ownership())
-      .function("dump(indent)", &JsExifContent::dump);
+      .function("dump(indent)", &JsExifContent::dump)
+      .function("getEntry(tag)", &JsExifContent::getEntry)
+      .function("addEntry(entry)", &JsExifContent::addEntry)
+      .function("removeEntry(entry)", &JsExifContent::removeEntry);
 
   emscripten::value_array<std::array<JsExifContent, 5>>("IfdArray")
       .element(emscripten::index<0>())
@@ -280,7 +289,9 @@ EMSCRIPTEN_BINDINGS(libexif) {
                 emscripten::return_value_policy::reference())
       .function("saveData", &JsExifData::saveData,
                 emscripten::return_value_policy::reference())
-      .function("dump", &JsExifData::dump);
+      .function("dump", &JsExifData::dump)
+      .function("setOption(option)", &JsExifData::setOption)
+      .function("unsetOption(option)", &JsExifData::unsetOption);
 
   emscripten::enum_<ExifSupportLevel>("ExifSupportLevel")
       .value("UNKNOWN", EXIF_SUPPORT_LEVEL_UNKNOWN)

@@ -179,3 +179,5 @@ std::string JsExifEntry::getValue(unsigned int maxlen) const {
   }
   return std::string(buf.data());
 }
+
+ExifEntry *JsExifEntry::_getRaw() const { return exif_entry; }

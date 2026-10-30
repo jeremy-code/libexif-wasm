@@ -68,3 +68,16 @@ ExifEntryArray JsExifContent::getEntries() const {
 void JsExifContent::dump(unsigned int indent) {
   exif_content_dump(exif_content, indent);
 }
+
+JsExifEntry JsExifContent::getEntry(ExifTagUnified tag) {
+  return JsExifEntry(
+      exif_content_get_entry(exif_content, static_cast<ExifTag>(tag)));
+}
+
+void JsExifContent::addEntry(JsExifEntry entry) {
+  exif_content_add_entry(exif_content, entry._getRaw());
+}
+
+void JsExifContent::removeEntry(JsExifEntry entry) {
+  exif_content_remove_entry(exif_content, entry._getRaw());
+}

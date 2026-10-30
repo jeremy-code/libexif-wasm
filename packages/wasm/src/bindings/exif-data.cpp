@@ -102,3 +102,11 @@ void JsExifData::setDataType(ExifDataType dt) {
 void JsExifData::fix() { exif_data_fix(exif_data); }
 
 void JsExifData::dump() { exif_data_dump(exif_data); }
+
+void JsExifData::setOption(ExifDataOption o) {
+  exif_data_set_option(exif_data, o);
+}
+
+void JsExifData::unsetOption(ExifDataOption o) {
+  exif_data_unset_option(exif_data, o);
+}
