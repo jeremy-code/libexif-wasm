@@ -253,7 +253,7 @@ EMSCRIPTEN_BINDINGS(libexif) {
       .property("ifd", &JsExifContent::getIfd)
       .property("entries", &JsExifContent::getEntries,
                 emscripten::return_value_policy::take_ownership())
-      .function("dump", &JsExifContent::dump);
+      .function("dump(indent)", &JsExifContent::dump);
 
   emscripten::value_array<std::array<JsExifContent, 5>>("IfdArray")
       .element(emscripten::index<0>())
@@ -264,7 +264,7 @@ EMSCRIPTEN_BINDINGS(libexif) {
 
   emscripten::class_<JsExifData>("ExifData")
       .constructor<>()
-      .class_function("newFromData", &JsExifData::newFromData)
+      .class_function("newFromData(data)", &JsExifData::newFromData)
       .property("ifd", &JsExifData::getIfd,
                 emscripten::return_value_policy::take_ownership())
       .property("size", &JsExifData::getSize, &JsExifData::setSize)
@@ -276,7 +276,7 @@ EMSCRIPTEN_BINDINGS(libexif) {
       .property("mnoteData", &JsExifData::getMnoteData,
                 emscripten::return_value_policy::reference())
       .function("fix", &JsExifData::fix)
-      .function("loadData", &JsExifData::loadData,
+      .function("loadData(data)", &JsExifData::loadData,
                 emscripten::return_value_policy::reference())
       .function("saveData", &JsExifData::saveData,
                 emscripten::return_value_policy::reference())
@@ -290,10 +290,12 @@ EMSCRIPTEN_BINDINGS(libexif) {
 
   // BindingError: Cannot register public name 'ExifTag' twice
   emscripten::class_<JsExifTag>("ExifTagInfo")
-      .class_function("fromName", &JsExifTag::fromName)
-      .class_function("getNameInIfd", &JsExifTag::getNameInIfd)
-      .class_function("getDescriptionInIfd", &JsExifTag::getDescriptionInIfd)
-      .class_function("getSupportLevelInIfd", &JsExifTag::getSupportLevelInIfd);
+      .class_function("fromName(name)", &JsExifTag::fromName)
+      .class_function("getNameInIfd(tag, ifd)", &JsExifTag::getNameInIfd)
+      .class_function("getDescriptionInIfd(tag, ifd)",
+                      &JsExifTag::getDescriptionInIfd)
+      .class_function("getSupportLevelInIfd(tag, ifd, dataType)",
+                      &JsExifTag::getSupportLevelInIfd);
 
   emscripten::class_<JsExifMnoteData>("ExifMnoteData")
       .property("count", &JsExifMnoteData::getCount);
