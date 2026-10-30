@@ -31,5 +31,6 @@ public:
   void setDataType(ExifDataType dt);
   void dump();
 
+private:
   ExifData *exif_data;
 };

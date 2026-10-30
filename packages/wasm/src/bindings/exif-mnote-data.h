@@ -12,7 +12,8 @@ public:
   explicit JsExifMnoteData(ExifMnoteData *data);
   ~JsExifMnoteData();
 
-  ExifMnoteData *exif_mnote_data;
-
   unsigned int getCount() const;
+
+private:
+  ExifMnoteData *exif_mnote_data;
 };
